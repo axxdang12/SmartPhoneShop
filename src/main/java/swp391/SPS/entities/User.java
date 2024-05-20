@@ -25,6 +25,9 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "email")
+    private String email;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_detail_id", referencedColumnName = "user_detail_id")
     private UserDetail userDetail;

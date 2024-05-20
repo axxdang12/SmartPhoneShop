@@ -63,4 +63,8 @@ public class Phone {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cart_id", referencedColumnName = "cart_id")
     private Cart cart;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    private Order order;
 }

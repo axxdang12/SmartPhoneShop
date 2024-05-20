@@ -25,9 +25,6 @@ public class UserDetail {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "email")
-    private String email;
-
     @Column(name = "gender")
     private String gender;
 
