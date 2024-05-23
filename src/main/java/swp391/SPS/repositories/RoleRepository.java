@@ -5,9 +5,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import swp391.SPS.entities.Role;
 
+import java.util.Optional;
+
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer> {
-    @Query("SELECT r FROM role r JOIN r.user u WHERE u.userId = ?1")
-    Role findRole(int userId);
-
+  Optional<Role> findByRoleName(String roleName);
 }

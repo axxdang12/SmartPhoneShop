@@ -13,36 +13,41 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import swp391.SPS.services.impls.UserDetailServiceImpl;
 
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalAuthentication
 public class WebSecurityConfig {
 
-    @Autowired
-    private UserDetailServiceImpl userDetailService;
+  @Autowired UserDetailServiceImpl userDetailService;
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder;
-    }
+  @Autowired EncoderConfig encoderConfig;
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        // Setting Service to find User in the database.
-        // And Setting PassswordEncoder
-        auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder());
-    }
+  @Autowired
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    auth.userDetailsService(userDetailService).passwordEncoder(encoderConfig.passwordEncoder());
+  }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((request) -> request.requestMatchers("/", "/home").permitAll().anyRequest().authenticated()).formLogin((form) -> form.loginPage("/login").permitAll()).logout((logout) -> logout.permitAll());
-        return http.build();
-    }
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http.authorizeHttpRequests(
+            (request) ->
+                request
+                    .requestMatchers(
+                        "/", "/index", "../static/css", "../static/js", "../static/images")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated())
+        .formLogin((form) -> form.loginPage("/login").permitAll())
+        .logout((logout) -> logout.permitAll());
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().anyRequest().requestMatchers("/ignore1", "/ignore2");
-    }
+    return http.build();
+  }
+
+  @Bean
+  public WebSecurityCustomizer webSecurityCustomizer() {
+    return (web) ->
+        web.ignoring()
+            .requestMatchers(
+                "/resources/**", "/static/**", "/css/**", "/js/**", "/img/**", "/icon/**");
+  }
 }
