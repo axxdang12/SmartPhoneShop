@@ -13,14 +13,14 @@ import java.util.List;
 @EqualsAndHashCode
 @Data
 public class Role {
-    @Id
-    @Column(name = "role_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int roleId;
+  @Id
+  @Column(name = "role_id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int roleId;
 
-    @Column(name = "role_name")
-    private String roleName;
+  @Column(name = "role_name")
+  private String roleName;
 
-    @OneToMany(mappedBy = "role",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<User> users;
+  @ManyToMany(mappedBy = "roles")
+  private List<User> users;
 }

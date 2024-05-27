@@ -1,50 +1,38 @@
-package swp391.SPS.services.impls;
+package swp391.SPS.config;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import swp391.SPS.entities.Role;
 import swp391.SPS.entities.User;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 @Service
 public class UserDetailImpl implements UserDetails {
 
-  private String password;
-  private String userName;
-  private static SimpleGrantedAuthority authority;
-
-  public UserDetailImpl() {}
-
-  public UserDetailImpl(String password, String userName, GrantedAuthority grantedAuthority) {
-    super();
-    this.password = password;
-    this.userName = userName;
-    this.authority = authority;
-  }
-
-  public static UserDetailImpl build(User user) {
-    authority = new SimpleGrantedAuthority(user.getRole().getRoleName());
-
-    return new UserDetailImpl(user.getUserName(), user.getPassword(), authority);
-  }
+  private User user;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return List.of();
+    List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+    for (Role role : user.getRoles()) {
+      authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+    }
+    return authorities;
   }
 
   @Override
   public String getPassword() {
-    return password;
+    return user.getPassword();
   }
 
   @Override
   public String getUsername() {
-    return userName;
+    return user.getUsername();
   }
 
   @Override
