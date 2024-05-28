@@ -3,6 +3,8 @@ package swp391.SPS.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "accessory")
 @NoArgsConstructor
@@ -11,34 +13,32 @@ import lombok.*;
 @EqualsAndHashCode
 @Data
 public class Accessory {
-    @Id
-    @Column(name = "accessory_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int accessoryId;
+  @Id
+  @Column(name = "accessory_id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int accessoryId;
 
-    @Column(name = "accessory_name")
-    private String accessoryName;
+  @Column(name = "accessory_name")
+  private String accessoryName;
 
-    @Column(name = "accessory_description")
-    private String accessoryDescription;
+  @Column(name = "accessory_description")
+  private String accessoryDescription;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category_id", referencedColumnName = "category_id")
-    private Category category;
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "category_id", referencedColumnName = "category_id")
+  private Category category;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "brand_id", referencedColumnName = "brand_id")
-    private Brand brand;
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "brand_id", referencedColumnName = "brand_id")
+  private Brand brand;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "picture_id", referencedColumnName = "picture_id")
-    private Picture picture;
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "picture_id", referencedColumnName = "picture_id")
+  private Picture picture;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "cart_id", referencedColumnName = "cart_id")
-    private Cart cart;
+  @ManyToMany(mappedBy = "accessories")
+  private List<Cart> carts;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
-    private Order order;
+  @ManyToMany(mappedBy = "accessories")
+  private List<Order> orders;
 }

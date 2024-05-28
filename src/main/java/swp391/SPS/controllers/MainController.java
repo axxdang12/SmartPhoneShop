@@ -6,10 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import swp391.SPS.entities.User;
 
 @Controller
 @CrossOrigin
@@ -20,7 +17,7 @@ public class MainController {
     return "login";
   }
 
-  @RequestMapping("/index")
+  @RequestMapping("/home-page")
   @CrossOrigin
   public String index(Model model) {
     model.addAttribute("title", "Home Page");
@@ -29,6 +26,16 @@ public class MainController {
       return "redirect:/login";
     }
     return "index";
+  }
+
+  @RequestMapping("/admin-dashboard")
+  public String adminDashBoard() {
+    return "admin-dashboard";
+  }
+
+  @RequestMapping("/manager-dashboard")
+  public String managerDashBoard() {
+    return "manager-dashboard";
   }
 
   //  @PostMapping("/do-login")

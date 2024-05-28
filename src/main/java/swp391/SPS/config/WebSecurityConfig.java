@@ -15,6 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -30,6 +31,11 @@ public class WebSecurityConfig {
   @Bean
   public BCryptPasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
+  }
+
+  @Bean
+  public AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
+    return new MySimpleUrlAuthenticationSuccessHandler();
   }
 
   @Bean
@@ -60,7 +66,7 @@ public class WebSecurityConfig {
                 login
                     .loginPage("/page/login")
                     .loginProcessingUrl("/do-login")
-                    .defaultSuccessUrl("/index", true)
+                    .successHandler(new MySimpleUrlAuthenticationSuccessHandler())
                     .permitAll())
         .logout(
             logout ->

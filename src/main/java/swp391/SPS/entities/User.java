@@ -28,8 +28,12 @@ public class User {
   private String email;
 
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "user_detail_id", referencedColumnName = "user_detail_id")
+  @JoinColumn(name = "user_detail_id")
   private UserDetail userDetail;
+
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "cart_id")
+  private Cart cart;
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinTable(
