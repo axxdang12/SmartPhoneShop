@@ -31,14 +31,14 @@ public class Order {
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinTable(
-      name = "CartPhone",
+      name = "OrderPhone",
       joinColumns = @JoinColumn(name = "cart_id"),
       inverseJoinColumns = @JoinColumn(name = "phone_id"))
   private List<Phone> phones;
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinTable(
-      name = "CartAccessory",
+      name = "OrderAccessory",
       joinColumns = @JoinColumn(name = "cart_id"),
       inverseJoinColumns = @JoinColumn(name = "accessory_id"))
   private List<Accessory> accessories;
