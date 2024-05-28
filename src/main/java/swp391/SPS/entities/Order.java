@@ -3,6 +3,7 @@ package swp391.SPS.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -13,21 +14,32 @@ import java.util.List;
 @EqualsAndHashCode
 @Data
 public class Order {
-    @Id
-    @Column(name = "order_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int orderId;
+  @Id
+  @Column(name = "order_id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int orderId;
 
-    @Column(name = "total_price")
-    private double totalPrice;
+  @Column(name = "total_price")
+  private double totalPrice;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private User user;
+  @Column(name = "order_date")
+  private LocalDate orderDate;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Phone> phones;
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+  private User user;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Accessory> accessories;
+  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @JoinTable(
+      name = "CartPhone",
+      joinColumns = @JoinColumn(name = "cart_id"),
+      inverseJoinColumns = @JoinColumn(name = "phone_id"))
+  private List<Phone> phones;
+
+  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @JoinTable(
+      name = "CartAccessory",
+      joinColumns = @JoinColumn(name = "cart_id"),
+      inverseJoinColumns = @JoinColumn(name = "accessory_id"))
+  private List<Accessory> accessories;
 }

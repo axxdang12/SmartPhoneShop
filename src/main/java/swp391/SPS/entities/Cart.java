@@ -13,17 +13,25 @@ import java.util.List;
 @EqualsAndHashCode
 @Data
 public class Cart {
-    @Id
-    @Column(name = "cart_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int cartId;
+  @Id
+  @Column(name = "cart_id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int cartId;
 
-    @Column(name = "quantity")
-    private int quantity;
+  @Column(name = "quantity")
+  private int quantity;
 
-    @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Phone> phones;
+  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @JoinTable(
+      name = "CartPhone",
+      joinColumns = @JoinColumn(name = "cart_id"),
+      inverseJoinColumns = @JoinColumn(name = "phone_id"))
+  private List<Phone> phones;
 
-    @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Accessory> accessories;
+  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @JoinTable(
+      name = "CartAccessory",
+      joinColumns = @JoinColumn(name = "cart_id"),
+      inverseJoinColumns = @JoinColumn(name = "accessory_id"))
+  private List<Accessory> accessories;
 }
