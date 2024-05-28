@@ -8187,7 +8187,6 @@ h1, h2, h3, h4, h5,
   color: #fff; }
 
 .img {
-  background-image: url(images/bg.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center; }
@@ -8332,7 +8331,7 @@ textarea.form-control {
   .btn:hover, .btn:active, .btn:focus {
     outline: none; }
   .btn.btn-primary {
-    background: #fbceb5 !important;
+    background: #e14d4d;
     border: 1px solid #fbceb5 !important;
     color: #000 !important; }
     .btn.btn-primary:hover {
