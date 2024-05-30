@@ -32,9 +32,20 @@
     <!-- responsive -->
     <link rel="stylesheet" th:href="@{/css/responsive.css}">
 
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+<!--    <link rel="stylesheet" th:href="@{/css/style.css}">-->
+
+
 
 </head>
+
+<!--loader-->
+<div class="loader" th:fragment="loader">
+    <div class="loader-inner">
+        <div class="circle"></div>
+    </div>
+</div>
+<!--endloader-->
+
 <!-- header -->
 <div class="top-header-area" id="sticker" th:fragment="headerNav">
     <div class="container">
@@ -43,7 +54,7 @@
                 <div class="main-menu-wrap">
                     <!-- logo -->
                     <div class="site-logo">
-                        <a href="index.html">
+                        <a th:href="@{/home-page}">
                             <img class="logo" th:src="@{/images/logo.png}" alt="">
                         </a>
                     </div>
@@ -52,7 +63,7 @@
                     <!-- menu start -->
                     <nav class="main-menu">
                         <ul>
-                            <li class="current-list-item"><a href="index.html">Home</a>
+                            <li class="current-list-item"><a th:href="@{/home-page}">Home</a>
                             </li>
                             <li><a th:href="@{/about}">About</a></li>
                             <li><a th:href="@{/shop}">Shop</a>
@@ -62,16 +73,18 @@
                                     <li><a th:href="@{/cart}">Cart</a></li>
                                 </ul>
                             </li>
-                            <li><a href="login.html">Login</a>
+                            <li><a th:href="@{/page/login}">Login</a>
                             </li>
-                            <li><a href="register.html">Signup</a>
+                            <li><a th:href="@{/register}">Signup</a>
                             </li>
                             <li>
                                 <div class="header-icons">
-                                    <a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+                                    <a class="shopping-cart" th:href="@{/cart}"><i class="fas fa-shopping-cart"></i></a>
                                     <a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-                                    <a class="account-icon" href="profile.html"><i class="fas fa-user"></i></a>
-                                    <a href="userorder.html"><i class="fas fa-clipboard-list"></i></a>
+                                    <a class="account-icon" th:href="@{/profile}"><i class="fas fa-user"></i></a>
+                                    <a th:href="@{/userorder}"><i class="fas fa-clipboard-list"></i></a>
+                                    <a class="manager-icon" th:href="@{/manager}"><i class="fas fa-user-tie"></i></a>
+                                    <a class="admin-icon" th:href="@{/admin}"><i class="fas fa-user-shield"></i></a>
                                 </div>
                             </li>
                         </ul>
