@@ -75,8 +75,13 @@ public class MainController {
     return "profile";
   }
 
-  @GetMapping("/user-order")
+  @GetMapping("/userorder")
   public String userOrder() {
     return "userorder";
+  }
+
+  @GetMapping("/detail")
+  public String detail() {
+    return "detail";
   }
 }
