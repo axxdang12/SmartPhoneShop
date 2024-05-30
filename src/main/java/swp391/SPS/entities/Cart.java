@@ -1,5 +1,6 @@
 package swp391.SPS.entities;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,6 +27,7 @@ public class Cart {
       name = "CartPhone",
       joinColumns = @JoinColumn(name = "cart_id"),
       inverseJoinColumns = @JoinColumn(name = "phone_id"))
+  @Nullable
   private List<Phone> phones;
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -33,5 +35,6 @@ public class Cart {
       name = "CartAccessory",
       joinColumns = @JoinColumn(name = "cart_id"),
       inverseJoinColumns = @JoinColumn(name = "accessory_id"))
+  @Nullable
   private List<Accessory> accessories;
 }

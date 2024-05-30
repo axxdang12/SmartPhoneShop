@@ -13,82 +13,77 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @CrossOrigin
 public class MainController {
-  @GetMapping("/page/login")
-  @CrossOrigin
-  public String login() {
-    return "login";
-  }
-
-  @GetMapping("/home-page")
-  @CrossOrigin
-  public String index(Model model) {
-    //    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    //    if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-    //      return "redirect:/login";
-    //    }
-    //    model.addAttribute("username", authentication.getPrincipal().toString());
-    return "index";
-  }
-
-  @RequestMapping(value = "/admin-dashboard", method = RequestMethod.GET)
-  public String adminDashBoard(Model model) {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-      return "redirect:/login";
+    @GetMapping("/page/login")
+    @CrossOrigin
+    public String login() {
+        return "login";
     }
-    model.addAttribute("username", authentication.getName());
-    return "admin-dashboard";
-  }
 
-  @RequestMapping(value = "/manager-dashboard", method = RequestMethod.GET)
-  public String managerDashBoard() {
-    return "manager-dashboard";
-  }
+    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
+    @CrossOrigin
+    public String index(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("isLogin", false);
+            return "index";
+        }
+        model.addAttribute("isLogin", true);
+        model.addAttribute("username", authentication.getName());
+        return "index";
+    }
 
-  @GetMapping("/register")
-  public String register() {
-    return "register";
-  }
+    @RequestMapping(value = "/admin-dashboard", method = RequestMethod.GET)
+    public String adminDashBoard(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "redirect:/login";
+        }
+        model.addAttribute("username", authentication.getName());
+        return "admin-dashboard";
+    }
 
-  @GetMapping("/cart")
-  public String cart() {
-    return "cart";
-  }
+    @RequestMapping(value = "/manager-dashboard", method = RequestMethod.GET)
+    public String managerDashBoard() {
+        return "manager-dashboard";
+    }
 
-  @GetMapping("/checkout")
-  public String checkout() {
-    return "checkout";
-  }
+    @GetMapping("/register")
+    public String register() {
+        return "register";
+    }
 
-  @GetMapping("/single-product")
-  public String singleProduct() {
-    return "register";
-  }
+    @GetMapping("/cart")
+    public String cart() {
+        return "cart";
+    }
 
-  @GetMapping("/shop")
-  public String shop() {
-    return "shop";
-  }
+    @GetMapping("/checkout")
+    public String checkout() {
+        return "checkout";
+    }
 
-  @GetMapping("/profile")
-  public String profile() {
-    return "profile";
-  }
+    @GetMapping("/single-product")
+    public String singleProduct() {
+        return "register";
+    }
 
-  @GetMapping("/about")
-  public String about() {
-    return "about";
-  }
+    @GetMapping("/profile")
+    public String profile() {
+        return "profile";
+    }
 
-  @GetMapping("/userorder")
-  public String userOrder() {
+    @GetMapping("/about")
+    public String about() {
+        return "about";
+    }
 
-    return "userorder";
-  }
+    @GetMapping("/userorder")
+    public String userOrder() {
+        return "userorder";
+    }
 
-  @GetMapping("/detail")
-  public String detail() {
-
-    return "detail";
-  }
+    @GetMapping("/detail")
+    public String detail() {
+        return "detail";
+    }
 }

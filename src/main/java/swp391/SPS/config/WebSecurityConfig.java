@@ -55,9 +55,11 @@ public class WebSecurityConfig {
                 author
                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                     .permitAll()
-                    .requestMatchers("/admin/**")
+                    .requestMatchers("/admin-dashboard")
                     .hasAuthority("ADMIN")
-                    .requestMatchers("/forgot-password", "/register", "/register-new")
+                        .requestMatchers("/manager-dashboard").hasAuthority("MANAGER")
+//                        .requestMatchers("/").hasAnyAuthority("USER")
+                    .requestMatchers("/forgot-password", "/register", "/register-new", "/", "/page/login")
                     .permitAll()
                     .anyRequest()
                     .authenticated())
