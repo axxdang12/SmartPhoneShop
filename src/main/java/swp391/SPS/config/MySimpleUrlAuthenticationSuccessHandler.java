@@ -19,7 +19,7 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
     String role = auth.getAuthorities().toString();
 
     if (role.contains("USER")) {
-      response.sendRedirect("/home-page");
+      response.sendRedirect("/");
     } else if (role.contains("ADMIN")) {
       response.sendRedirect("/admin-dashboard");
     } else if (role.contains("MANAGER")) {

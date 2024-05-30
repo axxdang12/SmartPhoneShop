@@ -1,5 +1,6 @@
 package swp391.SPS.entities;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -59,11 +60,14 @@ public class Phone {
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "picture_id", referencedColumnName = "picture_id")
+  @Nullable
   private Picture picture;
 
   @ManyToMany(mappedBy = "phones")
+  @Nullable
   private List<Cart> carts;
 
   @ManyToMany(mappedBy = "phones")
+  @Nullable
   private List<Order> orders;
 }

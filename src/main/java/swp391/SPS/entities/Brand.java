@@ -19,7 +19,7 @@ public class Brand {
     private int brandId;
 
     @Column(name = "brand_name")
-    private int brandName;
+    private String brandName;
 
     @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Phone> phones;
