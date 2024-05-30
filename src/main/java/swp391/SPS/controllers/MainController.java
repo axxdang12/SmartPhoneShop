@@ -82,11 +82,13 @@ public class MainController {
 
   @GetMapping("/userorder")
   public String userOrder() {
+
     return "userorder";
   }
 
   @GetMapping("/detail")
   public String detail() {
+
     return "detail";
   }
 }
