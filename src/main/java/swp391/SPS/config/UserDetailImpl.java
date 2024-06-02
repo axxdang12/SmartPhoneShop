@@ -1,5 +1,4 @@
 package swp391.SPS.config;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +9,6 @@ import swp391.SPS.entities.User;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 @Service
 public class UserDetailImpl implements UserDetails {
 
