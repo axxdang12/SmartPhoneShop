@@ -115,10 +115,15 @@
 	<!-- products -->
 	<div class="product-section mt-150 mb-150">
 		<div class="container">
-
 			<div class="row">
                 <div class="col-md-12">
                     <div class="product-filters">
+						<ul style="display: flex; justify-content: center">
+							<li class="active" data-filter="*">All</li>
+							<div th:each = "category: ${listCategory}">
+								<li data-filter=".strawberry" th:text="${category.categoryName}"></li>
+							</div>
+						</ul>
                         <ul style="display: flex; justify-content: center">
                             <li class="active" data-filter="*">All</li>
 							<div th:each = "brand: ${listBrand}">
@@ -128,7 +133,6 @@
                     </div>
                 </div>
             </div>
-
 			<div class="row product-lists">
 				<div class="col-lg-4 col-md-6 text-center strawberry">
 					<div class="single-product-item">

@@ -7,12 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import swp391.SPS.services.BrandService;
+import swp391.SPS.services.CategoryService;
 
 @Controller
 public class ShopController {
 
     @Autowired
     BrandService brandService;
+    @Autowired
+    CategoryService categoryService;
 
     @GetMapping("/shop")
     public String shop(Model model) {
@@ -24,7 +27,8 @@ public class ShopController {
             model.addAttribute("isLogin", true);
             model.addAttribute("username", authentication.getName());
             model.addAttribute("listBrand", brandService.findAllBrand());
-            return "shop";
+            model.addAttribute("listCategory", categoryService.findAllCategory());
+        return "shop";
 
         }
 
