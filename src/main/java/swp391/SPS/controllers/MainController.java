@@ -13,77 +13,74 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @CrossOrigin
 public class MainController {
-    @GetMapping("/page/login")
-    @CrossOrigin
-    public String login() {
-        return "login";
-    }
+  @GetMapping("/page/login")
+  @CrossOrigin
+  public String login() {
+    return "login";
+  }
 
-    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
-    @CrossOrigin
-    public String index(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            model.addAttribute("isLogin", false);
-            return "index";
-        }
-        model.addAttribute("isLogin", true);
-        model.addAttribute("username", authentication.getName());
-        return "index";
+  @RequestMapping(
+      value = {"/"},
+      method = RequestMethod.GET)
+  @CrossOrigin
+  public String index(Model model) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+      model.addAttribute("isLogin", false);
+      return "index";
     }
+    model.addAttribute("isLogin", true);
+    model.addAttribute("username", authentication.getName());
+    return "index";
+  }
 
-    @RequestMapping(value = "/admin-dashboard", method = RequestMethod.GET)
-    public String adminDashBoard(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "redirect:/login";
-        }
-        model.addAttribute("username", authentication.getName());
-        return "admin-dashboard";
+  @RequestMapping(value = "/admin-dashboard", method = RequestMethod.GET)
+  public String adminDashBoard(Model model) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+      return "redirect:/login";
     }
+    model.addAttribute("username", authentication.getName());
+    return "admin-dashboard";
+  }
 
-    @RequestMapping(value = "/manager-dashboard", method = RequestMethod.GET)
-    public String managerDashBoard() {
-        return "manager-dashboard";
-    }
+  @RequestMapping(value = "/manager-dashboard", method = RequestMethod.GET)
+  public String managerDashBoard() {
+    return "manager-dashboard";
+  }
 
-    @GetMapping("/register")
-    public String register() {
-        return "register";
-    }
+  @GetMapping("/cart")
+  public String cart() {
+    return "cart";
+  }
 
-    @GetMapping("/cart")
-    public String cart() {
-        return "cart";
-    }
+  @GetMapping("/checkout")
+  public String checkout() {
+    return "checkout";
+  }
 
-    @GetMapping("/checkout")
-    public String checkout() {
-        return "checkout";
-    }
+  @GetMapping("/single-product")
+  public String singleProduct() {
+    return "register";
+  }
 
-    @GetMapping("/single-product")
-    public String singleProduct() {
-        return "register";
-    }
+  @GetMapping("/profile")
+  public String profile() {
+    return "profile";
+  }
 
-    @GetMapping("/profile")
-    public String profile() {
-        return "profile";
-    }
+  @GetMapping("/about")
+  public String about() {
+    return "about";
+  }
 
-    @GetMapping("/about")
-    public String about() {
-        return "about";
-    }
+  @GetMapping("/userorder")
+  public String userOrder() {
+    return "userorder";
+  }
 
-    @GetMapping("/userorder")
-    public String userOrder() {
-        return "userorder";
-    }
-
-    @GetMapping("/detail")
-    public String detail() {
-        return "detail";
-    }
+  @GetMapping("/detail")
+  public String detail() {
+    return "detail";
+  }
 }
