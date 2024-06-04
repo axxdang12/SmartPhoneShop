@@ -25,6 +25,9 @@ public class Accessory {
   @Column(name = "accessory_description")
   private String accessoryDescription;
 
+  @Column(name = "price")
+  private double price;
+
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "category_id", referencedColumnName = "category_id")
   private Category category;

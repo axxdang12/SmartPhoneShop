@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import swp391.SPS.services.BrandService;
 import swp391.SPS.services.CategoryService;
+import swp391.SPS.services.PhoneService;
 
 @Controller
 public class ShopController {
@@ -15,10 +16,14 @@ public class ShopController {
     @Autowired
     BrandService brandService;
     @Autowired
+    PhoneService phoneService;
+    @Autowired
     CategoryService categoryService;
 
     @GetMapping("/shop")
     public String shop(Model model) {
+        model.addAttribute("listBrand", brandService.findAllBrand());
+        model.addAttribute("listPhone", phoneService.findAllPhone());
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
                 model.addAttribute("isLogin", false);

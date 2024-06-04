@@ -1,40 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<!--<head th:fragment="header">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description"
-          content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
-
-    &lt;!&ndash; title &ndash;&gt;
-    <title>LKHT</title>
-
-    &lt;!&ndash; favicon &ndash;&gt;
-    <link rel="shortcut icon" type="image/png" th:href="@{/static/images/logo.png}">
-    &lt;!&ndash; google font &ndash;&gt;
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-    &lt;!&ndash; fontawesome &ndash;&gt;
-    <link rel="stylesheet" th:href="@{/css/all.min.css}">
-    &lt;!&ndash; bootstrap &ndash;&gt;
-    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
-    &lt;!&ndash; owl carousel &ndash;&gt;
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.css}">
-    &lt;!&ndash; magnific popup &ndash;&gt;
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
-    &lt;!&ndash; animate css &ndash;&gt;
-    <link rel="stylesheet" th:href="@{/css/animate.css}">
-    &lt;!&ndash; mean menu css &ndash;&gt;
-    <link rel="stylesheet" th:href="@{/css/meanmenu.min.css}">
-    &lt;!&ndash; main style &ndash;&gt;
-    <link rel="stylesheet" th:href="@{/css/main.css}">
-    &lt;!&ndash; responsive &ndash;&gt;
-    <link rel="stylesheet" th:href="@{/css/responsive.css}">
-
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>-->
-
 <head th:fragment="header">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -67,9 +32,40 @@
     <!-- responsive -->
     <link rel="stylesheet" th:href="@{/css/responsive.css}">
 
-<!--
-        <link rel="stylesheet" th:href="@{/css/style.css}">
--->
+<!--    <link rel="stylesheet" th:href="@{/css/style.css}">-->
+</head>
+
+<head th:fragment="headerPart">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+
+    <!-- title -->
+    <title>LKHT</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" th:href="@{/static/images/logo.png}">
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- fontawesome -->
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    <!-- bootstrap -->
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <!-- owl carousel -->
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.css}">
+    <!-- magnific popup -->
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+    <!-- animate css -->
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+    <!-- mean menu css -->
+    <link rel="stylesheet" th:href="@{/css/meanmenu.min.css}">
+    <!-- main style -->
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <!-- responsive -->
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
 </head>
 
 <!--loader-->
@@ -88,7 +84,7 @@
                 <div class="main-menu-wrap">
                     <!-- logo -->
                     <div class="site-logo">
-                        <a th:href="@{/}">
+                        <a th:href="@{/home-page}">
                             <img class="logo" th:src="@{/images/logo.png}" alt="">
                         </a>
                     </div>
@@ -97,7 +93,7 @@
                     <!-- menu start -->
                     <nav class="main-menu">
                         <ul>
-                            <li class="current-list-item"><a th:href="@{/}">Home</a>
+                            <li class="current-list-item"><a th:href="@{/home-page}">Home</a>
                             </li>
                             <li><a th:href="@{/about}">About</a></li>
                             <li><a th:href="@{/shop}">Shop</a>
@@ -108,7 +104,6 @@
                                 </ul>
                             </li>
                             <li><a th:if="${isLogin == false}" th:href="@{/page/login}">Login</a>
-                                <a th:if="${isLogin == true}" th:href="@{/logout}">Logout</a>
                             </li>
                             <li><a th:if="${isLogin == false}" th:href="@{/register}">Signup</a>
                             </li>
@@ -118,6 +113,8 @@
                                     <a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
                                     <a class="account-icon" th:text="${username}" th:href="@{/profile}"><i class="fas fa-user"></i></a>
                                     <a th:href="@{/userorder}"><i class="fas fa-clipboard-list"></i></a>
+                                    <a class="manager-icon" th:href="@{/manager}"><i class="fas fa-user-tie"></i></a>
+                                    <a class="admin-icon" th:href="@{/admin}"><i class="fas fa-user-shield"></i></a>
                                 </div>
                             </li>
                         </ul>
