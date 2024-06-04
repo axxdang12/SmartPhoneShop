@@ -1,5 +1,4 @@
 package swp391.SPS.config;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -59,7 +58,7 @@ public class WebSecurityConfig {
                     .hasAuthority("ADMIN")
                         .requestMatchers("/manager-dashboard").hasAuthority("MANAGER")
 //                        .requestMatchers("/").hasAnyAuthority("USER")
-                    .requestMatchers("/forgot-password", "/register", "/register-new", "/", "/page/login")
+                    .requestMatchers("/forgot-password", "/register", "/register-new", "/", "/page/login", "/shop", "/cart")
                     .permitAll()
                     .anyRequest()
                     .authenticated())
@@ -77,7 +76,7 @@ public class WebSecurityConfig {
                     .clearAuthentication(true)
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/login?logout")
-                    .permitAll())
+                        .permitAll())
         .authenticationManager(authenticationManager)
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
     return http.build();

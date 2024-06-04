@@ -44,7 +44,7 @@
 		</div>
 	</div>
 	<!-- end breadcrumb section -->
-	<section class="ftco-section">
+<section class="ftco-section">
 	<div class="container">
 		<div class="row justify-content-center">
 		</div>
@@ -59,32 +59,32 @@
 				<div class="collapse navbar-collapse" id="ftco-nav">
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item dropdown position-static">
-							<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
+							<a class="nav-link dropdown-toggle" href="#" id="drop_down04" data-toggle="dropdown"
 							   aria-haspopup="true" aria-expanded="false">Color</a>
 							<div class="dropdown-menu p-4" aria-labelledby="dropdown04">
 								<div class="row">
 									<div class="col-md-3">
 										<a class="dropdown-item" href="#">Page 1</a>
-										<a class="dropdown-item" href="#">Page 2</a>
-										<a class="dropdown-item" href="#">Page 3</a>
-										<a class="dropdown-item" href="#">Page 4</a>
+										<a class="dropdown-item" href="#">Page 1</a>
+										<a class="dropdown-item" href="#">Page 1</a>
+										<a class="dropdown-item" href="#">Page 1</a>
 									</div>
 									<div class="col-md-3">
 										<a class="dropdown-item" href="#">Page 1</a>
-										<a class="dropdown-item" href="#">Page 2</a>
-										<a class="dropdown-item" href="#">Page 3</a>
-										<a class="dropdown-item" href="#">Page 4</a>
+										<a class="dropdown-item" href="#">Page 1</a>
+										<a class="dropdown-item" href="#">Page 1</a>
+										<a class="dropdown-item" href="#">Page 1</a>
+
 									</div>
 								</div>
 							</div>
 						</li>
 						<li class="nav-item dropdown position-static">
-							<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
+							<a class="nav-link dropdown-toggle" href="#" id="drop_down04" data-toggle="dropdown"
 							   aria-haspopup="true" aria-expanded="false">Ram</a>
 							<div class="dropdown-menu p-4" aria-labelledby="dropdown04">
 								<div class="row">
 									<div class="col-md-3">
-										<a class="dropdown-item" href="#">Page 1</a>
 										<a class="dropdown-item" href="#">Page 1</a>
 									</div>
 
@@ -92,15 +92,13 @@
 							</div>
 						</li>
 						<li class="nav-item dropdown position-static">
-							<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
+							<a class="nav-link dropdown-toggle" href="#" id="drop_down04" data-toggle="dropdown"
 							   aria-haspopup="true" aria-expanded="false">Memory</a>
 							<div class="dropdown-menu p-4" aria-labelledby="dropdown04">
 								<div class="row">
 									<div class="col-md-3">
 										<a class="dropdown-item" href="#">Page 1</a>
-										<a class="dropdown-item" href="#">Page 1</a>
-										<a class="dropdown-item" href="#">Page 1</a>
-										<a class="dropdown-item" href="#">Page 1</a>
+
 									</div>
 								</div>
 							</div>
@@ -111,46 +109,42 @@
 		</nav>
 		<!-- END nav -->
 	</div>
-	</section>
+</section>
 	<!-- products -->
-	<div class="product-section mt-150 mb-150">
+	<div class="product-section mt-150 mb-150" style="margin-top: -10px">
 		<div class="container">
-
 			<div class="row">
                 <div class="col-md-12">
-                    <div class="product-filters">
-                        <ul>
+                    <div class="product-filters" >
+						<ul style="display: flex; justify-content: center">
+							<li class="active" data-filter="*">All</li>
+							<div th:each = "category: ${listCategory}">
+								<li data-filter=".strawberry" th:text="${category.categoryName}"></li>
+							</div>
+						</ul>
+                        <ul style="display: flex; justify-content: center">
                             <li class="active" data-filter="*">All</li>
 							<div th:each = "brand: ${listBrand}">
-								<li data-filter=".strawberry" th:text="${brand.brandName}"></li>
+								<li data-filter="'.' + ${brand.brandName}" th:text="${brand.brandName}"></li>
 							</div>
                         </ul>
                     </div>
                 </div>
             </div>
-
 			<div class="row product-lists">
 
-				<div th:each = "phone: ${listPhone}"  class="col-lg-4 col-md-6 text-center strawberry">
+				<div th:each = "phone: ${listPhone}"  class="col-lg-4 col-md-6 text-center @{phone.brand.brandName}">
 					<div class="single-product-item">
 						<div class="product-image">
 							<a href="single-product.html"><img th:src="${phone.picture.main}" alt=""></a>
 						</div>
 						<h3 th:text = "${phone.productName}"></h3>
-						<p class="product-price" th:text ="${phone.price}"></p>
+						<p class="product-price" th:text ="${phone.price} + '$'">$</p>
 						<a th:href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 
 				</div>
-
-
-
-
-
-
-
-		</div>
-
+			</div>
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<div class="pagination-wrap">
@@ -164,7 +158,12 @@
 					</div>
 				</div>
 			</div>
+		</div>
 	</div>
+
+
+
+
 	<!-- end products -->
 
 	<!-- logo carousel -->
