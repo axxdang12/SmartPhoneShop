@@ -1,5 +1,6 @@
 package swp391.SPS.entities;
-
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,9 @@ public class Accessory {
 
   @Column(name = "accessory_description")
   private String accessoryDescription;
+
+  @Column(name = "price")
+  private double price;
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "category_id", referencedColumnName = "category_id")
