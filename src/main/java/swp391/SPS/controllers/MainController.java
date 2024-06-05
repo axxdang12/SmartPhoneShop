@@ -88,6 +88,18 @@ public class MainController {
         return "about";
     }
 
+    @GetMapping("/cart")
+    public String cart(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("isLogin", false);
+            return "cart";
+        }
+        model.addAttribute("isLogin", true);
+        model.addAttribute("username", authentication.getName());
+        return "cart";
+    }
+
     @GetMapping("/user_detail")
     public String user_detail(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
