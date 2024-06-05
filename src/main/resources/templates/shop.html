@@ -117,26 +117,28 @@
                 <div class="col-md-12">
                     <div class="product-filters" >
 						<ul style="display: flex; justify-content: center">
-							<li class="active" data-filter="*">All</li>
-							<div th:each = "category: ${listCategory}">
-								<li data-filter=".strawberry" th:text="${category.categoryName}"></li>
-							</div>
+							<li  data-filter="*">All</li>
+
+								<li th:each = "category: ${listCategory}" th:data-filter="'.' + ${category.categoryName}" th:text="${category.categoryName}"></li>
+
 						</ul>
                         <ul style="display: flex; justify-content: center">
-                            <li class="active" data-filter="*">All</li>
-							<div th:each = "brand: ${listBrand}">
-								<li data-filter="" th:text="${brand.brandName}"></li>
-							</div>
+                            <li data-filter="*">All</li>
+
+								<li th:each = "brand: ${listBrand}" th:data-filter="'.' + ${brand.brandName}">
+									<a th:href="@{/shop/{idBrand}(idBrand=${brand.brandId})}" th:text="${brand.brandName}" style="color: black"></a>
+								</li>
+
                         </ul>
                     </div>
                 </div>
             </div>
 			<div class="row product-lists">
 
-				<div th:each = "phone: ${listPhone}"  class="col-lg-4 col-md-6 text-center">
+				<div th:each = "phone: ${listPhone}"  class="col-lg-4 col-md-6 text-center ">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="single-product.html"><img th:src="${phone.picture.main}" alt=""></a>
+							<a th:href="@{/single-product/{id}(id=${phone.phoneId})}"><img th:src="@{${phone.picture.main}}" alt=""></a>
 						</div>
 						<h3 th:text = "${phone.productName}"></h3>
 						<p class="product-price" th:text ="${phone.price} + '$'">$</p>
@@ -144,6 +146,7 @@
 					</div>
 
 				</div>
+
 			</div>
 			<div class="row">
 				<div class="col-lg-12 text-center">
@@ -160,6 +163,9 @@
 			</div>
 		</div>
 	</div>
+
+
+
 
 	<!-- end products -->
 

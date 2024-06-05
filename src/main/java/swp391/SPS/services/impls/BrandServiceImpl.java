@@ -17,4 +17,5 @@ public class BrandServiceImpl implements BrandService {
     public List<Brand> findAllBrand() {
         return brandRepository.findAll();
     }
+
 }
