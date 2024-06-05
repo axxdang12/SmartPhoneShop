@@ -54,19 +54,6 @@ public class MainController {
         return "register";
     }
 
-    @GetMapping("/cart")
-    public String cart(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            model.addAttribute("isLogin", false);
-            return "login";
-        }
-        model.addAttribute("isLogin", true);
-        model.addAttribute("username", authentication.getName());
-
-        return "cart";
-    }
-
     @GetMapping("/checkout")
     public String checkout(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -99,6 +86,18 @@ public class MainController {
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
         return "about";
+    }
+
+    @GetMapping("/cart")
+    public String cart(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("isLogin", false);
+            return "cart";
+        }
+        model.addAttribute("isLogin", true);
+        model.addAttribute("username", authentication.getName());
+        return "cart";
     }
 
     @GetMapping("/user_detail")
