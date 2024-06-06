@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments::header}"></head>
 <body>
-<link rel="stylesheet" th:href="@{/css1/style.css}">
+
 <!--PreLoader-->
 <div th:replace="~{fragments::loader}"></div>
 <!--PreLoader Ends-->
@@ -119,13 +119,13 @@
 						<ul style="display: flex; justify-content: center">
 							<li  data-filter="*">All</li>
 
-								<li th:each = "category: ${listCategory}" th:data-filter="'.' + ${category.categoryName}" th:text="${category.categoryName}"></li>
+								<li th:each = "category: ${listCategory}" th:text="${category.categoryName}"></li>
 
 						</ul>
                         <ul style="display: flex; justify-content: center">
-                            <li data-filter="*">All</li>
+                            <li><a th:href="@{/shop}"> All</a></li>
 
-								<li th:each = "brand: ${listBrand}" th:data-filter="'.' + ${brand.brandName}">
+								<li th:each = "brand: ${listBrand}" >
 									<a th:href="@{/shop/{idBrand}(idBrand=${brand.brandId})}" th:text="${brand.brandName}" style="color: black"></a>
 								</li>
 
