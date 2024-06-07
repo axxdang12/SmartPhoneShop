@@ -65,12 +65,9 @@
             </div>
             <div class="col-md-7">
                 <div class="single-product-content">
-                    <h3 th:text="${product.productName}"></h3>
+                    <h3 th:text="${product.accessoryName}"></h3>
                     <p class="single-product-pricing" th:text = "${product.price} + '$'"><span></span></p>
-                    <p th:text="${product.cpu}">CPU: </p>     <p th:text="${product.camera}">Camera: </p>
-                    <p th:text="${product.ram}">RAM: </p>     <p th:text="${product.origin}">Origin: </p>
-                    <p th:text="${product.memory}">Memory: </p>  <p th:text="${product.sim}">Sim: </p>
-                    <p th:text="${product.display}">Display: </p> <p th:text="${product.releaseDate}">Release Date: </p>
+
 
 
                     <div class="single-product-form">

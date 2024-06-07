@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,12 +11,12 @@
             href="https://fonts.googleapis.com/css?family=Roboto:400,700"
     />
     <!-- https://fonts.google.com/specimen/Roboto -->
-    <link rel="stylesheet" href="assets/css/fontawesome.min.css" />
+    <link rel="stylesheet" th:href="@{/css/fontawesome.min.css}" />
     <!-- https://fontawesome.com/ -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
     <!-- https://getbootstrap.com/ -->
-    <link rel="stylesheet" href="assets/css/templatemo-style.css">
-    <link rel="stylesheet" href="assets/css/search.css">
+    <link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
+    <link rel="stylesheet" th:href="@{/css/search.css}">
 </head>
 <style>
     td{
@@ -96,13 +96,30 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                        <tr th:each = "phone: ${listPhone}">
 
-                            <td class="tm-product-name"><a></a>001</td>
-                            <td>S24</td>
-                            <td>550$</td>
+                            <td class="tm-product-name" th:text = "${phone.phoneId}"><a></a></td>
+                            <td th:text = "${phone.productName}"></td>
+                            <td th:text ="${phone.price} + '$'"></td>
                             <td>
-                                <a href="edit-product.html" style="color: white;">
+                                <a th:href="@{/edit-product}" style="color: white;">
+                                    Edit
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#" class="tm-product-delete-link">
+                                    <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                        <tr th:each = "acc: ${listA}">
+
+                            <td class="tm-product-name" th:text = "${acc.accessoryId}"><a></a></td>
+                            <td th:text = "${acc.accessoryName}"></td>
+                            <td th:text ="${acc.price} + '$'"></td>
+                            <td>
+                                <a th:href="@{/edit-access}" style="color: white;">
                                     Edit
                                 </a>
                             </td>
@@ -116,10 +133,13 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- table container -->
-                <a
-                        href="add-product.html"
+              <!-- table container -->
+                <a th:href="@{/add-product}"
                         class="btn btn-primary btn-block text-uppercase mb-3">Add new product</a>
+                <a th:href="@{/add-access}"
+                   class="btn btn-primary btn-block text-uppercase mb-3">Add new accessory</a>
+
+
             </div>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
@@ -128,8 +148,8 @@
                 <div class="tm-product-table-container">
                     <table class="table tm-table-small tm-product-table">
                         <tbody>
-                        <tr>
-                            <td class="tm-product-name">Product Category 1</td>
+                        <tr th:each = "category: ${listCategory}">
+                            <td class="tm-product-name" th:text="${category.categoryName}"></td>
                             <td class="text-center">
                                 <a href="edit-category.html" class="tm-product-delete-link" style="color: white;" >
                                     Edit
@@ -140,10 +160,10 @@
                                 </a>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="tm-product-name">Product Brand 1</td>
+                        <tr th:each = "brand: ${listBrand}" >
+                            <td class="tm-product-name" th:text="${brand.brandName}"></td>
                             <td class="text-center">
-                                <a href="edit-brand.html" class="tm-product-delete-link" style="color: white;" >
+                                <a th:href="@{/edit-brand}" class="tm-product-delete-link" style="color: white;" >
                                     Edit
                                 </a>
                             <td class="text-center">
@@ -157,10 +177,10 @@
                 </div>
                 <!-- table container -->
                 <button class="btn btn-primary btn-block text-uppercase mb-3">
-                    <a href="ADD-category.html" style="color: white;">new category</a>
+                    <a href="ADD-category.html" style="color: white;">Add new category</a>
                 </button>
                 <button class="btn btn-primary btn-block text-uppercase mb-3">
-                    <a href="add-brand.html" style="color: white;">Add new brand</a>
+                    <a th:href="@{/add-brand}" style="color: white;">Add new brand</a>
                 </button>
             </div>
         </div>
@@ -176,9 +196,9 @@
     </div>
 </footer>
 
-<script src="assets/js/jquery-3.3.1.min.js"></script>
+<script th:src="@{assets/js/jquery-3.3.1.min.js}"></script>
 <!-- https://jquery.com/download/ -->
-<script src="assets/js/bootstrap.min.js"></script>
+<script th:src="@{assets/js/bootstrap.min.js}"></script>
 <!-- https://getbootstrap.com/ -->
 <script>
     $(function() {

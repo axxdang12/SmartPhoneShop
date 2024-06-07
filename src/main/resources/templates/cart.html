@@ -63,15 +63,18 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img th:src="@{https://cdn.hoanghamobile.com/i/preview/Uploads/2023/09/13/iphone-15-pro-max-natural-titanium-pure-back-iphone-15-pro-max-natural-titanium-pure-front-2up-screen-usen.png}" alt=""></td>
-									<td class="product-name">iPhone 15 Pro Max</td>
-									<td class="product-price">29.590.000₫</td>
-									<td class="product-quantity"><input type="number" placeholder="0"></td>
-									<td class="product-total">1</td>
-								</tr>
-								<tr class="table-body-row">
+								<form th:action="@{/cart/delete-phone}" method="POST">
+									<tr class="table-body-row" th:each = "cart: ${listPByC}">
+										<input th:name="phoneId" th:value="${cart.phoneId}"  hidden="hidden"/>
+										<td class="product-remove"><button type="submit"><i class="far fa-window-close"></i></button></td>
+										<td class="product-image"><img th:src="@{${cart.picture.main}}" alt=""></td>
+										<td class="product-name" th:text = "${cart.productName}"></td>
+										<td class="product-price" th:text = "${cart.price}"></td>
+										<td class="product-quantity"><input type="number" placeholder="0"></td>
+										<td class="product-total">1</td>
+									</tr>
+								</form>
+								<!--<tr class="table-body-row">
 									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
 									<td class="product-image"><img th:src="@{https://i5.walmartimages.com/seo/Samsung-Galaxy-S23-Ultra-5G-Dual-S918B-512GB-12GB-RAM-GSM-Unlocked-Lavender_9ae44140-f40b-4d96-ad37-560167d17f7d.6d66e9727a3ff6e426c865fbd4dc0c5d.jpeg}" alt=""></td>
 									<td class="product-name">Samsung Galaxy S23 Ultra 5G</td>
@@ -86,7 +89,7 @@
 									<td class="product-price">4.990.000₫</td>
 									<td class="product-quantity"><input type="number" placeholder="0"></td>
 									<td class="product-total">1</td>
-								</tr>
+								</tr>-->
 							</tbody>
 						</table>
 					</div>
