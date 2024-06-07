@@ -25,6 +25,7 @@ public class ShopController {
     @GetMapping("/shop")
     public String shop(Model model) {
         model.addAttribute("listBrand", brandService.findAllBrand());
+        model.addAttribute("listCategory", categoryService.findAllCategory());
         model.addAttribute("listPhone", phoneService.findAllPhone());
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
@@ -33,15 +34,30 @@ public class ShopController {
             }
             model.addAttribute("isLogin", true);
             model.addAttribute("username", authentication.getName());
-            model.addAttribute("listBrand", brandService.findAllBrand());
-            model.addAttribute("listCategory", categoryService.findAllCategory());
+
         return "shop";
 
         }
-    @GetMapping("/shop/{idBrand}")
+    @GetMapping("/shop/brand/{idBrand}")
     public String ProductByBrand(@PathVariable("idBrand") int id, Model model){
         model.addAttribute("listBrand", brandService.findAllBrand());
         model.addAttribute("listPhone", phoneService.getPhoneByBrand(id));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("isLogin", false);
+            return "shop";
+        }
+        model.addAttribute("isLogin", true);
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("listBrand", brandService.findAllBrand());
+        model.addAttribute("listCategory", categoryService.findAllCategory());
+        return "shop";
+    }
+
+    @GetMapping("/shop/category/{idCategory}")
+    public String ProductByCategory(@PathVariable("idCategory") int id, Model model){
+        model.addAttribute("listCategory", categoryService.findAllCategory());
+        model.addAttribute("listPhone", phoneService.getPhoneByCategory(id));
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);

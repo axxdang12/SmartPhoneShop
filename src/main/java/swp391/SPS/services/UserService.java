@@ -7,4 +7,5 @@ public interface UserService {
   User save(UserDto userDto);
 
   User findByUsername(String username);
+    int getUserId(String userName);
 }

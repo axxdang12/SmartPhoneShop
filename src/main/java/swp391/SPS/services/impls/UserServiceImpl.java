@@ -12,21 +12,28 @@ import java.util.Arrays;
 
 @Service
 public class UserServiceImpl implements UserService {
-  @Autowired private UserRepository userRepository;
-  @Autowired private RoleRepository roleRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
-  @Override
-  public User save(UserDto userDto) {
-    User user = new User();
-    user.setEmail(userDto.getEmail());
-    user.setUsername(userDto.getUsername());
-    user.setPassword(userDto.getPassword());
-    user.setRoles(Arrays.asList(roleRepository.findByRoleName("ADMIN")));
-    return userRepository.save(user);
-  }
+    @Override
+    public int getUserId(String userName) {
+        return userRepository.findByUsername(userName).getUserId();
+    }
 
-  @Override
-  public User findByUsername(String username) {
-    return userRepository.findByUsername(username);
-  }
+    @Override
+    public User save(UserDto userDto) {
+        User user = new User();
+        user.setEmail(userDto.getEmail());
+        user.setUsername(userDto.getUsername());
+        user.setPassword(userDto.getPassword());
+        user.setRoles(Arrays.asList(roleRepository.findByRoleName("ADMIN")));
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 }
