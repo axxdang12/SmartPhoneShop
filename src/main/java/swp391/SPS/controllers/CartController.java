@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import swp391.SPS.entities.Cart;
 import swp391.SPS.services.CartService;
 import swp391.SPS.services.UserService;
@@ -36,8 +38,8 @@ public class CartController {
         return "cart";
         }
 
-    @GetMapping("/cart/{id}")
-    public String deletePhone(@PathVariable("id") int id,Model model) {
+    @PostMapping("/cart/delete-phone")
+    public String deletePhone(@RequestParam("phoneId") int id, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
