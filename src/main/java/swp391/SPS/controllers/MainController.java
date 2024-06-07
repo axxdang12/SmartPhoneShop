@@ -45,14 +45,9 @@ public class MainController {
         return "admin-dashboard";
     }
 
-  @RequestMapping(value = "/manager-dashboard", method = RequestMethod.GET)
-  public String managerDashBoard() {
-    return "manager-dashboard";
-  }
-
-    @GetMapping("/register")
-    public String register() {
-        return "register";
+    @RequestMapping(value = "/manager-dashboard", method = RequestMethod.GET)
+    public String managerDashBoard() {
+        return "manager-dashboard";
     }
 
     @GetMapping("/checkout")
@@ -66,15 +61,6 @@ public class MainController {
         model.addAttribute("username", authentication.getName());
         return "checkout";
     }
-  @GetMapping("/cart")
-  public String cart() {
-    return "cart";
-  }
-
-  @GetMapping("/checkout")
-  public String checkout() {
-    return "checkout";
-  }
 
     @GetMapping("/single-product")
     public String singleProduct() {
