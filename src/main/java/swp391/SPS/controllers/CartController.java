@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import swp391.SPS.entities.Cart;
 import swp391.SPS.services.CartService;
@@ -37,7 +38,7 @@ public class CartController {
         }
 
     @GetMapping("/cart/{id}")
-    public String deletePhone(@PathVariable("id") int id,Model model) {
+    public String deletePhone(@PathVariable("id") int id, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
