@@ -84,7 +84,7 @@
                 <div class="main-menu-wrap">
                     <!-- logo -->
                     <div class="site-logo">
-                        <a th:href="@{/}">
+                        <a th:href="@{/home-page}">
                             <img class="logo" th:src="@{/images/logo.png}" alt="">
                         </a>
                     </div>
@@ -93,7 +93,7 @@
                     <!-- menu start -->
                     <nav class="main-menu">
                         <ul>
-                            <li class="current-list-item"><a th:href="@{/}">Home</a>
+                            <li class="current-list-item"><a th:href="@{/home-page}">Home</a>
                             </li>
                             <li><a th:href="@{/about}">About</a></li>
                             <li><a th:href="@{/shop}">Shop</a>
@@ -105,8 +105,6 @@
                             </li>
                             <li><a th:if="${isLogin == false}" th:href="@{/page/login}">Login</a>
                             </li>
-                            <li><a th:if="${isLogin == true}" th:href="@{/logout}">Logout</a>
-                            </li>
                             <li><a th:if="${isLogin == false}" th:href="@{/register}">Signup</a>
 
                             </li>
@@ -116,6 +114,8 @@
                                     <a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
                                     <a class="account-icon" th:text="${username}" th:href="@{/profile}"><i class="fas fa-user"></i></a>
                                     <a th:href="@{/userorder}"><i class="fas fa-clipboard-list"></i></a>
+                                    <a class="manager-icon" th:href="@{/manager}"><i class="fas fa-user-tie"></i></a>
+                                    <a class="admin-icon" th:href="@{/admin}"><i class="fas fa-user-shield"></i></a>
                                 </div>
                             </li>
                         </ul>

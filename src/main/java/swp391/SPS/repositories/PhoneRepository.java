@@ -5,4 +5,5 @@ import swp391.SPS.entities.Phone;
 
 @Repository
 public interface PhoneRepository extends JpaRepository<Phone, Integer> {
+
 }
