@@ -1,4 +1,5 @@
 package swp391.SPS.entities;
+
 // This is a personal academic project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
 import jakarta.persistence.*;
@@ -33,14 +34,14 @@ public class Order {
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinTable(
       name = "OrderPhone",
-      joinColumns = @JoinColumn(name = "cart_id"),
+      joinColumns = @JoinColumn(name = "order_id"),
       inverseJoinColumns = @JoinColumn(name = "phone_id"))
   private List<Phone> phones;
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinTable(
       name = "OrderAccessory",
-      joinColumns = @JoinColumn(name = "cart_id"),
+      joinColumns = @JoinColumn(name = "order_id"),
       inverseJoinColumns = @JoinColumn(name = "accessory_id"))
   private List<Accessory> accessories;
 }
