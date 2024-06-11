@@ -50,27 +50,6 @@ public class MainController {
         return "manager-dashboard";
     }
 
-    @GetMapping("/checkout")
-    public String checkout(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            model.addAttribute("isLogin", false);
-            return "checkout";
-        }
-        model.addAttribute("isLogin", true);
-        model.addAttribute("username", authentication.getName());
-        return "checkout";
-    }
-
-    @GetMapping("/single-product")
-    public String singleProduct() {
-        return "/";
-    }
-
-    @GetMapping("/profile")
-    public String profile() {
-        return "profile";
-    }
 
     @GetMapping("/about")
     public String about(Model model) {
