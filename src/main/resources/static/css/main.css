@@ -2765,5 +2765,10 @@ table.order-details tbody td {
   height: 70px;
 }
 
-
+.messageError {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: red;
+}
 
