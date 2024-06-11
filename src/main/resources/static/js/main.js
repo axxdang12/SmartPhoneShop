@@ -33,7 +33,7 @@
                 alert('Order ' + orderId + ' has been cancelled.');
             });
         
-            
+
 
         // homepage slider
         $(".homepage-slider").owlCarousel({
