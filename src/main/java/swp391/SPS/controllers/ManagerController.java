@@ -9,4 +9,6 @@ public class ManagerController {
     public String manager(){
             return "manager";
     }
+
+
 }

@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,12 +11,12 @@
             href="https://fonts.googleapis.com/css?family=Roboto:400,700"
     />
     <!-- https://fonts.google.com/specimen/Roboto -->
-    <link rel="stylesheet" href="assets/css/fontawesome.min.css" />
+    <link rel="stylesheet" th:href="assets/css/fontawesome.min.css" />
     <!-- https://fontawesome.com/ -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" th:href="assets/css/bootstrap.min.css" />
     <!-- https://getbootstrap.com/ -->
-    <link rel="stylesheet" href="assets/css/templatemo-style.css">
-    <link rel="stylesheet" href="assets/css/search.css">
+    <link rel="stylesheet" th:href="assets/css/templatemo-style.css">
+    <link rel="stylesheet" th:href="assets/css/search.css">
 </head>
 <style>
     td{
@@ -33,7 +33,7 @@
 <!--PreLoader Ends-->
 <nav class="navbar navbar-expand-xl">
     <div class="container h-100">
-        <a class="navbar-brand" href="products.html">
+        <a class="navbar-brand" th:href="products.html">
             <h1 class="tm-site-title mb-0">Product Manager</h1>
         </a>
         <button
@@ -51,13 +51,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto h-100">
                 <li class="nav-item">
-                    <a class="nav-link" href="manager.html">
+                    <a class="nav-link" th:href="manager.html">
                         <i class="fas fa-tachometer-alt"></i> Orders
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="products.html">
+                    <a class="nav-link active" th:href="products.html">
                         <i class="fas fa-shopping-cart"></i> Products
                     </a>
                 </li>
@@ -65,7 +65,7 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link d-block" href="index.html">
+                    <a class="nav-link d-block" th:href="index.html">
                         Back to HomePage
                     </a>
                 </li>
@@ -102,12 +102,12 @@
                             <td>S24</td>
                             <td>550$</td>
                             <td>
-                                <a href="edit-product.html" style="color: white;">
+                                <a th:href="edit-product.html" style="color: white;">
                                     Edit
                                 </a>
                             </td>
                             <td>
-                                <a href="#" class="tm-product-delete-link">
+                                <a th:href="#" class="tm-product-delete-link">
                                     <i class="far fa-trash-alt tm-product-delete-icon"></i>
                                 </a>
                             </td>
@@ -118,7 +118,7 @@
                 </div>
                 <!-- table container -->
                 <a
-                        href="add-product.html"
+                        th:href="add-product.html"
                         class="btn btn-primary btn-block text-uppercase mb-3">Add new product</a>
             </div>
         </div>
@@ -131,11 +131,11 @@
                         <tr>
                             <td class="tm-product-name">Product Category 1</td>
                             <td class="text-center">
-                                <a href="edit-category.html" class="tm-product-delete-link" style="color: white;" >
+                                <a th:href="edit-category.html" class="tm-product-delete-link" style="color: white;" >
                                     Edit
                                 </a>
                             <td class="text-center">
-                                <a href="#" class="tm-product-delete-link">
+                                <a th:href="#" class="tm-product-delete-link">
                                     <i class="far fa-trash-alt tm-product-delete-icon"></i>
                                 </a>
                             </td>
@@ -143,11 +143,11 @@
                         <tr>
                             <td class="tm-product-name">Product Brand 1</td>
                             <td class="text-center">
-                                <a href="edit-brand.html" class="tm-product-delete-link" style="color: white;" >
+                                <a th:href="edit-brand.html" class="tm-product-delete-link" style="color: white;" >
                                     Edit
                                 </a>
                             <td class="text-center">
-                                <a href="#" class="tm-product-delete-link">
+                                <a th:href="#" class="tm-product-delete-link">
                                     <i class="far fa-trash-alt tm-product-delete-icon"></i>
                                 </a>
                             </td>
@@ -157,10 +157,10 @@
                 </div>
                 <!-- table container -->
                 <button class="btn btn-primary btn-block text-uppercase mb-3">
-                    <a href="ADD-category.html" style="color: white;">new category</a>
+                    <a th:href="ADD-category.html" style="color: white;">new category</a>
                 </button>
                 <button class="btn btn-primary btn-block text-uppercase mb-3">
-                    <a href="add-brand.html" style="color: white;">Add new brand</a>
+                    <a th:href="add-brand.html" style="color: white;">Add new brand</a>
                 </button>
             </div>
         </div>

@@ -229,7 +229,7 @@ thead {
 }
 .pending {
   background-color:red;
-  box-shadow: 0 0 8pxred, inset 0 0 8pxred;
+  box-shadow: 0 0 8px #efc54b, inset 0 0 8px #efc54b;;
 }
 .cancelled {
   background-color: #da534f;
