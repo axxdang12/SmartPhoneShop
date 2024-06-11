@@ -2772,3 +2772,8 @@ table.order-details tbody td {
     color: red;
 }
 
+.imgIcon {
+ width: 18px;
+ height: 18px;
+}
+
