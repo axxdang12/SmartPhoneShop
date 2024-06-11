@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import swp391.SPS.services.AccessService;
 import swp391.SPS.services.BrandService;
 import swp391.SPS.services.CategoryService;
@@ -73,6 +74,19 @@ public class ShopController {
         model.addAttribute("listBrand", brandService.findAllBrand());
         model.addAttribute("listCategory", categoryService.findAllCategory());
         return "shop";
+    }
+    @PostMapping("/search")
+    public String search(@RequestParam("name") String name, Model model){
+        model.addAttribute("listPhone", phoneService.searchPhone(name));
+        model.addAttribute("listA", accessService.searchAcc(name));
+        model.addAttribute("listBrand", brandService.findAllBrand());
+        model.addAttribute("listCategory", categoryService.findAllCategory());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("isLogin", false);
+            return "shop";
+        }
+        return"shop";
     }
 
 }

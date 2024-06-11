@@ -10,4 +10,7 @@ public interface PhoneService {
     Phone getPhoneByID(int id);
     List<Phone> getPhoneByBrand(int id);
     List<Phone> getPhoneByCategory(int id);
+    void editPhone(Phone p);
+    void deletephone(Phone p);
+    List<Phone> searchPhone(String name);
 }

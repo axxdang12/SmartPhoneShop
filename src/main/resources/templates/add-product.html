@@ -83,59 +83,56 @@
         </div>
         <div class="row tm-edit-product-row">
           <div class="col-xl-12 col-lg-12 col-md-12">
-            <form action="" method="post" class="tm-edit-product-form">
-              <div class="form-group mb-3">
-                <label for="name">Phone ID
-                </label>
-                <input id="name" name="name" type="text" value="" class="form-control validate" />
-              </div>
+            <form th:action="@{/addProduct}" method="post" class="tm-edit-product-form">
+<!--              <div class="form-group mb-3">-->
+<!--                <label for="name">Phone ID-->
+<!--                </label>-->
+<!--                <input  name="id" type="text" value="" class="form-control validate" />-->
+<!--              </div>-->
               <div class="form-group mb-3">
                 <label for="name">Product Name
                 </label>
-                <input id="name" name="name" type="text" value="" class="form-control validate" />
+                <input  name="name" type="text" value="" class="form-control validate" />
               </div>
               <div class="form-group mb-3">
                 <label for="name">CPU
                 </label>
-                <input id="name" name="name" type="text" value="" class="form-control validate" />
+                <input id="name" name="cpu" type="text" value="" class="form-control validate" />
               </div>
               <div class="form-group mb-3">
-                <label for="category">Memory</label>
-                <select class="custom-select tm-select-accounts" id="category">
-                  <option>Select category</option>
-                  <option value="1" selected>New Arrival</option>
-                  <option value="2">Most Popular</option>
-                  <option value="3">Trending</option>
+                <label for="name">Memory</label>
+                <select class="custom-select tm-select-accounts" name="memory"  >
+
+                  <option value="64" selected>64</option>
+                  <option value="128">128</option>
+                  <option value="256">256</option>
                 </select>
               </div>
+
               <div class="form-group mb-3">
-                <label for="description">Description</label>
-                <textarea class="form-control validate tm-small" rows="5"
-                          required></textarea>
-              </div>
-              <div class="form-group mb-3">
-                <label for="category">Category</label>
-                <select class="custom-select tm-select-accounts" id="category">
-                  <option>Select category</option>
-                  <option value="1" selected>New Arrival</option>
-                  <option value="2">Most Popular</option>
-                  <option value="3">Trending</option>
+                <label for="name">Category</label>
+                <select class="custom-select tm-select-accounts" name="category">
+
+                  <option th:each="category : ${listCategory}"
+                          th:value="${category.categoryId}"
+                          th:text="${category.categoryName}">
+                  </option>
                 </select>
               </div>
               <div class="row">
-                <!-- <div class="form-group mb-3 col-xs-12 col-sm-6"> -->
-                <!-- <label for="expire_date">Expire Date -->
-                <!-- </label> -->
-                <!-- <input id="expire_date" name="expire_date" type="text" value="22 Oct, 2020" -->
-                <!-- class="form-control validate" data-large-mode="true" /> -->
-                <!-- </div> -->
+                 <div class="form-group mb-3 col-xs-12 col-sm-6">
+                 <label for="expire_date">Date
+                 </label>
+                 <input id="expire_date" name="date" type="date" value=""
+                 class="form-control validate" data-large-mode="true" />
+                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="category">Sim</label>
-                  <select class="custom-select tm-select-accounts" id="category">
-                    <option>Select category</option>
-                    <option value="1" selected>New Arrival</option>
-                    <option value="2">Most Popular</option>
-                    <option value="3">Trending</option>
+                  <label for="sim">Sim</label>
+                  <select class="custom-select tm-select-accounts" name="sim">
+
+                    <option value="2 Sim" selected>2 Sim</option>
+                    <option value="1 Sim, 1 e-sim">1 Sim, 1 e-sim</option>
+
                   </select>
                 </div>
 
@@ -145,59 +142,68 @@
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label for="stock">Price
                   </label>
-                  <input id="stock" name="stock" type="number" value="" class="form-control validate" />
+                  <input  name="price" type="number" value="" class="form-control validate" />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label for="stock">Ram
                   </label>
-                  <input id="stock" name="stock" type="text" value="" class="form-control validate" />
+                  <input  name="ram" type="number" value="" class="form-control validate" />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label for="stock">Display
                   </label>
-                  <input id="stock" name="stock" type="text" value="" class="form-control validate" />
+                  <input  name="dis" type="number" value="" class="form-control validate" />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label for="stock">Origin
                   </label>
-                  <input id="stock" name="stock" type="text" value="" class="form-control validate" />
+                  <input  name="origin" type="text" value="" class="form-control validate" />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Brand ID
-                  </label>
-                  <input id="stock" name="stock" type="number" value="" class="form-control validate" />
+                  <label for="brand">Brand</label>
+                  <select class="custom-select tm-select-accounts" name="brand">
+
+                    <option th:each="brand : ${listBrand}"
+                            th:value="${brand.brandId}"
+                            th:text="${brand.brandName}">
+                    </option>
+                  </select>
                 </div>
-                <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Picture ID
-                  </label>
-                  <input id="stock" name="stock" type="text" value="" class="form-control validate" />
-                </div>
+<!--                <div class="form-group mb-3 col-xs-12 col-sm-6">-->
+<!--                  <label for="stock">Picture ID-->
+<!--                  </label>-->
+<!--                  <input name="pid" type="text" value="" class="form-control validate" />-->
+<!--                </div>-->
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label for="stock">Picture Main
                   </label>
-                  <input id="stock" name="stock" type="text" value="" class="form-control validate" />
+                  <input  name="pm" type="text" value="" class="form-control validate" />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label for="stock">Picture Font
                   </label>
-                  <input id="stock" name="stock" type="text" value="" class="form-control validate" />
+                  <input  name="pf" type="text" value="" class="form-control validate" />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label for="stock">Picture Back
                   </label>
-                  <input id="stock" name="stock" type="text" value="" class="form-control validate" />
+                  <input  name="pb" type="text" value="" class="form-control validate" />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label for="stock">Picture Side
                   </label>
-                  <input id="stock" name="stock" type="text" value="" class="form-control validate" />
+                  <input  name="ps" type="text" value="" class="form-control validate" />
+                </div>
+                <div class="form-group mb-3 col-xs-12 col-sm-6">
+                  <label for="stock">Camera
+                  </label>
+                  <input  name="camera" type="number" value="" class="form-control validate" />
                 </div>
               </div>
-
           </div>
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Now</button>
-          </div>
+               <div class="col-12">
+                <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Now</button>
+                </div>
           </form>
         </div>
       </div>

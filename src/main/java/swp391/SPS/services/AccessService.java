@@ -9,4 +9,5 @@ public interface AccessService {
     List<Accessory> findAllAccess();
     Accessory getAccessByID(int id);
     List<Accessory> getAccessByBrand(int id);
+    List<Accessory> searchAcc(String name);
 }
