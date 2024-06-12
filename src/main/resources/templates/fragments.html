@@ -32,9 +32,7 @@
     <!-- responsive -->
     <link rel="stylesheet" th:href="@{/css/responsive.css}">
 
-    <!--
-        <link rel="stylesheet" th:href="@{/css/style.css}">
-    -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <!--loader-->
@@ -81,11 +79,16 @@
                             </li>
                             <li>
                                 <div class="header-icons">
-                                    <a class="shopping-cart" th:href="@{/cart}"><img class="imgIcon" th:src="@{/images/icon/cart.png}"></a>
-                                    <a class="mobile-hide search-bar-icon" href="#"><img class="imgIcon" th:src="@{/images/icon/search.png}"></a>
-                                    <a th:if="${isLogin == true}" class="account-icon" th:text="${username}" th:href="@{/profile}"><img class="imgIcon" th:src="@{/images/icon/profile.png}"></a>
-                                    <a th:if="${isLogin == true}" th:href="@{/userorder}"><img class="imgIcon" th:src="@{/images/icon/order.png}"></a>
-                                    <a th:if="${isLogin == true}" th:href="@{/logout}"><img class="imgIcon" th:src="@{/images/icon/logout.png}"></a>
+                                    <a class="shopping-cart" th:href="@{/cart}"><img class="imgIcon"
+                                                                                     th:src="@{/images/icon/cart.png}"></a>
+                                    <a class="mobile-hide search-bar-icon" href="#"><img class="imgIcon"
+                                                                                         th:src="@{/images/icon/search.png}"></a>
+                                    <a th:if="${isLogin == true}" class="account-icon" th:text="${username}"
+                                       th:href="@{/profile}"><img class="imgIcon" th:src="@{/images/icon/profile.png}"></a>
+                                    <a th:if="${isLogin == true}" th:href="@{/userorder}"><img class="imgIcon"
+                                                                                               th:src="@{/images/icon/order.png}"></a>
+                                    <a th:if="${isLogin == true}" th:href="@{/logout}"><img class="imgIcon"
+                                                                                            th:src="@{/images/icon/logout.png}"></a>
                                 </div>
                             </li>
                         </ul>
@@ -151,14 +154,16 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-12">
-                <p>Copyrights &copy; 2024 - <a href="">SWP391-SUMMER24</a>,  All Rights Reserved.</p>
+                <p>Copyrights &copy; 2024 - <a href="">SWP391-SUMMER24</a>, All Rights Reserved.</p>
             </div>
             <div class="col-lg-6 text-right col-md-12">
                 <div class="social-icons">
                     <ul>
-                        <li><a href="https://www.facebook.com/profile.php?id=100009172256835" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=100009172256835" target="_blank"><i
+                                class="fab fa-facebook-f"></i></a></li>
                         <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                        <li><a href="https://www.instagram.com/_.nkhanhh/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="https://www.instagram.com/_.nkhanhh/" target="_blank"><i
+                                class="fab fa-instagram"></i></a></li>
                         <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
                         <li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
                     </ul>

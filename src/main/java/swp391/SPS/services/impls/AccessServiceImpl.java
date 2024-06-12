@@ -28,6 +28,11 @@ public class AccessServiceImpl implements AccessService {
     }
 
     @Override
+    public Accessory getAccessByID(int id) {
+        return null;
+    }
+
+    @Override
     public List<Accessory> getAccessByCategory(int id) {
         Category category = categoryRepository.getReferenceById(id);
         List<Accessory> l = new ArrayList<Accessory>();
