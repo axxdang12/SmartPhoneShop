@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="~{fragments::header}"></head>
 <body>
 <link rel="stylesheet" th:href="@{/css1/style.css}">
@@ -123,8 +124,7 @@
 
 						</ul>
                         <ul style="display: flex; justify-content: center">
-                            <li data-filter="*">All</li>
-
+                            <li data-filter="*" th:href="@{/shop}">All</li>
 								<li th:each = "brand: ${listBrand}" th:data-filter="'.' + ${brand.brandName}">
 									<a th:href="@{/shop/brand/{idBrand}(idBrand=${brand.brandId})}" th:text="${brand.brandName}" style="color: black"></a>
 								</li>
@@ -142,7 +142,20 @@
 						</div>
 						<h3 th:text = "${phone.productName}"></h3>
 						<p class="product-price" th:text ="${phone.price} + '$'">$</p>
-						<a th:href="@{/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a th:href="@{/cart/phone/{id}(id=${phone.phoneId})}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+					</div>
+
+
+				</div>
+
+				<div th:each = "access: ${listA}"  class="col-lg-4 col-md-6 text-center ">
+					<div class="single-product-item">
+						<div class="product-image">
+							<a th:href="@{/single-accssory/{id}(id=${access.accessoryId})}"><img th:src="@{${access.picture.main}}" alt=""></a>
+						</div>
+						<h3 th:text = "${access.accessoryName}"></h3>
+						<p class="product-price" th:text ="${access.price} + '$'"></p>
+						<a th:href="@{/cart/accessory/{id}(id=${access.accessoryId})}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 
 				</div>

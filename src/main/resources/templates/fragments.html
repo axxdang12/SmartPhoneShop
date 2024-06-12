@@ -32,40 +32,9 @@
     <!-- responsive -->
     <link rel="stylesheet" th:href="@{/css/responsive.css}">
 
+<!--
     <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
-
-<head th:fragment="headerPart">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description"
-          content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
-
-    <!-- title -->
-    <title>LKHT</title>
-
-    <!-- favicon -->
-    <link rel="shortcut icon" type="image/png" th:href="@{/static/images/logo.png}">
-    <!-- google font -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-    <!-- fontawesome -->
-    <link rel="stylesheet" th:href="@{/css/all.min.css}">
-    <!-- bootstrap -->
-    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
-    <!-- owl carousel -->
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.css}">
-    <!-- magnific popup -->
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
-    <!-- animate css -->
-    <link rel="stylesheet" th:href="@{/css/animate.css}">
-    <!-- mean menu css -->
-    <link rel="stylesheet" th:href="@{/css/meanmenu.min.css}">
-    <!-- main style -->
-    <link rel="stylesheet" th:href="@{/css/main.css}">
-    <!-- responsive -->
-    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+-->
 </head>
 
 <!--loader-->
@@ -84,7 +53,7 @@
                 <div class="main-menu-wrap">
                     <!-- logo -->
                     <div class="site-logo">
-                        <a th:href="@{/home-page}">
+                        <a th:href="@{/}">
                             <img class="logo" th:src="@{/images/logo.png}" alt="">
                         </a>
                     </div>
@@ -93,13 +62,12 @@
                     <!-- menu start -->
                     <nav class="main-menu">
                         <ul>
-                            <li class="current-list-item"><a th:href="@{/home-page}">Home</a>
+                            <li class="current-list-item"><a th:href="@{/}">Home</a>
                             </li>
                             <li><a th:href="@{/about}">About</a></li>
                             <li><a th:href="@{/shop}">Shop</a>
                                 <ul class="sub-menu">
                                     <li><a th:href="@{/checkout}">Check Out</a></li>
-                                    <li><a th:href="@{/single-product}">Single Product</a></li>
                                     <li><a th:href="@{/cart}">Cart</a></li>
                                 </ul>
                             </li>
@@ -107,14 +75,17 @@
                             </li>
                             <li><a th:if="${isLogin == false}" th:href="@{/register}">Signup</a>
                             </li>
+                            <li><a th:if="${isLogin == true}" th:href="@{/logout}">Signup</a>
+                            </li>
+                            <li><a th:if="${isLogin == true}" th:text="'Hello '+ ${username}" th:href="@{/profile}"></a>
+                            </li>
                             <li>
                                 <div class="header-icons">
-                                    <a class="shopping-cart" th:href="@{/cart}"><i class="fas fa-shopping-cart"></i></a>
-                                    <a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-                                    <a class="account-icon" th:text="${username}" th:href="@{/profile}"><i class="fas fa-user"></i></a>
-                                    <a th:href="@{/userorder}"><i class="fas fa-clipboard-list"></i></a>
-                                    <a class="manager-icon" th:href="@{/manager}"><i class="fas fa-user-tie"></i></a>
-                                    <a class="admin-icon" th:href="@{/admin}"><i class="fas fa-user-shield"></i></a>
+                                    <a class="shopping-cart" th:href="@{/cart}"><img class="imgIcon" th:src="@{/images/icon/cart.png}"></a>
+                                    <a class="mobile-hide search-bar-icon" href="#"><img class="imgIcon" th:src="@{/images/icon/search.png}"></a>
+                                    <a th:if="${isLogin == true}" class="account-icon" th:text="${username}" th:href="@{/profile}"><img class="imgIcon" th:src="@{/images/icon/profile.png}"></a>
+                                    <a th:if="${isLogin == true}" th:href="@{/userorder}"><img class="imgIcon" th:src="@{/images/icon/order.png}"></a>
+                                    <a th:if="${isLogin == true}" th:href="@{/logout}"><img class="imgIcon" th:src="@{/images/icon/logout.png}"></a>
                                 </div>
                             </li>
                         </ul>

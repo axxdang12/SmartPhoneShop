@@ -3,7 +3,10 @@ package swp391.SPS.services.impls;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import swp391.SPS.dtos.ProfileDto;
 import swp391.SPS.dtos.UserDto;
+import swp391.SPS.entities.Cart;
+import swp391.SPS.entities.Role;
 import swp391.SPS.entities.User;
 import swp391.SPS.exceptions.UserNotFoundException;
 import swp391.SPS.repositories.RoleRepository;
@@ -11,6 +14,8 @@ import swp391.SPS.repositories.UserRepository;
 import swp391.SPS.services.UserService;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -56,9 +61,26 @@ public class UserServiceImpl implements UserService {
         user.setEmail(userDto.getEmail());
         user.setUsername(userDto.getUsername());
         user.setPassword(userDto.getPassword());
-        user.setRoles(Arrays.asList(roleRepository.findByRoleName("ADMIN")));
+        Role role = roleRepository.findByRoleName("USER");
+        role.setUsers(Collections.singletonList(user));
+        user.setRoles(Collections.singletonList(role));
+        Cart cart = new Cart();
+        user.setCart(cart);
         return userRepository.save(user);
     }
+
+    @Override
+    public User saveProfile(ProfileDto profileDto, String userName) {
+        User user=userRepository.findByUsername(userName);
+        user.getUserDetail().setFirstName(profileDto.getFirstName());
+        user.getUserDetail().setLastName(profileDto.getLastName());
+        user.getUserDetail().setGender(profileDto.getGender());
+        user.getUserDetail().setPhoneNumber(profileDto.getPhoneNumber());
+        user.getUserDetail().setAddress(profileDto.getAddress());
+        return userRepository.save(user);
+    }
+
+
 
     @Override
     public User findByUsername(String username) {
