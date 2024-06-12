@@ -23,28 +23,22 @@ public class EmailServiceImpl implements EmailService {
     private String sender;
 
     @Override
-    public String sendSimpleMail(EmailDetails details) {
-        // Try block to check for exceptions
-        try {
+    public void sendSimpleMail(EmailDetails details) throws MessagingException, UnsupportedEncodingException {
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
 
-            // Creating a simple mail message
-            SimpleMailMessage mailMessage = new SimpleMailMessage();
+        helper.setFrom("LKHT@gmail.com", "LKHT Support");
+        helper.setTo(details.getRecipient());
 
-            // Setting up necessary details
-            mailMessage.setFrom(sender);
-            mailMessage.setTo(details.getRecipient());
-            mailMessage.setText(details.getMsgBody());
-            mailMessage.setSubject(details.getSubject());
+        String subject = details.getSubject();
 
-            // Sending the mail
-            javaMailSender.send(mailMessage);
-            return "Mail Sent Successfully...";
-        }
+        String content = details.getMsgBody();
 
-        // Catch block to handle the exceptions
-        catch (Exception e) {
-            return "Error while Sending Mail";
-        }
+        helper.setSubject(subject);
+
+        helper.setText(content, true);
+
+        javaMailSender.send(message);
     }
 
     @Override
