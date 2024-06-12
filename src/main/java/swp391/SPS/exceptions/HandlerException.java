@@ -13,4 +13,11 @@ public class HandlerException {
         return "login";
     }
 
+    @ExceptionHandler(UserNotFoundException.class)
+    public String handlerUserNotFoundException(
+            UserNotFoundException exception, Model model) {
+        model.addAttribute("message",
+                exception.getMessage());
+        return "forgot-password-form";
+    }
 }

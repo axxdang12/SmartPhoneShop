@@ -1,6 +1,7 @@
 package swp391.SPS.entities;
 // This is a personal academic project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
+
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
@@ -71,4 +72,29 @@ public class Phone {
   @ManyToMany(mappedBy = "phones")
   @Nullable
   private List<Order> orders;
+
+
+
+  public Phone createPhone(String productName, double price, String cpu, int ram, double memory, double display, double camera, String origin, String sim, LocalDate releaseDate, Category category, Brand brand, Picture picture) {
+    return Phone.builder()
+            .productName(productName)
+            .price(price)
+            .cpu(cpu)
+            .ram(ram)
+            .memory(memory)
+            .display(display)
+            .camera(camera)
+            .origin(origin)
+            .sim(sim)
+            .releaseDate(releaseDate)
+            .category(category)
+            .brand(brand)
+            .picture(picture)
+            .build();
+  }
+
+
+
+
+
 }
