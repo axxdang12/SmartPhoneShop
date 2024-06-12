@@ -30,6 +30,7 @@ public class PhoneServiceImpl implements PhoneService {
 
     @Override
     public void addPhone(Phone phone) {
+
         phoneRepository.save(phone);
     }
 
@@ -57,5 +58,41 @@ public class PhoneServiceImpl implements PhoneService {
             if(findAllPhone().get(i).getCategory().equals(category)) l.add(findAllPhone().get(i));
         }
         return l;
+    }
+
+    @Override
+    public void editPhone(Phone p) {
+        Phone existingPhone = phoneRepository.getReferenceById(p.getPhoneId());
+        if (existingPhone != null) {
+            existingPhone.setProductName(p.getProductName());
+            existingPhone.setPrice(p.getPrice());
+            existingPhone.setCpu(p.getCpu());
+            existingPhone.setRam(p.getRam());
+            existingPhone.setMemory(p.getMemory());
+            existingPhone.setDisplay(p.getDisplay());
+            existingPhone.setCamera(p.getCamera());
+            existingPhone.setOrigin(p.getOrigin());
+            existingPhone.setSim(p.getSim());
+            existingPhone.setReleaseDate(p.getReleaseDate());
+            existingPhone.setCategory(p.getCategory());
+            existingPhone.setBrand(p.getBrand());
+            existingPhone.setPicture(p.getPicture());
+            existingPhone.getPicture().setBack(p.getPicture().getBack());
+            existingPhone.getPicture().setFront(p.getPicture().getFront());
+            existingPhone.getPicture().setMain(p.getPicture().getMain());
+            existingPhone.getPicture().setSite(p.getPicture().getSite());
+            // Lưu đối tượng Phone đã được cập nhật vào cơ sở dữ liệu
+            phoneRepository.save(existingPhone);
+
+        }
+    }
+    @Override
+    public void deletephone(Phone p) {
+        phoneRepository.delete(getPhoneByID(p.getPhoneId()));
+    }
+
+    @Override
+    public List<Phone> searchPhone(String name) {
+        return phoneRepository.SearchProduct(name);
     }
 }

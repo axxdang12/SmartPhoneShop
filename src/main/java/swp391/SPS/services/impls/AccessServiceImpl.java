@@ -21,6 +21,7 @@ public class AccessServiceImpl implements AccessService {
     @Autowired
     private BrandRepository brandRepository;
 
+
     @Override
     public List<Accessory> findAllAccess() {
         return accessRepository.findAll();
@@ -44,5 +45,10 @@ public class AccessServiceImpl implements AccessService {
             if(findAllAccess().get(i).getBrand().equals(brand)) l.add(findAllAccess().get(i));
         }
         return l;
+    }
+
+    @Override
+    public List<Accessory> searchAcc(String name) {
+        return accessRepository.SearchAccess(name);
     }
 }
