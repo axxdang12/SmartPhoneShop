@@ -55,10 +55,11 @@ public class RegisterController {
             }
             String username = userDto.getUsername();
             User user = userService.findByUsername(username);
-            if (user != null) {
+            User userByEmail = userService.findByEmail(userDto.getEmail());
+            if (user != null || userByEmail != null ) {
                 model.addAttribute("userDto", userDto);
                 System.out.println("user not null");
-                model.addAttribute("usernameError", "Your username has been registered!");
+                model.addAttribute("usernameError", "Your username or email has been registered!");
                 return "register";
             }
             if (userDto.getPassword().equals(userDto.getRepeatPassword())) {
