@@ -1,12 +1,14 @@
 package swp391.SPS.services.impls;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import swp391.SPS.dtos.ProfileDto;
 import swp391.SPS.dtos.UserDto;
 import swp391.SPS.entities.Cart;
 import swp391.SPS.entities.Role;
 import swp391.SPS.entities.User;
+import swp391.SPS.exceptions.UserNotFoundException;
 import swp391.SPS.repositories.RoleRepository;
 import swp391.SPS.repositories.UserRepository;
 import swp391.SPS.services.UserService;
@@ -25,6 +27,32 @@ public class UserServiceImpl implements UserService {
     @Override
     public int getUserId(String userName) {
         return userRepository.findByUsername(userName).getUserId();
+    }
+
+    @Override
+    public void updateResetPasswordToken(String token, String email) throws UserNotFoundException {
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            user.setResetPasswordToken(token);
+            userRepository.save(user);
+        } else {
+            throw new UserNotFoundException("Could not find any customer with the email " + email);
+        }
+    }
+
+    @Override
+    public User getByResetPasswordToken(String token) {
+        return userRepository.findByResetPasswordToken(token);
+    }
+
+    @Override
+    public void updatePassword(User user, String newPassword) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
+
+        user.setResetPasswordToken(null);
+        userRepository.save(user);
     }
 
     @Override
