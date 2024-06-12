@@ -52,7 +52,7 @@ public class RegisterController {
         model.addAttribute("userDto", userDto);
       } else {
         model.addAttribute("userDto", userDto);
-        model.addAttribute("passwordError", "Your password maybe wrong! Check again!");
+        model.addAttribute("passwordError", "Your password not same! Check again!");
         System.out.println("password not same");
       }
     } catch (Exception e) {
