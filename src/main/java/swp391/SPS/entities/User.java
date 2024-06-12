@@ -28,6 +28,9 @@ public class User {
   @Column(name = "email")
   private String email;
 
+  @Column(name = "reset_password_token")
+  private String resetPasswordToken;
+
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "user_detail_id")
   private UserDetail userDetail;

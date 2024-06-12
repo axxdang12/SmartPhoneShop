@@ -64,6 +64,7 @@ public class ShopController {
     public String ProductByCategory(@PathVariable("idCategory") int id, Model model){
         model.addAttribute("listCategory", categoryService.findAllCategory());
         model.addAttribute("listPhone", phoneService.getPhoneByCategory(id));
+        model.addAttribute("listA", accessService.getAccessByCategory(id));
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);

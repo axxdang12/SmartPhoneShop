@@ -139,6 +139,25 @@
 	<!-- products -->
 	<div class="product-section mt-150 mb-150" style="margin-top: -10px">
 		<div class="container">
+			<div class="row">
+                <div class="col-md-12">
+                    <div class="product-filters" >
+						<ul style="display: flex; justify-content: center">
+								<li th:each = "category: ${listCategory}" th:data-filter="'.' + ${category.categoryName}">
+									<a th:href="@{/shop/category/{idCategory}(idCategory=${category.categoryId})}" th:text="${category.categoryName}" style="color: black"></a>
+								</li>
+
+						</ul>
+                        <ul style="display: flex; justify-content: center">
+                            <li data-filter="*" th:href="@{/shop}">All</li>
+								<li th:each = "brand: ${listBrand}" th:data-filter="'.' + ${brand.brandName}">
+									<a th:href="@{/shop/brand/{idBrand}(idBrand=${brand.brandId})}" th:text="${brand.brandName}" style="color: black"></a>
+								</li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
 			<div class="row product-lists">
 
 				<div th:each = "phone: ${listPhone}"  class="col-lg-4 col-md-6 text-center ">
@@ -148,7 +167,7 @@
 						</div>
 						<h3 th:text = "${phone.productName}"></h3>
 						<p class="product-price" th:text ="${phone.price} + '$'">$</p>
-						<a th:href="@{/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a th:href="@{/cart/phone/{id}(id=${phone.phoneId})}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 
 
@@ -161,7 +180,7 @@
 						</div>
 						<h3 th:text = "${access.accessoryName}"></h3>
 						<p class="product-price" th:text ="${access.price} + '$'"></p>
-						<a th:href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a th:href="@{/cart/accessory/{id}(id=${access.accessoryId})}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 
 				</div>

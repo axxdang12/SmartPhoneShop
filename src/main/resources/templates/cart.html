@@ -63,33 +63,40 @@
 								</tr>
 							</thead>
 							<tbody>
+							<tr class="table-body-row" th:each="phone : ${listPByC}">
 								<form th:action="@{/cart/delete-phone}" method="POST">
-									<tr class="table-body-row" th:each = "cart: ${listPByC}">
-										<input th:name="phoneId" th:value="${cart.phoneId}"  hidden="hidden"/>
-										<td class="product-remove"><button type="submit"><i class="far fa-window-close"></i></button></td>
-										<td class="product-image"><img th:src="@{${cart.picture.main}}" alt=""></td>
-										<td class="product-name" th:text = "${cart.productName}"></td>
-										<td class="product-price" th:text = "${cart.price}"></td>
-										<td class="product-quantity"><input type="number" placeholder="0"></td>
-										<td class="product-total">1</td>
-									</tr>
+									<input th:name="phoneId" th:value="${phone.phoneId}" hidden="hidden"/>
+									<td class="product-remove">
+										<button type="submit"><i class="far fa-window-close"></i></button>
+									</td>
+									<td class="product-image">
+										<img th:src="@{${phone.picture.main}}" alt="">
+									</td>
+									<td class="product-name" th:text="${phone.productName}"></td>
+									<td class="product-price" th:text="${phone.price}"></td>
+									<td class="product-quantity">
+										<input type="number" name="quantity" placeholder="0" value="1" min="1" onchange="updateTotalPrice(this)">
+									</td>
+									<td class="product-total">1</td>
 								</form>
-								<!--<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img th:src="@{https://i5.walmartimages.com/seo/Samsung-Galaxy-S23-Ultra-5G-Dual-S918B-512GB-12GB-RAM-GSM-Unlocked-Lavender_9ae44140-f40b-4d96-ad37-560167d17f7d.6d66e9727a3ff6e426c865fbd4dc0c5d.jpeg}" alt=""></td>
-									<td class="product-name">Samsung Galaxy S23 Ultra 5G</td>
-									<td class="product-price">21.990.000₫</td>
-									<td class="product-quantity"><input type="number" placeholder="0"></td>
+							</tr>
+							<tr class="table-body-row" th:each="access : ${listAByC}">
+								<form th:action="@{/cart/delete-accessory}" method="POST">
+									<input th:name="aId" th:value="${access.accessoryId}" hidden="hidden"/>
+									<td class="product-remove">
+										<button type="submit"><i class="far fa-window-close"></i></button>
+									</td>
+									<td class="product-image">
+										<img th:src="@{${access.picture.main}}" alt="">
+									</td>
+									<td class="product-name" th:text="${access.accessoryName}"></td>
+									<td class="product-price" th:text="${access.price}"></td>
+									<td class="product-quantity">
+										<input type="number" placeholder="0">
+									</td>
 									<td class="product-total">1</td>
-								</tr>
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img th:src="@{https://cdn.tgdd.vn/Products/Images/42/309831/xiaomi-redmi-note-13-gold-thumb-600x600.jpg}" alt=""></td>
-									<td class="product-name">Xiaomi Redmi Note 13</td>
-									<td class="product-price">4.990.000₫</td>
-									<td class="product-quantity"><input type="number" placeholder="0"></td>
-									<td class="product-total">1</td>
-								</tr>-->
+								</form>
+							</tr>
 							</tbody>
 						</table>
 					</div>
@@ -158,5 +165,34 @@
 	<!-- end copyright -->
 
 	<div th:replace="~{fragments::script}"></div>
+
+	<script>
+		function updateTotalPrice(element) {
+            const row = element.closest('.table-body-row');
+            const priceElement = row.querySelector('.product-price');
+            const totalElement = row.querySelector('.product-total');
+
+            const price = parseFloat(priceElement.textContent.replace(/[^0-9.-]+/g,""));
+            const quantity = element.value;
+
+            const totalPrice = price * quantity;
+            totalElement.textContent = totalPrice.toLocaleString() + '$';
+
+            updateCartTotal();
+        }
+
+        function updateCartTotal() {
+            const totalElements = document.querySelectorAll('.product-total');
+            let total = 0;
+
+            totalElements.forEach(el => {
+                total += parseFloat(el.textContent.replace(/[^0-9.-]+/g,""));
+            });
+
+            document.querySelector('.total-data td:last-child').textContent = total.toLocaleString() + '$';
+        }
+	</script>
+
 </body>
+
 </html>

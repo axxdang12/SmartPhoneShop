@@ -10,4 +10,5 @@ public interface AccessService {
     Accessory getAccessByID(int id);
     List<Accessory> getAccessByBrand(int id);
     List<Accessory> searchAcc(String name);
+    List<Accessory> getAccessByCategory(int id);
 }
