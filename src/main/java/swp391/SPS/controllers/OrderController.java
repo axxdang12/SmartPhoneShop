@@ -7,17 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import swp391.SPS.services.OrderService;
 
 @Controller
-public class ManagerController {
-
-
-    @Autowired
-    private OrderService orderService;
-
-    @GetMapping("/manager")
-    public String viewOrderList(Model model){
-        model.addAttribute("orderList", orderService.getAllOrder());
-        return "manager";
-    }
-
+public class OrderController {
 
 }
