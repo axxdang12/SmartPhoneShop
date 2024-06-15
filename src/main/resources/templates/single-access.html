@@ -1,193 +1,193 @@
 
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments::header}"></head>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head th:replace="~{fragments::header}"></head>-->
 
 
-<!--PreLoader Ends-->
+<!--&lt;!&ndash;PreLoader Ends&ndash;&gt;-->
 
-<!-- header -->
+<!--&lt;!&ndash; header &ndash;&gt;-->
 
-<!-- end header -->
+<!--&lt;!&ndash; end header &ndash;&gt;-->
 
-<body>
+<!--<body>-->
 
-<!--PreLoader-->
-<div th:replace="~{fragments::loader}"></div>
-<!--PreLoader Ends-->
+<!--&lt;!&ndash;PreLoader&ndash;&gt;-->
+<!--<div th:replace="~{fragments::loader}"></div>-->
+<!--&lt;!&ndash;PreLoader Ends&ndash;&gt;-->
 
-<!-- header -->
-<div th:replace="~{fragments::headerNav}"></div>
-<!-- end header -->
+<!--&lt;!&ndash; header &ndash;&gt;-->
+<!--<div th:replace="~{fragments::headerNav}"></div>-->
+<!--&lt;!&ndash; end header &ndash;&gt;-->
 
-<!-- search area -->
-<div class="search-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <span class="close-btn"><i class="fas fa-window-close"></i></span>
-                <div class="search-bar">
-                    <div class="search-bxar-tablecell">
-                        <h3>Search For:</h3>
-                        <input type="text" placeholder="Keywords">
-                        <button type="submit">Search <i class="fas fa-search"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end search arewa -->
+<!--&lt;!&ndash; search area &ndash;&gt;-->
+<!--<div class="search-area">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-lg-12">-->
+<!--                <span class="close-btn"><i class="fas fa-window-close"></i></span>-->
+<!--                <div class="search-bar">-->
+<!--                    <div class="search-bxar-tablecell">-->
+<!--                        <h3>Search For:</h3>-->
+<!--                        <input type="text" placeholder="Keywords">-->
+<!--                        <button type="submit">Search <i class="fas fa-search"></i></button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--&lt;!&ndash; end search arewa &ndash;&gt;-->
 
-<!-- breadcrumb-section -->
-<div class="breadcrumb-section breadcrumb-bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 offset-lg-2 text-center">
-                <div class="breadcrumb-text">
-                    <p>See more Details</p>
-                    <h1>Single Product</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end breadcrumb section -->
+<!--&lt;!&ndash; breadcrumb-section &ndash;&gt;-->
+<!--<div class="breadcrumb-section breadcrumb-bg">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-lg-8 offset-lg-2 text-center">-->
+<!--                <div class="breadcrumb-text">-->
+<!--                    <p>See more Details</p>-->
+<!--                    <h1>Single Product</h1>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--&lt;!&ndash; end breadcrumb section &ndash;&gt;-->
 
-<!-- single product -->
-<div class="single-product mt-150 mb-150">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-5">
-                <div class="single-product-img">
-                    <img th:src="@{${product.picture.main}}" alt="">
-                </div>
-            </div>
-            <div class="col-md-7">
-                <div class="single-product-content">
-                    <h3 th:text="${product.accessoryName}"></h3>
-                    <p class="single-product-pricing" th:text = "${product.price} + '$'"><span></span></p>
+<!--&lt;!&ndash; single product &ndash;&gt;-->
+<!--<div class="single-product mt-150 mb-150">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-5">-->
+<!--                <div class="single-product-img">-->
+<!--                    <img th:src="@{${product.picture.main}}" alt="">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-md-7">-->
+<!--                <div class="single-product-content">-->
+<!--                    <h3 th:text="${product.accessoryName}"></h3>-->
+<!--                    <p class="single-product-pricing" th:text = "${product.price} + '$'"><span></span></p>-->
 
 
 
-                    <div class="single-product-form">
-                        <form action="index.html">
-                            <input type="number" placeholder="0">
-                        </form>
-                        <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+<!--                    <div class="single-product-form">-->
+<!--                        <form action="index.html">-->
+<!--                            <input type="number" placeholder="0">-->
+<!--                        </form>-->
+<!--                        <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>-->
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end single product -->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--&lt;!&ndash; end single product &ndash;&gt;-->
 
-<!-- more products -->
-<div class="more-products mb-150">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 offset-lg-2 text-center">
+<!--&lt;!&ndash; more products &ndash;&gt;-->
+<!--<div class="more-products mb-150">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-lg-8 offset-lg-2 text-center">-->
 
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6 text-center">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a href="single-product.html"> <img th:src="@{${product.picture.front}}" alt=""> </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a href="single-product.html"> <img th:src="@{${product.picture.back}}" alt=""></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 offset-lg-0 offset-md-3 text-center">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a href="single-product.html"> <img th:src="@{${product.picture.site}}" alt=""></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end more products -->
-<!-- footer -->
-<div class="footer-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-box about-widget">
-                    <h2 class="widget-title">About us</h2>
-                    <p>Shop will provide users with the best phone products at preferential prices with an extremely attractive warranty policy.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-box get-in-touch">
-                    <h2 class="widget-title">Get in Touch</h2>
-                    <ul>
-                        <li>Nguyen Sieu street, Hang Buom, Hoan Kiem, Ha Noi.</li>
-                        <li>support@LKHT.com</li>
-                        <li>0978262446</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-box pages">
-                    <h2 class="widget-title">Pages</h2>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="checkout.html">Checkout</a></li>
-                        <li><a href="shop.html">Shop</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-box subscribe">
-                    <h2 class="widget-title">Subscribe</h2>
-                    <p>Subscribe to our mailing list to get the latest updates.</p>
-                    <form action="index.html">
-                        <input type="email" placeholder="Email">
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end footer -->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--            <div class="col-lg-4 col-md-6 text-center">-->
+<!--                <div class="single-product-item">-->
+<!--                    <div class="product-image">-->
+<!--                        <a href="single-product.html"> <img th:src="@{${product.picture.front}}" alt=""> </a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-4 col-md-6 text-center">-->
+<!--                <div class="single-product-item">-->
+<!--                    <div class="product-image">-->
+<!--                        <a href="single-product.html"> <img th:src="@{${product.picture.back}}" alt=""></a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-4 col-md-6 offset-lg-0 offset-md-3 text-center">-->
+<!--                <div class="single-product-item">-->
+<!--                    <div class="product-image">-->
+<!--                        <a href="single-product.html"> <img th:src="@{${product.picture.site}}" alt=""></a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--&lt;!&ndash; end more products &ndash;&gt;-->
+<!--&lt;!&ndash; footer &ndash;&gt;-->
+<!--<div class="footer-area">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-lg-3 col-md-6">-->
+<!--                <div class="footer-box about-widget">-->
+<!--                    <h2 class="widget-title">About us</h2>-->
+<!--                    <p>Shop will provide users with the best phone products at preferential prices with an extremely attractive warranty policy.</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-3 col-md-6">-->
+<!--                <div class="footer-box get-in-touch">-->
+<!--                    <h2 class="widget-title">Get in Touch</h2>-->
+<!--                    <ul>-->
+<!--                        <li>Nguyen Sieu street, Hang Buom, Hoan Kiem, Ha Noi.</li>-->
+<!--                        <li>support@LKHT.com</li>-->
+<!--                        <li>0978262446</li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-3 col-md-6">-->
+<!--                <div class="footer-box pages">-->
+<!--                    <h2 class="widget-title">Pages</h2>-->
+<!--                    <ul>-->
+<!--                        <li><a href="index.html">Home</a></li>-->
+<!--                        <li><a href="about.html">About</a></li>-->
+<!--                        <li><a href="checkout.html">Checkout</a></li>-->
+<!--                        <li><a href="shop.html">Shop</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-3 col-md-6">-->
+<!--                <div class="footer-box subscribe">-->
+<!--                    <h2 class="widget-title">Subscribe</h2>-->
+<!--                    <p>Subscribe to our mailing list to get the latest updates.</p>-->
+<!--                    <form action="index.html">-->
+<!--                        <input type="email" placeholder="Email">-->
+<!--                        <button type="submit"><i class="fas fa-paper-plane"></i></button>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--&lt;!&ndash; end footer &ndash;&gt;-->
 
-<!-- copyright -->
-<div class="copyright">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-12">
-                <p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.</p>
-            </div>
-            <div class="col-lg-6 text-right col-md-12">
-                <div class="social-icons">
-                    <ul>
-                        <li><a href="https://www.facebook.com/profile.php?id=100009172256835" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                        <li><a href="https://www.instagram.com/_.nkhanhh/" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                        <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-                        <li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end copyright -->
+<!--&lt;!&ndash; copyright &ndash;&gt;-->
+<!--<div class="copyright">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-lg-6 col-md-12">-->
+<!--                <p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.</p>-->
+<!--            </div>-->
+<!--            <div class="col-lg-6 text-right col-md-12">-->
+<!--                <div class="social-icons">-->
+<!--                    <ul>-->
+<!--                        <li><a href="https://www.facebook.com/profile.php?id=100009172256835" target="_blank"><i class="fab fa-facebook-f"></i></a></li>-->
+<!--                        <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>-->
+<!--                        <li><a href="https://www.instagram.com/_.nkhanhh/" target="_blank"><i class="fab fa-instagram"></i></a></li>-->
+<!--                        <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>-->
+<!--                        <li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--&lt;!&ndash; end copyright &ndash;&gt;-->
 
-<!-- jquery -->
-<div th:replace="~{fragments::script}"></div>
-</body>
-</html>
+<!--&lt;!&ndash; jquery &ndash;&gt;-->
+<!--<div th:replace="~{fragments::script}"></div>-->
+<!--</body>-->
+<!--</html>-->

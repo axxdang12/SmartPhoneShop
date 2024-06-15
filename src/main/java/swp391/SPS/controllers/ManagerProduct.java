@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swp391.SPS.entities.Brand;
-import swp391.SPS.entities.Category;
+//import swp391.SPS.entities.Category;
 import swp391.SPS.entities.Phone;
 import swp391.SPS.entities.Picture;
 import swp391.SPS.services.*;
@@ -23,10 +23,10 @@ public class ManagerProduct {
     BrandService brandService;
     @Autowired
     PhoneService phoneService;
-    @Autowired
-    CategoryService categoryService;
-    @Autowired
-    AccessService accessService;
+//    @Autowired
+//    CategoryService categoryService;
+//    @Autowired
+//    AccessService accessService;
     @Autowired
     PictureService pictureService;
 
@@ -35,27 +35,27 @@ public class ManagerProduct {
     @GetMapping("/products")
     public String viewProduct(Model model){
         model.addAttribute("listBrand", brandService.findAllBrand());
-        model.addAttribute("listCategory", categoryService.findAllCategory());
+//        model.addAttribute("listCategory", categoryService.findAllCategory());
         model.addAttribute("listPhone", phoneService.findAllPhone());
-        model.addAttribute("listA", accessService.findAllAccess());
+//        model.addAttribute("listA", accessService.findAllAccess());
         return"products";
     }
     @GetMapping("/add-product")
     public String addP(Model model){
         model.addAttribute("listBrand", brandService.findAllBrand());
-        model.addAttribute("listCategory", categoryService.findAllCategory());
+//        model.addAttribute("listCategory", categoryService.findAllCategory());
 
         return "add-product";
     }
 
-    @GetMapping("/add-access")
-    public String addA(){
-        return "add-access";
-    }
+//    @GetMapping("/add-access")
+//    public String addA(){
+//        return "add-access";
+//    }
 
     @GetMapping("/edit-product/{id}")
     public String viewEdit(@PathVariable("id") int id,Model model){
-        model.addAttribute("listCategory", categoryService.findAllCategory());
+//        model.addAttribute("listCategory", categoryService.findAllCategory());
         model.addAttribute("listBrand", brandService.findAllBrand());
         model.addAttribute("phone", phoneService.getPhoneByID(id) );
         return "Edit-product";
@@ -68,7 +68,7 @@ public class ManagerProduct {
                              @RequestParam("price") double price,
                              @RequestParam("cpu") String cpu,
                              @RequestParam("memory") double memory,
-                             @RequestParam("category") int cate,
+//                             @RequestParam("category") int cate,
                              @RequestParam("sim") String sim,
                              @RequestParam("ram") int ram,
                              @RequestParam("dis") double dis,
@@ -80,25 +80,25 @@ public class ManagerProduct {
                              @RequestParam("ps") String ps,
                              @RequestParam("camera") double camera,
                              @RequestParam("date") Date date,Model model){
-        model.addAttribute("listCategory", categoryService.findAllCategory());
+//        model.addAttribute("listCategory", categoryService.findAllCategory());
         model.addAttribute("listBrand", brandService.findAllBrand());
         Picture picture = new Picture(picid,pm,pf,pb,ps);
         pictureService.editPircure(pictureService.getPictureById(picid));
-        Category c = categoryService.getCategory(cate);
+//        Category c = categoryService.getCategory(cate);
         Brand b = brandService.getBrand(brand);
 
         Phone phone = new Phone();
-        phone = Phone.builder().productName(productName).phoneId(pid).cpu(cpu).ram(ram).sim(sim).price(price).camera(camera).memory(memory).origin(origin).brand(b).category(c).picture(picture).releaseDate(date.toLocalDate()).display(dis).build();
+        phone = Phone.builder().productName(productName).phoneId(pid).cpu(cpu).ram(ram).sim(sim).price(price).camera(camera).memory(memory).origin(origin).brand(b).picture(picture).releaseDate(date.toLocalDate()).display(dis).build();
         phoneService.editPhone(phone);
         RedirectAttributes redirectAttributes;
         return "redirect:/products";
     }
 
 
-    @GetMapping("/edit-access")
-    public String viewEditA(){
-        return "edit-access";
-    }
+//    @GetMapping("/edit-access")
+//    public String viewEditA(){
+//        return "edit-access";
+//    }
 
 
     @GetMapping("/add-brand")
@@ -117,7 +117,7 @@ public class ManagerProduct {
                              @RequestParam("price") int price,
                              @RequestParam("cpu") String cpu,
                              @RequestParam("memory") int memory,
-                             @RequestParam("category") int cate,
+//                             @RequestParam("category") int cate,
                              @RequestParam("sim") String sim,
                              @RequestParam("ram") int ram,
                              @RequestParam("dis") int dis,
@@ -134,11 +134,11 @@ public class ManagerProduct {
         Picture picture = new Picture();
         picture = picture.createPicture(pm,pf,pb,ps);
         pictureService.addPicture(picture);
-        Category c = categoryService.getCategory(cate);
+//        Category c = categoryService.getCategory(cate);
         Brand b = brandService.getBrand(brand);
         picture = pictureService.getPictureById(picture.getPictureId());
         Phone phone = new Phone();
-        phone = phone.createPhone(productName,(double)price,cpu,ram,(double)memory,(double)dis,(double)camera,origin,sim, date.toLocalDate(),c,b,picture);
+        phone = phone.createPhone(productName,(double)price,cpu,ram,(double)memory,(double)dis,(double)camera,origin,sim, date.toLocalDate(),b,picture);
         phoneService.addPhone(phone);
         return"add-product";
     }

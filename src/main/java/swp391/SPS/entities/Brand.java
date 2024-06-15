@@ -25,6 +25,6 @@ public class Brand {
     @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Phone> phones;
 
-    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Accessory> accessories;
+//    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<Accessory> accessories;
 }

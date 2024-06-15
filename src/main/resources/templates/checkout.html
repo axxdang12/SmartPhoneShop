@@ -66,11 +66,11 @@
 						      <div class="card-body">
 						        <div class="billing-address-form">
 						        	<form action="index.html">
-						        		<p><input type="text"  th:value="${user.userDetail.firstName}"></p>
-						        		<p><input type="text"  th:value="${user.userDetail.lastName}"></p>
-						        		<p><input type="email"  th:value="${user.email}"></p>
-						        		<p><input type="text"  th:value="${user.userDetail.address}"></p>
-						        		<p><input type="tel" th:value="${user.userDetail.phoneNumber}"></p>
+						        		<p><input type="text"  th:value="${user.userDetail.firstName}" disabled></p>
+						        		<p><input type="text"  th:value="${user.userDetail.lastName}" disabled></p>
+						        		<p><input type="email"  th:value="${user.email}" disabled></p>
+						        		<p><input type="text"  th:value="${user.userDetail.address}" disabled></p>
+						        		<p><input type="tel" th:value="${user.userDetail.phoneNumber}" disabled></p>
 						        	</form>
 						        </div>
 						      </div>
