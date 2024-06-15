@@ -113,22 +113,22 @@
                             </td>
                         </tr>
 
-                        <tr th:each = "acc: ${listA}">
+<!--                        <tr th:each = "acc: ${listA}">-->
 
-                            <td class="tm-product-name" th:text = "${acc.accessoryId}"><a></a></td>
-                            <td th:text = "${acc.accessoryName}"></td>
-                            <td th:text ="${acc.price} + '$'"></td>
-                            <td>
-                                <a th:href="@{/edit-access}" style="color: white;">
-                                    Edit
-                                </a>
-                            </td>
-                            <td>
-                                <a  class="tm-product-delete-link">
-                                    <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                                </a>
-                            </td>
-                        </tr>
+<!--                            <td class="tm-product-name" th:text = "${acc.accessoryId}"><a></a></td>-->
+<!--                            <td th:text = "${acc.accessoryName}"></td>-->
+<!--                            <td th:text ="${acc.price} + '$'"></td>-->
+<!--                            <td>-->
+<!--                                <a th:href="@{/edit-access}" style="color: white;">-->
+<!--                                    Edit-->
+<!--                                </a>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                                <a  class="tm-product-delete-link">-->
+<!--                                    <i class="far fa-trash-alt tm-product-delete-icon"></i>-->
+<!--                                </a>-->
+<!--                            </td>-->
+<!--                        </tr>-->
 
                         </tbody>
                     </table>
@@ -136,8 +136,8 @@
               <!-- table container -->
                 <a th:href="@{/add-product}"
                         class="btn btn-primary btn-block text-uppercase mb-3">Add new product</a>
-                <a th:href="@{/add-access}"
-                   class="btn btn-primary btn-block text-uppercase mb-3">Add new accessory</a>
+<!--                <a th:href="@{/add-access}"-->
+<!--                   class="btn btn-primary btn-block text-uppercase mb-3">Add new accessory</a>-->
 
 
             </div>
@@ -148,18 +148,18 @@
                 <div class="tm-product-table-container">
                     <table class="table tm-table-small tm-product-table">
                         <tbody>
-                        <tr th:each = "category: ${listCategory}">
-                            <td class="tm-product-name" th:text="${category.categoryName}"></td>
-                            <td class="text-center">
-                                <a href="edit-category.html" class="tm-product-delete-link" style="color: white;" >
-                                    Edit
-                                </a>
-                            <td class="text-center">
-                                <a href="#" class="tm-product-delete-link">
-                                    <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                                </a>
-                            </td>
-                        </tr>
+<!--                        <tr th:each = "category: ${listCategory}">-->
+<!--                            <td class="tm-product-name" th:text="${category.categoryName}"></td>-->
+<!--                            <td class="text-center">-->
+<!--                                <a href="edit-category.html" class="tm-product-delete-link" style="color: white;" >-->
+<!--                                    Edit-->
+<!--                                </a>-->
+<!--                            <td class="text-center">-->
+<!--                                <a href="#" class="tm-product-delete-link">-->
+<!--                                    <i class="far fa-trash-alt tm-product-delete-icon"></i>-->
+<!--                                </a>-->
+<!--                            </td>-->
+<!--                        </tr>-->
                         <tr th:each = "brand: ${listBrand}" >
                             <td class="tm-product-name" th:text="${brand.brandName}"></td>
                             <td class="text-center">
@@ -176,9 +176,9 @@
                     </table>
                 </div>
                 <!-- table container -->
-                <button class="btn btn-primary btn-block text-uppercase mb-3">
-                    <a href="ADD-category.html" style="color: white;">Add new category</a>
-                </button>
+<!--                <button class="btn btn-primary btn-block text-uppercase mb-3">-->
+<!--                    <a href="ADD-category.html" style="color: white;">Add new category</a>-->
+<!--                </button>-->
                 <button class="btn btn-primary btn-block text-uppercase mb-3">
                     <a th:href="@{/add-brand}" style="color: white;">Add new brand</a>
                 </button>

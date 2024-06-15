@@ -72,21 +72,21 @@
 							<a class="nav-link" th:href="@{/shop}" style=" color: red" >All</a>
 							</li>
 
-						<li class="nav-item dropdown position-static">
-							<a class="nav-link dropdown-toggle" href="" id="drop_down04" data-toggle="dropdown"
-							   aria-haspopup="true" aria-expanded="false">Category</a>
-							<div class="dropdown-menu p-4" aria-labelledby="dropdown04">
-								<div class="row">
-									<div class="col-md-3" >
-										<div th:each = "category: ${listCategory}">
-											<a class="dropdown-item" th:href="@{/shop/category/{idCategory}(idCategory=${category.categoryId})}" th:text="${category.categoryName}" style="color: black"></a>
+<!--						<li class="nav-item dropdown position-static">-->
+<!--							<a class="nav-link dropdown-toggle" href="" id="drop_down04" data-toggle="dropdown"-->
+<!--							   aria-haspopup="true" aria-expanded="false">Category</a>-->
+<!--							<div class="dropdown-menu p-4" aria-labelledby="dropdown04">-->
+<!--								<div class="row">-->
+<!--									<div class="col-md-3" >-->
+<!--										<div th:each = "category: ${listCategory}">-->
+<!--											<a class="dropdown-item" th:href="@{/shop/category/{idCategory}(idCategory=${category.categoryId})}" th:text="${category.categoryName}" style="color: black"></a>-->
 
-										</div>
+<!--										</div>-->
 
-									</div>
-								</div>
-							</div>
-						</li>
+<!--									</div>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</li>-->
 
 						<li class="nav-item dropdown position-static">
 							<a class="nav-link dropdown-toggle" href="" id="drop_down04" data-toggle="dropdown"
@@ -142,12 +142,12 @@
 			<div class="row">
                 <div class="col-md-12">
                     <div class="product-filters" >
-						<ul style="display: flex; justify-content: center">
-								<li th:each = "category: ${listCategory}" th:data-filter="'.' + ${category.categoryName}">
-									<a th:href="@{/shop/category/{idCategory}(idCategory=${category.categoryId})}" th:text="${category.categoryName}" style="color: black"></a>
-								</li>
+<!--						<ul style="display: flex; justify-content: center">-->
+<!--								<li th:each = "category: ${listCategory}" th:data-filter="'.' + ${category.categoryName}">-->
+<!--									<a th:href="@{/shop/category/{idCategory}(idCategory=${category.categoryId})}" th:text="${category.categoryName}" style="color: black"></a>-->
+<!--								</li>-->
 
-						</ul>
+<!--						</ul>-->
                         <ul style="display: flex; justify-content: center">
                             <li data-filter="*" th:href="@{/shop}">All</li>
 								<li th:each = "brand: ${listBrand}" th:data-filter="'.' + ${brand.brandName}">
@@ -173,17 +173,17 @@
 
 				</div>
 
-				<div th:each = "access: ${listA}"  class="col-lg-4 col-md-6 text-center ">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a th:href="@{/single-access/{id}(id=${access.accessoryId})}"><img th:src="@{${access.picture.main}}" alt=""></a>
-						</div>
-						<h3 th:text = "${access.accessoryName}"></h3>
-						<p class="product-price" th:text ="${access.price} + '$'"></p>
-						<a th:href="@{/cart/accessory/{id}(id=${access.accessoryId})}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
+<!--				<div th:each = "access: ${listA}"  class="col-lg-4 col-md-6 text-center ">-->
+<!--					<div class="single-product-item">-->
+<!--						<div class="product-image">-->
+<!--							<a th:href="@{/single-access/{id}(id=${access.accessoryId})}"><img th:src="@{${access.picture.main}}" alt=""></a>-->
+<!--						</div>-->
+<!--						<h3 th:text = "${access.accessoryName}"></h3>-->
+<!--						<p class="product-price" th:text ="${access.price} + '$'"></p>-->
+<!--						<a th:href="@{/cart/accessory/{id}(id=${access.accessoryId})}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>-->
+<!--					</div>-->
 
-				</div>
+<!--				</div>-->
 
 			</div>
 			<div class="row">

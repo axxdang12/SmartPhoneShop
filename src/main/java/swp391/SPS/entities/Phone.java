@@ -52,9 +52,9 @@ public class Phone {
   @Column(name = "release_date")
   private LocalDate releaseDate;
 
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "category_id", referencedColumnName = "category_id")
-  private Category category;
+//  @ManyToOne(fetch = FetchType.EAGER)
+//  @JoinColumn(name = "category_id", referencedColumnName = "category_id")
+//  private Category category;
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "brand_id", referencedColumnName = "brand_id")
@@ -75,7 +75,7 @@ public class Phone {
 
 
 
-  public Phone createPhone(String productName, double price, String cpu, int ram, double memory, double display, double camera, String origin, String sim, LocalDate releaseDate, Category category, Brand brand, Picture picture) {
+  public Phone createPhone(String productName, double price, String cpu, int ram, double memory, double display, double camera, String origin, String sim, LocalDate releaseDate, Brand brand, Picture picture) {
     return Phone.builder()
             .productName(productName)
             .price(price)
@@ -87,7 +87,6 @@ public class Phone {
             .origin(origin)
             .sim(sim)
             .releaseDate(releaseDate)
-            .category(category)
             .brand(brand)
             .picture(picture)
             .build();

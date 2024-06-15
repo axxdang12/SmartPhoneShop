@@ -1,7 +1,7 @@
 package swp391.SPS.services.impls;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import swp391.SPS.entities.Accessory;
+//import swp391.SPS.entities.Accessory;
 import swp391.SPS.entities.Cart;
 import swp391.SPS.entities.Phone;
 import swp391.SPS.repositories.CartRepository;
@@ -21,10 +21,10 @@ public class CartServiceImpl implements CartService {
         return cartRepository.findPhonesByCartId(id);
     }
 
-    @Override
-    public List<Accessory> getAccessoryByCartId(int id) {
-        return  cartRepository.findAccessoryByCartId(id);
-    }
+//    @Override
+//    public List<Accessory> getAccessoryByCartId(int id) {
+//        return  cartRepository.findAccessoryByCartId(id);
+//    }
 
     @Override
     public Cart getCart(int userId) {
@@ -36,20 +36,20 @@ public class CartServiceImpl implements CartService {
         cartRepository.deletePhoneFromCart(cartId, phoneId);
     }
 
-    @Override
-    public void removeAccessoryFromCart(int id, int aId) {
-    cartRepository.deleteAccessoryFromCart(id, aId);
-    }
+//    @Override
+//    public void removeAccessoryFromCart(int id, int aId) {
+//    cartRepository.deleteAccessoryFromCart(id, aId);
+//    }
 
     @Override
     public void addPhoneFromCart(int id, int phoneId) {
         cartRepository.InsertPhoneFromCart(id,phoneId);
     }
 
-    @Override
-    public void addAccessoryFromCart(int id, int aId) {
-        cartRepository.InsertAccessoryFromCart(id,aId);
-    }
+//    @Override
+//    public void addAccessoryFromCart(int id, int aId) {
+//        cartRepository.InsertAccessoryFromCart(id,aId);
+//    }
 
 
 }

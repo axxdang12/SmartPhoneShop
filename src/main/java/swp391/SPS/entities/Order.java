@@ -38,10 +38,10 @@ public class Order {
       inverseJoinColumns = @JoinColumn(name = "phone_id"))
   private List<Phone> phones;
 
-  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  @JoinTable(
-      name = "OrderAccessory",
-      joinColumns = @JoinColumn(name = "order_id"),
-      inverseJoinColumns = @JoinColumn(name = "accessory_id"))
-  private List<Accessory> accessories;
+//  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//  @JoinTable(
+//      name = "OrderAccessory",
+//      joinColumns = @JoinColumn(name = "order_id"),
+//      inverseJoinColumns = @JoinColumn(name = "accessory_id"))
+//  private List<Accessory> accessories;
 }

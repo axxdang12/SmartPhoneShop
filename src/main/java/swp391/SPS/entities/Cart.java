@@ -23,6 +23,9 @@ public class Cart {
   @Column(name = "quantity")
   private int quantity;
 
+  @Column(name = "total")
+  private int total;
+
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinTable(
       name = "CartPhone",
@@ -31,11 +34,11 @@ public class Cart {
   @Nullable
   private List<Phone> phones;
 
-  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  @JoinTable(
-      name = "CartAccessory",
-      joinColumns = @JoinColumn(name = "cart_id"),
-      inverseJoinColumns = @JoinColumn(name = "accessory_id"))
-  @Nullable
-  private List<Accessory> accessories;
+//  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//  @JoinTable(
+//      name = "CartAccessory",
+//      joinColumns = @JoinColumn(name = "cart_id"),
+//      inverseJoinColumns = @JoinColumn(name = "accessory_id"))
+//  @Nullable
+//  private List<Accessory> accessories;
 }

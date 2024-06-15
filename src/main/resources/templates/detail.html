@@ -62,24 +62,18 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="table-body-row">
-									<td class="product-image"><img src="assets/img/products/iphone-15-pro-max-blue-thumbnew.jpg" alt=""></td>
-									<td class="product-name">iPhone 15 Pro Max</td>
-									<td class="product-price">29.590.000₫</td>
-									<td class="product-total">1</td>
+								<tr class="table-body-row" th:each="orderP: ${listPByO}">
+									<td class="product-image"><img th:src="@{${orderP.picture.main}}" alt=""></td>
+									<td class="product-name" th:text="${orderP.productName}"></td>
+									<td class="product-price" th:text ="${orderP.price} + '$'"></td>
+									<td class="product-total">100$</td>
 								</tr>
-								<tr class="table-body-row">
-									<td class="product-image"><img src="assets/img/products/samsung-galaxy-s23-ultra-green-thumbnew.jpg" alt=""></td>
-									<td class="product-name">Samsung Galaxy S23 Ultra 5G</td>
-									<td class="product-price">21.990.000₫</td>
-									<td class="product-total">1</td>
-								</tr>
-								<tr class="table-body-row">
-									<td class="product-image"><img src="assets/img/products/xiaomi-redmi-note-13-gold-thumb.jpg" alt=""></td>
-									<td class="product-name">Xiaomi Redmi Note 13</td>
-									<td class="product-price">4.990.000₫</td>
-									<td class="product-total">1</td>
-								</tr>
+<!--								<tr class="table-body-row">-->
+<!--									<td class="product-image"><img src="assets/img/products/samsung-galaxy-s23-ultra-green-thumbnew.jpg" alt=""></td>-->
+<!--									<td class="product-name">Samsung Galaxy S23 Ultra 5G</td>-->
+<!--									<td class="product-price">21.990.000₫</td>-->
+<!--									<td class="product-total">1</td>-->
+<!--								</tr>-->
 							</tbody>
 						</table>
 					</div>
