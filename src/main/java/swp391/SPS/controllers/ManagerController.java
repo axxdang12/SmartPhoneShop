@@ -13,11 +13,18 @@ public class ManagerController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/manager")
+    @GetMapping("/managerpppp")
     public String viewOrderList(Model model){
         model.addAttribute("orderList", orderService.getAllOrder());
         return "manager";
     }
+
+    @GetMapping("/manager")
+    public String viewPList(Model model){
+
+        return "manageProduct";
+    }
+
 
 
 }
