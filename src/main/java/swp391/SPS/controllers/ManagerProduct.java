@@ -32,13 +32,13 @@ public class ManagerProduct {
 
 
 
-    @GetMapping("/products")
+    @GetMapping("/manageProduct")
     public String viewProduct(Model model){
         model.addAttribute("listBrand", brandService.findAllBrand());
 //        model.addAttribute("listCategory", categoryService.findAllCategory());
         model.addAttribute("listPhone", phoneService.findAllPhone());
 //        model.addAttribute("listA", accessService.findAllAccess());
-        return"products";
+        return"manageProduct";
     }
     @GetMapping("/add-product")
     public String addP(Model model){

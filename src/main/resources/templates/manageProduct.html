@@ -22,11 +22,11 @@
                     <h2>Manage <b>Proucts</b></h2>
                 </div>
                 <div class="col-sm-6" >
-                    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
+                    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New PProduct</span></a>
 
 
 
-                    <form id="searchForm" action="searchEndpoint" method="GET" class="input-group" style="display: flex">
+                    <form id="searchForm" action="searchEndpoint" method="POST" class="input-group" style="display: flex">
                         <input type="text" class="form-control" name="searchQuery" placeholder="Search..." required>
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-danger" style="height: 34px;  width: 0px;">
@@ -46,21 +46,19 @@
                     ID
                 </th>
                 <th>Name</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Phone</th>
+                <th>Brand</th>
+                <th>Origin</th>
+                <th>Price</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>
-
-                </td>
-                <td>Thomas Hardy</td>
-                <td>thomashardy@mail.com</td>
-                <td>89 Chiaroscuro Rd, Portland, USA</td>
-                <td>(171) 555-2222</td>
+            <tr th:each = "phone: ${listPhone}">
+                <td th:text = "${phone.phoneId}"></td>
+                <td th:text = "${phone.productName}"></td>
+                <td th:text ="${phone.Brand.brandName}"></td>
+                <td th:text ="${phone.origin}"></td>
+                <td th:text ="${phone.price} + '$'"></td>
                 <td>
                     <form id="editForm" th:action="@{/edit}" method="POST">
                         <a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="submitForm(event)">
@@ -98,25 +96,67 @@
         <div class="modal-content">
             <form>
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Employee</h4>
+                    <h4 class="modal-title">Add Product</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" required>
+                        <input name="name" type="text" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" class="form-control" required>
+                        <label>Price</label>
+                        <input name="price" type="number" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Address</label>
-                        <textarea class="form-control" required></textarea>
+                        <label>CPU</label>
+                        <input name="cpu" type="text" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Phone</label>
-                        <input type="text" class="form-control" required>
+                        <label>Origin</label>
+                        <input name="origin" type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Sim</label>
+                        <input name="sim" type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input name="date" type="date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Camera</label>
+                        <input name="camera" type="number" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Display</label>
+                        <input name="dis" type="number" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label >Brand</label>
+                        <select name="brand" class="form-control" required>
+
+                            <option th:each="brand : ${listBrand}"
+                                    th:value="${brand.brandId}"
+                                    th:text="${brand.brandName}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label >Ram</label>
+                        <select name="ram" class="form-control" required>
+                            <option value="8">8GB</option>
+                            <option value="16">16GB</option>
+                            <option value="32">32GB</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Memory</label>
+                        <select name="memory" class="form-control" required>
+                            <option value="128">128GB</option>
+                            <option value="256">256GB</option>
+                            <option value="512">512GB</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -133,7 +173,7 @@
         <div class="modal-content">
             <form>
                 <div class="modal-header">
-                    <h4 class="modal-title">Edit Employee</h4>
+                    <h4 class="modal-title">Edit Product</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -168,7 +208,7 @@
         <div class="modal-content">
             <form>
                 <div class="modal-header">
-                    <h4 class="modal-title">Delete Employee</h4>
+                    <h4 class="modal-title">Delete Product</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
