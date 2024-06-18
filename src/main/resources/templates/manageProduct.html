@@ -73,7 +73,8 @@
 
 
 
-                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                    <a href="#" class="delete" data-toggle="modal" data-target="#deleteEmployeeModal" th:data-id="${phone.phoneId}">
+                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 
 
                 </td>
@@ -294,6 +295,54 @@
 </body>
 <script>
 
+        // Khi form được submit
+    $('#addEmployeeModal').on('submit', function() {
+
+
+    // Thu thập dữ liệu từ các trường input
+    var productData = {
+
+       productName: $('#name').val(),
+       price: $('#price').val(),
+       cpu: $('#cpu').val(),
+       origin: $('#origin').val(),
+       sim: $('#sim').val(),
+       releaseDate: $('#date').val(),
+       camera: $('#camera').val(),
+       display: $('#dis').val(),
+       ram: $('#ram').val(),
+       memory: $('#memory').val(),
+       brandId: $('#brand').val(),
+       pm: $('#pm'),
+       pf:  $('#pm'),
+       pb:  $('#pb'),
+       ps:  $('#ps')
+    };
+
+    // Gửi yêu cầu Ajax tới server để cập nhật sản phẩm
+    $.ajax({
+       url: '/api/add-product', // URL endpoint để them sản phẩm
+       type: 'POST',
+       contentType: 'application/json',
+       data: JSON.stringify(productData),
+       success: function(response) {
+           // Xử lý khi cập nhật thành công
+           console.log("Product added successfully:", response);
+
+           // Ẩn modal sau khi cập nhật thành công
+           $('#addEmployeeModal').modal('hide');
+
+           // Cập nhật danh sách sản phẩm (có thể tải lại trang hoặc cập nhật DOM)
+           // location.reload(); // Hoặc cập nhật DOM tùy thuộc vào yêu cầu cụ thể
+       },
+       error: function(error) {
+           console.log("Error adding product: ", error);
+       }
+    });
+    });
+
+
+
     // Activate tooltip
     $('[data-toggle="tooltip"]').tooltip();
 
@@ -341,7 +390,7 @@
             }
         });
     });
-;
+
 
 // Khi form được submit
 $('#editProductForm').on('submit', function(event) {
@@ -385,45 +434,31 @@ $.ajax({
 });
 });
 
-    $('#editProductForm').on('submit', function(event) {
-event.preventDefault();
+  // Khi nút "Delete" được nhấn
+$('.delete').on('click', function() {
+    var phoneId = $(this).data('id');
+     event.stopPropagation();
+    // Hiển thị pop up delete
+    $('#deleteEmployeeModal').modal('show');
 
-// Thu thập dữ liệu từ các trường input
-var productData = {
-   phoneId: $('#editProductId').val(),
-   productName: $('#editProductName').val(),
-   price: $('#editProductPrice').val(),
-   cpu: $('#editProductCPU').val(),
-   origin: $('#editProductOrigin').val(),
-   sim: $('#editProductSim').val(),
-   releaseDate: $('#editProductDate').val(),
-   camera: $('#editProductCamera').val(),
-   display: $('#editProductDisplay').val(),
-   ram: $('#editProductRam').val(),
-   memory: $('#editProductMemory').val(),
-   brandId: $('#editProductBrand').val()
-};
+    // Khi nút "Delete" trong pop up được nhấn
+    $('#deleteEmployeeModal').on('click', function(event) {
 
-// Gửi yêu cầu Ajax tới server để cập nhật sản phẩm
-$.ajax({
-   url: '/api/update-product', // URL endpoint để cập nhật sản phẩm
-   type: 'POST',
-   contentType: 'application/json',
-   data: JSON.stringify(productData),
-   success: function(response) {
-       // Xử lý khi cập nhật thành công
-       console.log("Product updated successfully:", response);
 
-       // Ẩn modal sau khi cập nhật thành công
-       $('#editEmployeeModal').modal('hide');
-
-       // Cập nhật danh sách sản phẩm (có thể tải lại trang hoặc cập nhật DOM)
-       // location.reload(); // Hoặc cập nhật DOM tùy thuộc vào yêu cầu cụ thể
-   },
-   error: function(error) {
-       console.log("Error updating product: ", error);
-   }
-});
+        // Gửi yêu cầu Ajax tới server để xóa sản phẩm
+        $.ajax({
+            url: '/api/delete-product',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ id: phoneId }),
+            success: function(response) {
+                // Xử lí sau khi xóa thành công, ví dụ: load lại trang hoặc làm gì đó khác
+            },
+            error: function(error) {
+                console.log("Error deleting product: ", error);
+            }
+        });
+    });
 });
 
 
