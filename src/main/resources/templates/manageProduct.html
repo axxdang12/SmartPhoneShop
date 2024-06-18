@@ -9,8 +9,14 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="path/to/jquery.min.js"></script>
+
     <link rel="stylesheet"  th:href="@{/css/styleee.css}">
 
 <body>
@@ -60,12 +66,12 @@
                 <td th:text ="${phone.origin}"></td>
                 <td th:text ="${phone.price} + '$'"></td>
                 <td>
-                    <form id="editForm" th:action="@{/edit}" method="POST">
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal" onclick="submitForm(event)">
+
+                        <a href="#" class="edit" data-toggle="modal" data-target="#editEmployeeModal" th:data-id="${phone.phoneId}" >
                             <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                         </a>
-                        <input type="hidden" id="hiddenPhoneId" name="phoneId" value="">
-                    </form>
+
+
 
                     <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 
@@ -100,41 +106,45 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
+                    <div class="form-group" hidden="hidden">
+                        <label>Id</label>
+                        <input name="name" id="id" type="text" class="form-control" required>
+                    </div>
                     <div class="form-group">
                         <label>Name</label>
-                        <input name="name" type="text" class="form-control" required>
+                        <input name="name" id="name" type="text" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Price</label>
-                        <input name="price" type="number" class="form-control" required>
+                        <input name="price" id="price" type="number" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>CPU</label>
-                        <input name="cpu" type="text" class="form-control" required>
+                        <input name="cpu" id="cpu" type="text" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Origin</label>
-                        <input name="origin" type="text" class="form-control" required>
+                        <input name="origin" id="origin" type="text" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Sim</label>
-                        <input name="sim" type="text" class="form-control" required>
+                        <input name="sim" id="sim" type="text" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Date</label>
-                        <input name="date" type="date" class="form-control" required>
+                        <input name="date" id="date" type="date" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Camera</label>
-                        <input name="camera" type="number" class="form-control" required>
+                        <input name="camera" id="camera" type="number" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Display</label>
-                        <input name="dis" type="number" class="form-control" required>
+                        <input name="dis" id="dis" type="number" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label >Brand</label>
-                        <select name="brand" class="form-control" required>
+                        <select name="brand" id="brand" class="form-control" required>
 
                             <option th:each="brand : ${listBrand}"
                                     th:value="${brand.brandId}"
@@ -144,7 +154,7 @@
                     </div>
                     <div class="form-group">
                         <label >Ram</label>
-                        <select name="ram" class="form-control" required>
+                        <select name="ram" id="ram" class="form-control" required>
                             <option value="8">8GB</option>
                             <option value="16">16GB</option>
                             <option value="32">32GB</option>
@@ -152,11 +162,27 @@
                     </div>
                     <div class="form-group">
                         <label>Memory</label>
-                        <select name="memory" class="form-control" required>
+                        <select name="memory" id="memory" class="form-control" required>
                             <option value="128">128GB</option>
                             <option value="256">256GB</option>
                             <option value="512">512GB</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Picture Main</label>
+                        <input name="dis" id="dis" type="number" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Picture Main</label>
+                        <input name="dis" id="dis" type="number" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Picture Main</label>
+                        <input name="dis" id="dis" type="number" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Picture Main</label>
+                        <input name="dis" id="dis" type="number" class="form-control" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -178,20 +204,65 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <label>Id</label>
+                        <input type="text" class="form-control" id="editProductId" required readonly>
+                    </div>
+                    <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" required>
+                        <input type="text" class="form-control" id="editProductName" required>
                     </div>
                     <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" class="form-control" required>
+                        <label>Price</label>
+                        <input type="number" class="form-control" id="editProductPrice" required>
                     </div>
                     <div class="form-group">
-                        <label>Address</label>
-                        <textarea class="form-control" required></textarea>
+                        <label>CPU</label>
+                        <input type="text" class="form-control" id="editProductCPU" required>
                     </div>
                     <div class="form-group">
-                        <label>Phone</label>
-                        <input type="text" class="form-control" required>
+                        <label>Origin</label>
+                        <input type="text" class="form-control" id="editProductOrigin" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Sim</label>
+                        <input type="text" class="form-control" id="editProductSim" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" class="form-control" id="editProductDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Camera</label>
+                        <input type="number" class="form-control" id="editProductCamera" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Display</label>
+                        <input type="number" class="form-control" id="editProductDisplay" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Brand</label>
+                        <select class="form-control" id="editProductBrand" required>
+                            <option th:each="brand : ${listBrand}"
+                                    th:value="${brand.brandId}"
+                                    th:text="${brand.brandName}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Ram</label>
+                        <select class="form-control" id="editProductRam" required>
+                            <option value="8">8GB</option>
+                            <option value="16">16GB</option>
+                            <option value="32">32GB</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Memory</label>
+                        <select class="form-control" id="editProductMemory" required>
+                            <option value="128">128GB</option>
+                            <option value="256">256GB</option>
+                            <option value="512">512GB</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -226,51 +297,95 @@
 </body>
 <script>
     $(document).ready(function(){
-	// Activate tooltip
-	$('[data-toggle="tooltip"]').tooltip();
+         // Activate tooltip
+         $('[data-toggle="tooltip"]').tooltip();
 
-	// Select/Deselect checkboxes
-	var checkbox = $('table tbody input[type="checkbox"]');
-	$("#selectAll").click(function(){
-		if(this.checked){
-			checkbox.each(function(){
-				this.checked = true;
-			});
-		} else{
-			checkbox.each(function(){
-				this.checked = false;
-			});
-		}
-	});
-	checkbox.click(function(){
-		if(!this.checked){
-			$("#selectAll").prop("checked", false);
-		}
-	});
-});
+         // Khi nút "Edit" được nhấn
+         $('.edit').on('click', function() {
+             var phoneId = $(this).data('id');
 
- function submitForm(event) {
-            event.preventDefault();
-            const form = document.getElementById('editForm');
-            const formData = new FormData(form);
+             // Gửi yêu cầu Ajax tới server để lấy dữ liệu
+             $.ajax({
+                 url: '/api/edit-product',
+                 type: 'POST',
+                 contentType: 'application/json',
+                 data: JSON.stringify({ id: phoneId }),
+                 success: function(response) {
+                  var phone = response.phone;
+                   var listBrand = response.listBrand;
+                     // Điền dữ liệu vào các trường trong popup
+                      $('#editProductId').val(phone.phoneId);
+                     $('#editProductName').val(phone.productName);
+                     $('#editProductPrice').val(phone.price);
+                     $('#editProductCPU').val(phone.cpu);
+                     $('#editProductOrigin').val(phone.origin);
+                     $('#editProductSim').val(phone.sim);
+                     $('#editProductDate').val(phone.releaseDate);
+                     $('#editProductCamera').val(phone.camera);
+                     $('#editProductDisplay').val(phone.display);
 
-            $.ajax({
-                url: form.action,
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    // Assuming the response contains the necessary data
-                    // Update the modal fields with the response data if needed
-                    // Then, programmatically open the modal
-                    $('#editEmployeeModal').modal('show');
-                },
-                error: function(error) {
-                    console.error('Form submission error:', error);
-                }
-            });
+                     $('#editProductRam').val(phone.ram);
+                     $('#editProductMemory').val(phone.memory);
+
+                     $('#editProductBrand').empty();
+
+                        // Duyệt qua danh sách listBrand và thêm các tùy chọn vào select box
+                     $.each(listBrand, function(index, brand) {
+                         $('#editProductBrand').append('<option  th:value="${' + brand.brandId + '}" th:text="${' + brand.brandName + '}"></option>');
+                        });
+
+                        // Đặt giá trị cho select box <là></là> brandId của thương hiệu tương ứng với sản phẩm
+                         $('#editProductBrand').val(phone.brand.brandName);
+                     // Hiển thị popup
+                     $('#editEmployeeModal').modal('show');
+                 },
+                 error: function(error) {
+                     console.log("Error fetching product data: ", error);
+                 }
+             });
+         });
+     });
+
+    // Khi form được submit
+$('#editProductForm').on('submit', function(event) {
+    event.preventDefault();
+
+    // Thu thập dữ liệu từ các trường input
+    var productData = {
+        phoneId: $('#editProductId').val(),
+        productName: $('#editProductName').val(),
+        price: $('#editProductPrice').val(),
+        cpu: $('#editProductCPU').val(),
+        origin: $('#editProductOrigin').val(),
+        sim: $('#editProductSim').val(),
+        releaseDate: $('#editProductDate').val(),
+        camera: $('#editProductCamera').val(),
+        display: $('#editProductDisplay').val(),
+        ram: $('#editProductRam').val(),
+        memory: $('#editProductMemory').val(),
+        brandId: $('#editProductBrand').val()
+    };
+
+    // Gửi yêu cầu Ajax tới server để cập nhật sản phẩm
+    $.ajax({
+        url: '/api/update-product', // URL endpoint để cập nhật sản phẩm
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(productData),
+        success: function(response) {
+            // Xử lý khi cập nhật thành công
+            console.log("Product updated successfully:", response);
+
+            // Ẩn modal sau khi cập nhật thành công
+            $('#editEmployeeModal').modal('hide');
+
+            // Cập nhật danh sách sản phẩm (có thể tải lại trang hoặc cập nhật DOM)
+            // location.reload(); // Hoặc cập nhật DOM tùy thuộc vào yêu cầu cụ thể
+        },
+        error: function(error) {
+            console.log("Error updating product: ", error);
         }
-
+    });
+});
 </script>
 </html>
