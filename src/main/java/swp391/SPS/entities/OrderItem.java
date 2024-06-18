@@ -4,24 +4,24 @@ import lombok.*;
 
 
 @Entity
-@Table(name = "cartItem")
+@Table(name = "orderItem")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
 
-public class CartItem {
+public class OrderItem {
     @Id
-    @Column(name = "cartItem_id")
+    @Column(name = "orderItem_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int cartItemId;
+    private int orderItemId;
 
     @Column(name = "quantity")
     private int quantity;
 
     @Column(name = "total")
-    private double total;
+    private int total;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id", referencedColumnName = "cart_id")
@@ -31,8 +31,4 @@ public class CartItem {
     @JoinColumn(name = "phone_id", referencedColumnName = "phone_id")
     private Phone phone;
 
-    @Transient
-    public double getTotalPrice() {
-        return this.quantity * phone.getPrice();
-    }
 }

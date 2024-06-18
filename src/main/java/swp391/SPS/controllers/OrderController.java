@@ -50,7 +50,7 @@ public class OrderController {
         }
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
-        model.addAttribute("listPByO", orderService.getProductByOrderId(id));
+//        model.addAttribute("listPByO", orderService.getProductByOrderId(id));
 //        model.addAttribute("listAByO", orderService.getAccessoryByOrderId(id));
         return "detail";
     }

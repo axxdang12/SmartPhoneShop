@@ -31,17 +31,8 @@ public class Order {
   @JoinColumn(name = "user_id", referencedColumnName = "user_id")
   private User user;
 
-  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  @JoinTable(
-      name = "OrderPhone",
-      joinColumns = @JoinColumn(name = "order_id"),
-      inverseJoinColumns = @JoinColumn(name = "phone_id"))
-  private List<Phone> phones;
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "cart_id", referencedColumnName = "cart_id")
+  private Cart cart;
 
-//  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//  @JoinTable(
-//      name = "OrderAccessory",
-//      joinColumns = @JoinColumn(name = "order_id"),
-//      inverseJoinColumns = @JoinColumn(name = "accessory_id"))
-//  private List<Accessory> accessories;
 }

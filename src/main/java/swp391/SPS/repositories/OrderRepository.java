@@ -23,13 +23,13 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
     @Query(value = "SELECT * FROM ordertb WHERE ordertb.user_id = :userId" , nativeQuery = true)
     List<Order> getOrderByUserId(@Param("userId") int userId);
 
-    @Modifying
-    @Transactional
-    @Query(value = "select * from order_phone where order_id= :order_id" , nativeQuery = true)
-    List<Order> getOrderPhoneById(@Param("order_id") int order_id);
-
-    @Query("SELECT p FROM Order o JOIN o.phones p WHERE o.orderId = :orderId")
-    List<Phone> findPhonesByOrderId(@Param("orderId") int orderId);
+//    @Modifying
+//    @Transactional
+//    @Query(value = "select * from order_phone where order_id= :order_id" , nativeQuery = true)
+//    List<Order> getOrderPhoneById(@Param("order_id") int order_id);
+//
+//    @Query("SELECT p FROM Order o JOIN o.phones p WHERE o.orderId = :orderId")
+//    List<Phone> findPhonesByOrderId(@Param("orderId") int orderId);
 
 //    @Query("SELECT a FROM Order o JOIN o.accessories a WHERE o.orderId = :orderId")
 //    List<Accessory> findAccessoryByOrderId(@Param("orderId") int orderId);

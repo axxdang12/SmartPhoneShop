@@ -9,6 +9,5 @@ import java.util.List;
 public interface    OrderService {
     List<Order> getAllOrder();
     List<Order> ListOrderByUserId(int id);
-    List<Phone> getProductByOrderId(int id);
-//    List<Accessory> getAccessoryByOrderId(int id);
+//    List<Phone> getProductByOrderId(int id);
 }

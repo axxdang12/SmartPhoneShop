@@ -25,10 +25,10 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.getOrderByUserId(id);
     }
 
-    @Override
-    public List<Phone> getProductByOrderId(int id) {
-        return orderRepository.findPhonesByOrderId(id);
-    }
+//    @Override
+//    public List<Phone> getProductByOrderId(int id) {
+//        return orderRepository.findPhonesByOrderId(id);
+//    }
 
 //    @Override
 //    public List<Accessory> getAccessoryByOrderId(int id) {

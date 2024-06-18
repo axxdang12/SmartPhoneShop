@@ -1,21 +1,14 @@
 package swp391.SPS.services;
 
+import swp391.SPS.entities.Cart;
 import swp391.SPS.entities.CartItem;
+import swp391.SPS.entities.Phone;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface CartItemService {
-    void add(CartItem item);
-
-    void remove(int id);
-
-    CartItem update(int productId, int quality);
-
-    void clear();
-
-    Collection<CartItem> getAllItems();
-
-    int getCount();
-
-    double getAmmount();
+    void removePhoneFromCart(String userName,int cartId, int phoneId);
+    void addPhoneToCart(String userName, int phoneId);
+    void updatePhoneQuantity(String userName,int cartId, int phoneId, int quantity);
 }

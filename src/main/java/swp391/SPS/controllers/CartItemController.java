@@ -1,17 +1,17 @@
 package swp391.SPS.controllers;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import swp391.SPS.entities.CartItem;
-import swp391.SPS.entities.Phone;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import swp391.SPS.entities.Cart;
 import swp391.SPS.services.CartItemService;
+import swp391.SPS.services.CartService;
 import swp391.SPS.services.PhoneService;
+import swp391.SPS.services.UserService;
 
 
 @Controller
@@ -21,41 +21,56 @@ public class CartItemController {
     PhoneService phoneService;
     @Autowired
     CartItemService cartItemService;
+    @Autowired
+    CartService cartService;
+    @Autowired
+    UserService userService;
 
-    @GetMapping("/cart")
-    public String shop(Model model) {
+        @GetMapping("/cart/delete-phone/{id}")
+    public String deletePhone(@PathVariable("id") int id, Model model, RedirectAttributes redirectAttributes){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
             return "cart";
         }
-        model.addAttribute("cartItem",cartItemService.getAllItems());
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
-        return "cart";
+        Cart cart= cartService.getCart(userService.getUserId(authentication.getName()));
+        cartItemService.removePhoneFromCart(authentication.getName(), cart.getCartId(),id);
+        model.addAttribute("cartTotal", cart.getTotal());
+        model.addAttribute("listPByC", cart.getItems());
+        return "redirect:/cart";
     }
 
-    @GetMapping("/cart/add/{id}")
-    public String addCart(@PathVariable("id") int id, Model model){
+        @GetMapping("/cart/phone/{id}")
+    public String addPhoneToCart(@PathVariable("id") int id, Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
             return "cart";
         }
-        Phone phone=phoneService.getPhoneByID(id);
-        if (phone!=null){
-            CartItem cartItem=new CartItem();
-            cartItem.setProductId(phone.getPhoneId());
-            cartItem.setPicture(phone.getPicture().getMain());
-            cartItem.setName(phone.getProductName());
-            cartItem.setPrice(phone.getPrice());
-            cartItem.setQuantity(1);
-            cartItemService.add(cartItem);
-        }
-        model.addAttribute("cartItem",cartItemService.getAllItems());
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
-        return "cart";
+        cartItemService.addPhoneToCart(authentication.getName(),id);
+        Cart cart= cartService.getCart(userService.getUserId(authentication.getName()));
+        model.addAttribute("listPByC", cart.getItems());
+        model.addAttribute("cartTotal", cart.getTotal());
+            return "redirect:/shop";
     }
 
+    @PostMapping("/cart/update-quantity/{id}")
+    public String updateQuantity(@PathVariable("id") int id, @RequestParam("quantity") int quantity, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("isLogin", false);
+            return "cart";
+        }
+        model.addAttribute("isLogin", true);
+        model.addAttribute("username", authentication.getName());
+        Cart cart= cartService.getCart(userService.getUserId(authentication.getName()));
+        cartItemService.updatePhoneQuantity(authentication.getName(), cart.getCartId(), id, quantity);
+        model.addAttribute("listPByC", cart.getItems());
+        model.addAttribute("cartTotal", cart.getTotal());
+        return "redirect:/cart";
+    }
 }

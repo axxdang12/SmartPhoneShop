@@ -23,10 +23,7 @@ public class ManagerProduct {
     BrandService brandService;
     @Autowired
     PhoneService phoneService;
-//    @Autowired
-//    CategoryService categoryService;
-//    @Autowired
-//    AccessService accessService;
+
     @Autowired
     PictureService pictureService;
 
@@ -93,12 +90,6 @@ public class ManagerProduct {
         RedirectAttributes redirectAttributes;
         return "redirect:/products";
     }
-
-
-//    @GetMapping("/edit-access")
-//    public String viewEditA(){
-//        return "edit-access";
-//    }
 
 
     @GetMapping("/add-brand")
