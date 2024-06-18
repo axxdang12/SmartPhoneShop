@@ -149,7 +149,9 @@ public class ManagerProduct {
         Phone phone = new Phone();
         phone = phone.createPhone(productName,(double)price,cpu,ram,(double)memory,(double)dis,(double)camera,origin,sim, date.toLocalDate(),b,picture);
         phoneService.addPhone(phone);
-        return"add-product";
+        model.addAttribute("listBrand", brandService.findAllBrand());
+        model.addAttribute("listPhone", phoneService.findAllPhone());
+        return"manageProduct";
     }
 
 
