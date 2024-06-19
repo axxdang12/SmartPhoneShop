@@ -16,8 +16,4 @@ public interface PhoneRepository extends JpaRepository<Phone, Integer> {
     @Query(value = "SELECT * FROM phone WHERE product_name LIKE %:name%", nativeQuery = true)
     List<Phone> SearchProduct(@Param("name") String name);
 
-
-
-
-
 }

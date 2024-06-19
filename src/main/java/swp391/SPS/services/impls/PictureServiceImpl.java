@@ -1,11 +1,8 @@
 package swp391.SPS.services.impls;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import swp391.SPS.entities.Category;
 import swp391.SPS.entities.Picture;
-import swp391.SPS.repositories.CategoryRepository;
 import swp391.SPS.repositories.PictureRepository;
-import swp391.SPS.services.CategoryService;
 import swp391.SPS.services.PictureService;
 
 import java.util.List;

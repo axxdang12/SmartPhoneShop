@@ -5,7 +5,9 @@ import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "cart")
@@ -20,22 +22,15 @@ public class Cart {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int cartId;
 
+  @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<CartItem> items;
+
+  @Column(name = "total")
+  private double total;
+
   @Column(name = "quantity")
   private int quantity;
 
-  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  @JoinTable(
-      name = "CartPhone",
-      joinColumns = @JoinColumn(name = "cart_id"),
-      inverseJoinColumns = @JoinColumn(name = "phone_id"))
-  @Nullable
-  private List<Phone> phones;
-
-  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  @JoinTable(
-      name = "CartAccessory",
-      joinColumns = @JoinColumn(name = "cart_id"),
-      inverseJoinColumns = @JoinColumn(name = "accessory_id"))
-  @Nullable
-  private List<Accessory> accessories;
+//  @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//  private List<Order> orders;
 }

@@ -32,7 +32,9 @@
     <!-- responsive -->
     <link rel="stylesheet" th:href="@{/css/responsive.css}">
 
+<!--
     <link rel="stylesheet" th:href="@{/css/style.css}">
+-->
 </head>
 
 <!--loader-->
@@ -65,7 +67,6 @@
                             <li><a th:href="@{/about}">About</a></li>
                             <li><a th:href="@{/shop}">Shop</a>
                                 <ul class="sub-menu">
-                                    <li><a th:href="@{/checkout}">Check Out</a></li>
                                     <li><a th:href="@{/cart}">Cart</a></li>
                                 </ul>
                             </li>
@@ -73,7 +74,7 @@
                             </li>
                             <li><a th:if="${isLogin == false}" th:href="@{/register}">Signup</a>
                             </li>
-                            <li><a th:if="${isLogin == true}" th:href="@{/logout}">Signup</a>
+                            <li><a th:if="${isLogin == true}" th:href="@{/logout}">Logout</a>
                             </li>
                             <li><a th:if="${isLogin == true}" th:text="'Hello '+ ${username}" th:href="@{/profile}"></a>
                             </li>
@@ -83,12 +84,10 @@
                                                                                      th:src="@{/images/icon/cart.png}"></a>
                                     <a class="mobile-hide search-bar-icon" href="#"><img class="imgIcon"
                                                                                          th:src="@{/images/icon/search.png}"></a>
-                                    <a th:if="${isLogin == true}" class="account-icon" th:text="${username}"
-                                       th:href="@{/profile}"><img class="imgIcon" th:src="@{/images/icon/profile.png}"></a>
                                     <a th:if="${isLogin == true}" th:href="@{/userorder}"><img class="imgIcon"
                                                                                                th:src="@{/images/icon/order.png}"></a>
-                                    <a th:if="${isLogin == true}" th:href="@{/logout}"><img class="imgIcon"
-                                                                                            th:src="@{/images/icon/logout.png}"></a>
+<!--                                    <a th:if="${isLogin == true}" th:href="@{/logout}"><img class="imgIcon"-->
+<!--                                                                                            th:src="@{/images/icon/logout.png}"></a>-->
                                 </div>
                             </li>
                         </ul>
@@ -127,10 +126,10 @@
                 <div class="footer-box pages">
                     <h2 class="widget-title">Pages</h2>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="checkout.html">Checkout</a></li>
-                        <li><a href="shop.html">Shop</a></li>
+                        <li><a th:href="@{/}">Home</a></li>
+                        <li><a th:href="@{/about}">About</a></li>
+                        <li><a th:href="@{/checkout}">Checkout</a></li>
+                        <li><a th:href="@{/shop}">Shop</a></li>
                     </ul>
                 </div>
             </div>

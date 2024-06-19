@@ -6,35 +6,32 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swp391.SPS.entities.Cart;
 import swp391.SPS.services.CartService;
 import swp391.SPS.services.UserService;
 
 
 @Controller
-public class CartController {
+public class CheckoutController {
 
     @Autowired
     CartService cartService;
     @Autowired
     UserService userService;
 
-    @GetMapping("/cart")
-    public String shop(Model model) {
+    @GetMapping("/checkout")
+    public String checkout(Model model) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
                 model.addAttribute("isLogin", false);
-                return "cart";
+                return "checkout";
             }
             model.addAttribute("isLogin", true);
             model.addAttribute("username", authentication.getName());
             Cart cart= cartService.getCart(userService.getUserId(authentication.getName()));
             model.addAttribute("listPByC", cart.getItems());
             model.addAttribute("cartTotal", cart.getTotal());
-        return "cart";
+            model.addAttribute("user", userService.findByUsername(authentication.getName()));
+            return "checkout";
         }
 }

@@ -8,33 +8,33 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-//import swp391.SPS.services.AccessService;
-import swp391.SPS.services.PhoneService;
+import swp391.SPS.entities.Order;
+import swp391.SPS.services.OrderItemService;
+import swp391.SPS.services.OrderService;
+import swp391.SPS.services.UserService;
 
 @Controller
-public class SingleProductController {
-    @Autowired
-    PhoneService phoneService;
+public class OrderItemController {
 
-    @GetMapping("/single-product/{id}")
-    public String SingleProduct(@PathVariable("id") int id, Model model){
-        model.addAttribute("product",phoneService.getPhoneByID(id));
+    @Autowired
+    private OrderItemService orderItemService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    UserService userService;
+
+    @GetMapping("/detail/{id}")
+    public String detailOrder(@PathVariable("id") int id, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
-            return "single-product";
+            return "detail";
         }
+//        Order order=orderService.
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
-        return "single-product";
+        model.addAttribute("listItemByO", orderItemService.listOrderItemByOrderId(id));
+        model.addAttribute("orderByOrderId",orderService.getOrder(id));
+        return "detail";
     }
-//    @Autowired
-//    AccessService accessService;
-//
-//    @GetMapping("/single-access/{id}")
-//    public String accessory(@PathVariable("id") int id, Model model){
-//        model.addAttribute("product",accessService.getAccessByID(id));
-//        return "single-access";
-//    }
-
 }
