@@ -29,8 +29,8 @@ public class CRUDproductAjax {
 
     @GetMapping("/api/products")
     public ResponseEntity<List<Phone>> getAllPhones() {
-        List<Phone> phones = phoneService.findAllPhone();
-        return ResponseEntity.ok(phones);
+        List<Phone> phone = phoneService.findAllPhone();
+        return ResponseEntity.ok(phone);
     }
 
     @PostMapping("/api/add-product")
@@ -83,10 +83,10 @@ public class CRUDproductAjax {
 
 
     @PostMapping("/api/edit-product")
-    public ResponseEntity<Map<String, Object>> getPhoneById( @RequestBody Map<String, Integer> request) {
+    public ResponseEntity<Map<String, Object>> getPhoneById( @RequestBody String request) {
 
-        int phoneId = request.get("id");
-        Phone phone = phoneService.getPhoneByID(phoneId);
+
+        Phone phone = phoneService.getPhoneByID((Integer.parseInt(request)));
         if (phone != null) {
             Map<String, Object> response = new HashMap<>();
             response.put("listBrand", brandService.findAllBrand());

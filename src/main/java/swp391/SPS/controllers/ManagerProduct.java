@@ -34,9 +34,9 @@ public class ManagerProduct {
 
     @GetMapping("/manageProduct")
     public String viewProduct(Model model){
-//        model.addAttribute("listBrand", brandService.findAllBrand());
-//
-//        model.addAttribute("listPhone", phoneService.findAllPhone());
+        model.addAttribute("listBrand", brandService.findAllBrand());
+
+        model.addAttribute("listPhone", phoneService.findAllPhone());
 
         return"manageProduct";
     }
@@ -120,39 +120,39 @@ public class ManagerProduct {
     public String editBrand(){
         return "edit-brand";
     }
-//    @PostMapping("/addProduct")
-//    public String addProduct(
-//                             @RequestParam("name") String productName,
-//                             @RequestParam("price") int price,
-//                             @RequestParam("cpu") String cpu,
-//                             @RequestParam("memory") int memory,
-////                             @RequestParam("category") int cate,
-//                             @RequestParam("sim") String sim,
-//                             @RequestParam("ram") int ram,
-//                             @RequestParam("dis") int dis,
-//                             @RequestParam("origin") String origin,
-//                             @RequestParam("brand") int brand,
-//                             @RequestParam("pm") String pm,
-//                             @RequestParam("pf") String pf,
-//                             @RequestParam("pb") String pb,
-//                             @RequestParam("ps") String ps,
-//                             @RequestParam("camera") int camera,
-//                             @RequestParam("date") Date date,
-//                             Model model){
-//
-//        Picture picture = new Picture();
-//        picture = picture.createPicture(pm,pf,pb,ps);
-//        pictureService.addPicture(picture);
-////        Category c = categoryService.getCategory(cate);
-//        Brand b = brandService.getBrand(brand);
-//        picture = pictureService.getPictureById(picture.getPictureId());
-//        Phone phone = new Phone();
-//        phone = phone.createPhone(productName,(double)price,cpu,ram,(double)memory,(double)dis,(double)camera,origin,sim, date.toLocalDate(),b,picture);
-//        phoneService.addPhone(phone);
-//        model.addAttribute("listBrand", brandService.findAllBrand());
-//        model.addAttribute("listPhone", phoneService.findAllPhone());
-//        return"manageProduct";
-//    }
+    @PostMapping("/addProduct")
+    public String addProduct(
+                             @RequestParam("name") String productName,
+                             @RequestParam("price") int price,
+                             @RequestParam("cpu") String cpu,
+                             @RequestParam("memory") int memory,
+//                             @RequestParam("category") int cate,
+                             @RequestParam("sim") String sim,
+                             @RequestParam("ram") int ram,
+                             @RequestParam("dis") int dis,
+                             @RequestParam("origin") String origin,
+                             @RequestParam("brand") int brand,
+                             @RequestParam("pm") String pm,
+                             @RequestParam("pf") String pf,
+                             @RequestParam("pb") String pb,
+                             @RequestParam("ps") String ps,
+                             @RequestParam("camera") int camera,
+                             @RequestParam("date") Date date,
+                             Model model){
+
+        Picture picture = new Picture();
+        picture = picture.createPicture(pm,pf,pb,ps);
+        pictureService.addPicture(picture);
+//        Category c = categoryService.getCategory(cate);
+        Brand b = brandService.getBrand(brand);
+        picture = pictureService.getPictureById(picture.getPictureId());
+        Phone phone = new Phone();
+        phone = phone.createPhone(productName,(double)price,cpu,ram,(double)memory,(double)dis,(double)camera,origin,sim, date.toLocalDate(),b,picture);
+        phoneService.addPhone(phone);
+        model.addAttribute("listBrand", brandService.findAllBrand());
+        model.addAttribute("listPhone", phoneService.findAllPhone());
+        return"manageProduct";
+    }
 
 
     @GetMapping("/deletephone/{id}")
