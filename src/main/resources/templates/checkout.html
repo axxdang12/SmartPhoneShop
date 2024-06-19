@@ -95,35 +95,19 @@
 									<td>Product</td>
 									<td>Total</td>
 								</tr>
-								<tr>
-									<td>Iphone</td>
-									<td>$85.00</td>
-								</tr>
-								<tr>
-									<td>Samsung</td>
-									<td>$70.00</td>
-								</tr>
-								<tr>
-									<td>Huawei</td>
-									<td>$35.00</td>
+								<tr th:each="items : ${listPByC}">
+									<td th:text="${items.phone.productName}"></td>
+									<td th:text="${items.total} + '$'"></td>
 								</tr>
 							</tbody>
 							<tbody class="checkout-details">
 								<tr>
-									<td>Subtotal</td>
-									<td>$190</td>
-								</tr>
-								<tr>
-									<td>Shipping</td>
-									<td>$50</td>
-								</tr>
-								<tr>
 									<td>Total</td>
-									<td>$240</td>
+									<td th:text="${cartTotal} + '$'"></td>
 								</tr>
 							</tbody>
 						</table>
-						<a href="#" class="boxed-btn">Place Order</a>
+						<a class="boxed-btn" th:href="@{/place-order}" onclick="return confirmOrder()" >Place Order</a>
 					</div>
 				</div>
 			</div>
@@ -143,7 +127,13 @@
 	<div th:replace="~{fragments::copyright}"></div>
 	<!-- end copyright -->
 
-		<div th:replace="~{fragments::script}"></div>
+	<div th:replace="~{fragments::script}"></div>
+
+	<script>
+		function confirmOrder() {
+                return confirm("Are you sure you want to place order ?");
+            }
+	</script>
 
 </body>
 </html>

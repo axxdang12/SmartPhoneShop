@@ -49,7 +49,6 @@
 <!-- cart -->
 <div class="cart-section mt-150 mb-150">
 	<div class="container">
-		<form th:action="@{/update-cart}" method="get">
 		<div class="row">
 			<div class="col-lg-8 col-md-12">
 				<div class="cart-table-wrap">
@@ -66,42 +65,26 @@
 						</thead>
 
 						<tbody>
-						<tr class="table-body-row" th:each="phone : ${listPByC}">
+						<tr class="table-body-row" th:each="items : ${listPByC}">
 <!--							<form th:action="@{/cart/delete-phone}" method="POST">-->
 <!--								<input th:name="phoneId" th:value="${phone.phoneId}" hidden="hidden"/>-->
 <!--								<td class="product-remove">-->
 <!--									<button type="submit"><i class="far fa-window-close"></i></button>-->
 <!--								</td>-->
-								<td class="product-remove"><a th:href="@{/cart/delete-phone/{id}(id=${phone.phoneId})}" onclick="return confirmDeleteP()"><i class="far fa-window-close"></i></a></td>
+								<td class="product-remove"><a th:href="@{/cart/delete-phone/{id}(id=${items.phone.phoneId})}" onclick="return confirmDeleteP()"><i class="far fa-window-close"></i></a></td>
 								<td class="product-image">
-									<img th:src="@{${phone.picture.main}}" alt="">
+									<img th:src="@{${items.phone.picture.main}}" alt="">
 								</td>
-								<td class="product-name" th:text="${phone.productName}"></td>
-								<td class="product-price" th:text="${phone.price}"></td>
+								<td class="product-name" th:text="${items.phone.productName}"></td>
+								<td class="product-price" th:text="${items.phone.price}"></td>
 								<td class="product-quantity">
-									<input type="number" name="quantity" placeholder="0" value="1" min="1">
+									<form th:action="@{/cart/update-quantity/{id}(id=${items.phone.phoneId})}" method="post">
+										<input type="number" name="quantity" placeholder="0" th:value="${items.quantity}" min="1" onchange="this.form.submit()">
+									</form>
 								</td>
-								<td class="product-total">1</td>
+								<td class="product-total" th:text="${items.total} + '$'"></td>
 <!--							</form>-->
 						</tr>
-<!--						<tr class="table-body-row" th:each="access : ${listAByC}">-->
-<!--&lt;!&ndash;							<form th:action="@{/cart/delete-accessory}" method="POST">&ndash;&gt;-->
-<!--&lt;!&ndash;								<input th:name="aId" th:value="${access.accessoryId}" hidden="hidden"/>&ndash;&gt;-->
-<!--							<td class="product-remove"><a th:href="@{/cart/delete-accessory/{id}(id=${access.accessoryId})}" onclick="return confirmDeleteP()"><i class="far fa-window-close"></i></a></td>-->
-<!--&lt;!&ndash;								<td class="product-remove">&ndash;&gt;-->
-<!--&lt;!&ndash;									<button type="submit"><i class="far fa-window-close"></i></button>&ndash;&gt;-->
-<!--&lt;!&ndash;								</td>&ndash;&gt;-->
-<!--								<td class="product-image">-->
-<!--									<img th:src="@{${access.picture.main}}" alt="">-->
-<!--								</td>-->
-<!--								<td class="product-name" th:text="${access.accessoryName}"></td>-->
-<!--								<td class="product-price" th:text="${access.price}"></td>-->
-<!--								<td class="product-quantity">-->
-<!--									<input type="number" name="quantity" placeholder="0" value="1" min="1">-->
-<!--								</td>-->
-<!--								<td class="product-total">1</td>-->
-<!--&lt;!&ndash;							</form>&ndash;&gt;-->
-<!--						</tr>-->
 						</tbody>
 					</table>
 				</div>
@@ -118,18 +101,16 @@
 						<tbody>
 						<tr class="total-data">
 							<td><strong>Total: </strong></td>
-							<td id="totalCart">0$</td>
+							<td id="totalCart" th:text="${cartTotal} + '$'"></td>
 						</tr>
 						</tbody>
 					</table>
 					<div class="cart-buttons">
-						<button type="submit" style="border: none;background: none;"><a class="boxed-btn black" >Update Cart</a></button>
 						<a th:href="@{/checkout}" class="boxed-btn black">Check Out</a>
 					</div>
 				</div>
 			</div>
 		</div>
-		</form>
 	</div>
 </div>
 <!-- end cart -->
@@ -173,44 +154,6 @@
 <div th:replace="~{fragments::script}"></div>
 
 <script>
-	document.addEventListener('DOMContentLoaded', function () {
-        const quantityInputs = document.querySelectorAll('.product-quantity input');
-        const totalCartElement = document.getElementById('totalCart');
-
-        function updateTotalPrice(input) {
-            const row = input.closest('tr');
-            const priceElement = row.querySelector('.product-price');
-            const totalElement = row.querySelector('.product-total');
-            const price = parseFloat(priceElement.innerText.replace('$', ''));
-            const quantity = parseInt(input.value);
-            const total = price * quantity;
-
-            totalElement.innerText = `$${total}`;
-            updateCartTotal();
-        }
-
-        function updateCartTotal() {
-            let total = 0;
-            const totalElements = document.querySelectorAll('.product-total');
-
-            totalElements.forEach(function (element) {
-                total += parseFloat(element.innerText.replace('$', ''));
-            });
-
-            totalCartElement.innerText = `$${total}`;
-        }
-
-        quantityInputs.forEach(function (input) {
-            input.addEventListener('change', function () {
-                updateTotalPrice(input);
-            });
-        });
-
-        // Initialize the total prices on page load
-        quantityInputs.forEach(function (input) {
-            updateTotalPrice(input);
-        });
-    });
 	function confirmDeleteP() {
             return confirm("Are you sure you want to delete this product?");
         }

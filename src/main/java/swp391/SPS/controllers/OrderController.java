@@ -8,8 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swp391.SPS.entities.Order;
 import swp391.SPS.entities.Phone;
+import swp391.SPS.services.OrderItemService;
 import swp391.SPS.services.OrderService;
 import swp391.SPS.services.PhoneService;
 import swp391.SPS.services.UserService;
@@ -21,11 +24,9 @@ import java.util.List;
 public class OrderController {
 
     @Autowired
-    private OrderService orderService;
+    OrderService orderService;
     @Autowired
     UserService userService;
-    @Autowired
-    PhoneService phoneService;
 
 
     @GetMapping("/userorder")
@@ -41,17 +42,31 @@ public class OrderController {
         return "userorder";
     }
 
-    @GetMapping("/detail/{id}")
-    public String detailOrder(@PathVariable("id") int id, Model model) {
+    @GetMapping("/place-order")
+    public String placeOrder(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
-            return "detail";
+            return "userorder";
         }
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
-        model.addAttribute("listPByO", orderService.getProductByOrderId(id));
-//        model.addAttribute("listAByO", orderService.getAccessoryByOrderId(id));
-        return "detail";
+            orderService.placeOrder(authentication.getName());
+            model.addAttribute("orderListByUid",orderService.ListOrderByUserId(userService.getUserId(authentication.getName())));
+            return "userorder";
+    }
+
+    @GetMapping("/cancel-order/{id}")
+    public String cancelOrder(@PathVariable("id") int orderId, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("isLogin", false);
+            return "userorder";
+        }
+        model.addAttribute("isLogin", true);
+        model.addAttribute("username", authentication.getName());
+        orderService.cancelOrder(orderId);
+        model.addAttribute("orderListByUid",orderService.ListOrderByUserId(userService.getUserId(authentication.getName())));
+        return "redirect:/userorder";
     }
 }
