@@ -58,15 +58,17 @@
 								<th>Order Date</th>
 								<th>Total Price</th>
 								<th>View detail</th>
+								<th>Status</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="order: ${orderListByUid}">
 								<td th:text="${order.orderId}"></td>
-								<td th:text="${order.orderDate}">2024/05/18</td>
+								<td th:text="${order.orderDate}"></td>
 								<td style="padding-left: 25px;" th:text="${order.totalPrice}+'$'"></td>
 								<td><a class="btn btn-info" th:href="@{detail/{id}(id=${order.orderId})}">Details</a></td>
+								<td th:text="${order.status}"></td>
 								<td>
 									<button class="btn btn-danger cancel-order" data-order-id="1">Cancel</button>
 								</td>

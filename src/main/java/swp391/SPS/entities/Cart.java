@@ -28,6 +28,9 @@ public class Cart {
   @Column(name = "total")
   private double total;
 
+  @Column(name = "quantity")
+  private int quantity;
+
   @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   private List<Order> orders;
 }

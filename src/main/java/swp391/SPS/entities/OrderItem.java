@@ -21,11 +21,11 @@ public class OrderItem {
     private int quantity;
 
     @Column(name = "total")
-    private int total;
+    private double total;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id", referencedColumnName = "cart_id")
-    private Cart cart;
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    private Order order;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "phone_id", referencedColumnName = "phone_id")

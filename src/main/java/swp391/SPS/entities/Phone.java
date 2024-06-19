@@ -65,6 +65,9 @@ public class Phone {
   @OneToMany(mappedBy = "phone", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   private List<CartItem> items;
 
+  @OneToMany(mappedBy = "phone", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+  private List<OrderItem> orderItems;
+
 
   public Phone createPhone(String productName, double price, String cpu, int ram, double memory, double display, double camera, String origin, String sim, LocalDate releaseDate, Brand brand, Picture picture) {
     return Phone.builder()

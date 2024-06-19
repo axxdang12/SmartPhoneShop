@@ -27,6 +27,9 @@ public class Order {
   @Column(name = "order_date")
   private LocalDate orderDate;
 
+  @Column(name = "status")
+  private String status;
+
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "user_id", referencedColumnName = "user_id")
   private User user;
@@ -34,5 +37,8 @@ public class Order {
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "cart_id", referencedColumnName = "cart_id")
   private Cart cart;
+
+  @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+  private List<OrderItem> orderItems;
 
 }

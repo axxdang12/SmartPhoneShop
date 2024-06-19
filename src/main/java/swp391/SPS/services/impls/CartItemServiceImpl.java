@@ -34,25 +34,29 @@ public class CartItemServiceImpl implements CartItemService {
 
     @Override
     public void removePhoneFromCart(String userName,int cartId, int phoneId) {
+        int quantity=0;
         double total=0;
         User user = userRepository.findByUsername(userName);
         Cart cart = user.getCart();
         List<CartItem> ciList = cart.getItems();
         cartItemRepository.deletePhoneFromCart(cartId, phoneId);
         for (CartItem item : ciList) {
+            item.setTotal(item.getTotalPrice());
+            quantity+=item.getQuantity();
             total += item.getTotal();
             //cartItemRepository.save(item);
         }
+        cart.setQuantity(quantity);
         cart.setTotal(total);
         cartRepository.save(cart);
     }
 
     @Override
     public void addPhoneToCart(String userName, int phoneId) {
+        int quantity=0;
         double total = 0;
         Phone upd = phoneRepository.findById(phoneId).orElse(null);
         if (upd == null) {
-            // Xử lý trường hợp không tìm thấy điện thoại
             return;
         }
 
@@ -75,14 +79,17 @@ public class CartItemServiceImpl implements CartItemService {
         for (CartItem item : ciList) {
             item.setTotal(item.getTotalPrice());
             total += item.getTotal();
+            quantity+=item.getQuantity();
             //cartItemRepository.save(item);
         }
+        cart.setQuantity(quantity);
         cart.setTotal(total);
         cartRepository.save(cart);
     }
 
     @Override
     public void updatePhoneQuantity(String userName,int cartId, int phoneId, int quantity) {
+        int quantityCart=0;
         double total=0;
         CartItem cartItem=cartItemRepository.listCartItemByPAC(cartId,phoneId);
         User user = userRepository.findByUsername(userName);
@@ -93,9 +100,11 @@ public class CartItemServiceImpl implements CartItemService {
             cartItem.setTotal(cartItem.getTotalPrice());
             for (CartItem item : ciList) {
                 total+=item.getTotal();
+                quantityCart+=item.getQuantity();
             }
+           cart.setQuantity(quantityCart);
             cart.setTotal(total);
-            cartItemRepository.save(cartItem);
+//            cartItemRepository.save(cartItem);
             cartRepository.save(cart);
         }
     }
