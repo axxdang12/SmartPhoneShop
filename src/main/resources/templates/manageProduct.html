@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -58,27 +62,22 @@
                 <th>Actions</th>
             </tr>
             </thead>
-            <tbody>
-            <tr th:each = "phone: ${listPhone}">
-                <td th:text = "${phone.phoneId}"></td>
-                <td th:text = "${phone.productName}"></td>
-                <td th:text ="${phone.Brand.brandName}"></td>
-                <td th:text ="${phone.origin}"></td>
-                <td th:text ="${phone.price} + '$'"></td>
-                <td>
+            <tbody id="productTableBody">
+<!--            <tr th:each = "phone: ${listPhone}">-->
+<!--                <td th:text = "${phone.phoneId}"></td>-->
+<!--                <td th:text = "${phone.productName}"></td>-->
+<!--                <td th:text ="${phone.Brand.brandName}"></td>-->
+<!--                <td th:text ="${phone.origin}"></td>-->
+<!--                <td th:text ="${phone.price} + '$'"></td>-->
+<!--                <td>-->
 
-                        <a href="#" class="edit" data-toggle="modal" data-target="#editEmployeeModal" th:data-id="${phone.phoneId}" >
-                            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                        </a>
-
-
-
-                    <a href="#" class="delete" data-toggle="modal" data-target="#deleteEmployeeModal" th:data-id="${phone.phoneId}">
-                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-
-
-                </td>
-            </tr>
+<!--                        <a href="#" class="edit" data-toggle="modal" data-target="#editEmployeeModal" th:data-id="${phone.phoneId}" >-->
+<!--                            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>-->
+<!--                        </a>-->
+<!--             <a href="#" class="delete" data-toggle="modal" data-target="#deleteEmployeeModal" th:data-id="${phone.phoneId}">-->
+<!--                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>-->
+<!--                </td>-->
+<!--            </tr>-->
 
             </tbody>
         </table>
@@ -101,7 +100,7 @@
 <div id="addEmployeeModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form th:action="@{/addProduct}" method="post">
+            <form method="post">
                 <div class="modal-header">
                     <h4 class="modal-title">Add Product</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -168,19 +167,19 @@
                     </div>
                     <div class="form-group">
                         <label>Picture Main</label>
-                        <input name="pm" id="pm" type="number" class="form-control" required>
+                        <input name="pm" id="pm" type="text" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Picture Front</label>
-                        <input name="pf" id="pf" type="number" class="form-control" required>
+                        <input name="pf" id="pf" type="text" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Picture Back</label>
-                        <input name="pb" id="pb" type="number" class="form-control" required>
+                        <input name="pb" id="pb" type="text" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Picture Side</label>
-                        <input name="ps" id="ps" type="number" class="form-control" required>
+                        <input name="ps" id="ps" type="text" class="form-control" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -295,13 +294,11 @@
 </body>
 <script>
 
-        // Khi form được submit
     $('#addEmployeeModal').on('submit', function() {
 
 
     // Thu thập dữ liệu từ các trường input
     var productData = {
-
        productName: $('#name').val(),
        price: $('#price').val(),
        cpu: $('#cpu').val(),
@@ -309,14 +306,21 @@
        sim: $('#sim').val(),
        releaseDate: $('#date').val(),
        camera: $('#camera').val(),
-       display: $('#dis').val(),
+       dis: $('#dis').val(),
        ram: $('#ram').val(),
        memory: $('#memory').val(),
-       brandId: $('#brand').val(),
-       pm: $('#pm'),
-       pf:  $('#pm'),
-       pb:  $('#pb'),
-       ps:  $('#ps')
+       brandId: $('#brand').val()
+    };
+    var picture = {
+      pm: $('#pm').val(),
+       pf: $('#pf').val(),
+       pb: $('#pb').val(),
+       ps: $('#ps').val()
+    };
+
+    var requestData = {
+        productData: productData,
+        picture: picture
     };
 
     // Gửi yêu cầu Ajax tới server để cập nhật sản phẩm
@@ -324,22 +328,23 @@
        url: '/api/add-product', // URL endpoint để them sản phẩm
        type: 'POST',
        contentType: 'application/json',
-       data: JSON.stringify(productData),
+       data: JSON.stringify(requestData), // Thay đổi tại đây
        success: function(response) {
            // Xử lý khi cập nhật thành công
            console.log("Product added successfully:", response);
 
            // Ẩn modal sau khi cập nhật thành công
            $('#addEmployeeModal').modal('hide');
+           window.alert("Product added successfully!");
 
            // Cập nhật danh sách sản phẩm (có thể tải lại trang hoặc cập nhật DOM)
-           // location.reload(); // Hoặc cập nhật DOM tùy thuộc vào yêu cầu cụ thể
+           // Ví dụ: location.reload(); // Hoặc cập nhật DOM tùy thuộc vào yêu cầu cụ thể
        },
        error: function(error) {
            console.log("Error adding product: ", error);
        }
     });
-    });
+});
 
 
 
@@ -434,33 +439,76 @@ $.ajax({
 });
 });
 
-  // Khi nút "Delete" được nhấn
-$('.delete').on('click', function() {
-    var phoneId = $(this).data('id');
-     event.stopPropagation();
-    // Hiển thị pop up delete
-    $('#deleteEmployeeModal').modal('show');
+ $(document).ready(function() {
 
-    // Khi nút "Delete" trong pop up được nhấn
-    $('#deleteEmployeeModal').on('click', function(event) {
+  loadProducts();
 
-
-        // Gửi yêu cầu Ajax tới server để xóa sản phẩm
+    function loadProducts() {
         $.ajax({
-            url: '/api/delete-product',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ id: phoneId }),
+            url: '/api/products',
+            type: 'GET',
             success: function(response) {
-                // Xử lí sau khi xóa thành công, ví dụ: load lại trang hoặc làm gì đó khác
+                // Xóa sạch nội dung cũ trong bảng
+                $('#productTableBody').empty();
+
+                // Thêm từng sản phẩm vào bảng
+                response.forEach(function(phone) {
+                    $('#productTableBody').append(`
+                        <tr data-id="${phone.phoneId}">
+                            <td>${phone.phoneId}</td>
+                            <td>${phone.productName}</td>
+                            <td>${phone.brand.brandName}</td>
+                            <td>${phone.origin}</td>
+                            <td>${phone.price} $</td>
+                            <td>
+                                <a href="#" class="edit" data-toggle="modal" data-target="#editEmployeeModal" data-id="${phone.phoneId}">
+                                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                </a>
+                                <a href="#" class="delete" data-toggle="modal" data-target="#deleteEmployeeModal" data-id="${phone.phoneId}">
+                                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                </a>
+                            </td>
+                        </tr>
+                    `);
+                });
             },
             error: function(error) {
-                console.log("Error deleting product: ", error);
+                console.log("Error loading products: ", error);
             }
         });
+    }
+
+    var phoneId; // Biến để lưu trữ ID của sản phẩm cần xóa
+
+    // Khi nút xóa được nhấn
+    $('.delete').on('click', function() {
+        phoneId = $(this).data('id'); // Lấy ID của sản phẩm từ thuộc tính data-id
+
     });
-});
+
+    // Khi form trong modal được submit
+        $('#deleteEmployeeModal').on('submit', function(event) {
+            event.preventDefault();
+            // Gửi yêu cầu Ajax tới server để xóa sản phẩm
+            $.ajax({
+                url: '/api/delete-product',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ id: phoneId }),
+                success: function(response) {
+                    // Hiển thị thông báo xóa thành công
 
 
+                    // Ẩn modal sau khi xóa thành công
+                    $('#deleteEmployeeModal').modal('hide');
+                    $('tr[data-id="' + phoneId + '"]').remove();
+                        toastr.success("Product deleted successfully!");
+                },
+                error: function(error) {
+                    console.log("Error deleting product: ", error);
+                }
+            });
+        });
+    });
 </script>
 </html>
