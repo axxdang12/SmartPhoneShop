@@ -107,7 +107,7 @@
 								</tr>
 							</tbody>
 						</table>
-						<a class="boxed-btn" th:href="@{/place-order}">Place Order</a>
+						<a class="boxed-btn" th:href="@{/place-order}" onclick="return confirmOrder()" >Place Order</a>
 					</div>
 				</div>
 			</div>
@@ -127,7 +127,13 @@
 	<div th:replace="~{fragments::copyright}"></div>
 	<!-- end copyright -->
 
-		<div th:replace="~{fragments::script}"></div>
+	<div th:replace="~{fragments::script}"></div>
+
+	<script>
+		function confirmOrder() {
+                return confirm("Are you sure you want to place order ?");
+            }
+	</script>
 
 </body>
 </html>

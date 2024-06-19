@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface CartService {
     Cart getCart(int userId);
-//    void clearCart(Cart cart);
+    void clearCart(Cart cart);
 }

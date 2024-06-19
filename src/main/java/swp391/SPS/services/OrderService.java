@@ -11,4 +11,5 @@ public interface OrderService {
     List<Order> ListOrderByUserId(int id);
     Order getOrder(int oId);
     void placeOrder(String userName);
+    void cancelOrder(int orderId);
 }

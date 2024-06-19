@@ -49,17 +49,24 @@ public class OrderController {
             model.addAttribute("isLogin", false);
             return "userorder";
         }
-
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
-//        try {
             orderService.placeOrder(authentication.getName());
-//            redirectAttributes.addFlashAttribute("order", order);
             model.addAttribute("orderListByUid",orderService.ListOrderByUserId(userService.getUserId(authentication.getName())));
             return "userorder";
-//        } catch (Exception e) {
-//            model.addAttribute("error", e.getMessage());
-//            return "userorder";
-//        }
+    }
+
+    @GetMapping("/cancel-order/{id}")
+    public String cancelOrder(@PathVariable("id") int orderId, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("isLogin", false);
+            return "userorder";
+        }
+        model.addAttribute("isLogin", true);
+        model.addAttribute("username", authentication.getName());
+        orderService.cancelOrder(orderId);
+        model.addAttribute("orderListByUid",orderService.ListOrderByUserId(userService.getUserId(authentication.getName())));
+        return "redirect:/userorder";
     }
 }

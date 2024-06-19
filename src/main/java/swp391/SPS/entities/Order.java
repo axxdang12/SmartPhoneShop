@@ -34,10 +34,6 @@ public class Order {
   @JoinColumn(name = "user_id", referencedColumnName = "user_id")
   private User user;
 
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "cart_id", referencedColumnName = "cart_id")
-  private Cart cart;
-
   @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   private List<OrderItem> orderItems;
 

@@ -22,7 +22,7 @@ public class Cart {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int cartId;
 
-  @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<CartItem> items;
 
   @Column(name = "total")
@@ -31,6 +31,6 @@ public class Cart {
   @Column(name = "quantity")
   private int quantity;
 
-  @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-  private List<Order> orders;
+//  @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//  private List<Order> orders;
 }

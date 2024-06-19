@@ -25,11 +25,14 @@ public class CartServiceImpl implements CartService {
         return cartRepository.getCartByUserId(userId);
     }
 
-//    @Override
-//    public void clearCart(Cart cart) {
-//        cartItemRepository.deleteAll(cart.getItems());
-//        cartRepository.save(cart);
-//    }
+    @Override
+    public void clearCart(Cart cart) {
+        cartItemRepository.deleteAll(cart.getItems());
+        cart.setItems(new ArrayList<>());
+        cart.setQuantity(0);
+        cart.setTotal(0.0);
+        cartRepository.save(cart);
+    }
 
 //    @Override
 //    public List<Phone> getProductByCartId(int id) {

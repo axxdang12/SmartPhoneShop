@@ -69,9 +69,7 @@
 								<td style="padding-left: 25px;" th:text="${order.totalPrice}+'$'"></td>
 								<td><a class="btn btn-info" th:href="@{detail/{id}(id=${order.orderId})}">Details</a></td>
 								<td th:text="${order.status}"></td>
-								<td>
-									<button class="btn btn-danger cancel-order" data-order-id="1">Cancel</button>
-								</td>
+								<td><a class="btn btn-danger cancel-order" th:href="@{cancel-order/{id}(id=${order.orderId})}" onclick="return confirmCancel()">Cancel</a></td>
 							</tr>
 						</tbody>
 					</table>					
@@ -94,5 +92,10 @@
 	<!-- jquery -->
 	<div th:replace="~{fragments::script}"></div>
 
+	<script>
+		function confirmCancel() {
+                return confirm("Are you sure you want to cancel this order?");
+            }
+	</script>
 </body>
 </html>
