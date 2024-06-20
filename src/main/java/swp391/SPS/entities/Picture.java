@@ -1,5 +1,6 @@
 package swp391.SPS.entities;
-
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,6 +12,12 @@ import lombok.*;
 @EqualsAndHashCode
 @Data
 public class Picture {
+
+    public Picture createPicture(String main, String front, String back, String site) {
+
+        return new Picture(pictureId,main,front,back,site);
+    }
+
     @Id
     @Column(name = "picture_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

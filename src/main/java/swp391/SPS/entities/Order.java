@@ -1,8 +1,11 @@
 package swp391.SPS.entities;
 
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -13,21 +16,25 @@ import java.util.List;
 @EqualsAndHashCode
 @Data
 public class Order {
-    @Id
-    @Column(name = "order_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int orderId;
+  @Id
+  @Column(name = "order_id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int orderId;
 
-    @Column(name = "total_price")
-    private double totalPrice;
+  @Column(name = "total_price")
+  private double totalPrice;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private User user;
+  @Column(name = "order_date")
+  private LocalDate orderDate;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Phone> phones;
+  @Column(name = "status")
+  private String status;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Accessory> accessories;
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+  private User user;
+
+  @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+  private List<OrderItem> orderItems;
+
 }

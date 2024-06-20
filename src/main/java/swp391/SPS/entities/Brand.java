@@ -1,5 +1,6 @@
 package swp391.SPS.entities;
-
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,11 +20,10 @@ public class Brand {
     private int brandId;
 
     @Column(name = "brand_name")
-    private int brandName;
+    private String brandName;
 
     @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Phone> phones;
 
-    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Accessory> accessories;
+
 }
