@@ -28,14 +28,13 @@ public class OrderItemController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
-            return "order-detail";
+            return "detail";
         }
 //        Order order=orderService.
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
         model.addAttribute("listItemByO", orderItemService.listOrderItemByOrderId(id));
         model.addAttribute("orderByOrderId",orderService.getOrder(id));
-        model.addAttribute("userByOrderId", userService.findUserByOrderId(id));
-        return "order-detail";
+        return "detail";
     }
 }
