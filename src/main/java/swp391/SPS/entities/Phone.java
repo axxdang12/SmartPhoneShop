@@ -50,6 +50,9 @@ public class Phone {
   @Column(name = "sim")
   private String sim;
 
+  @Column(name = "status")
+  private Boolean status;
+
   @Column(name = "release_date")
   private LocalDate releaseDate;
 
