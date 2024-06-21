@@ -1,5 +1,7 @@
 package swp391.SPS.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +21,8 @@ import swp391.SPS.services.UserService;
 public class MainController {
     @Autowired private UserService userService;
 
-    @Autowired private RoleService roleService;
+    @Autowired
+    private RoleService roleService;
 
     @GetMapping("/page/login")
     @CrossOrigin
