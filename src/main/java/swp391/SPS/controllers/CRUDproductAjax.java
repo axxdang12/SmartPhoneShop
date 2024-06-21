@@ -108,8 +108,15 @@ public class CRUDproductAjax {
         int phoneid = request.get("id");
         Map<String, Object> response = new HashMap<>();
         Phone phone = phoneService.getPhoneByID(phoneid);
-        pictureService.deletePicture(phone.getPicture());
-        phoneService.deletephone(phone);
+        if (phone != null) {
+            pictureService.deletePicture(phone.getPicture());
+            phoneService.deletephone(phone);
+            response.put("status", "success");
+            response.put("message", "Phone deleted successfully.");
+        } else {
+            response.put("status", "error");
+            response.put("message", "Phone not found.");
+        }
         return ResponseEntity.ok(response);
     }
 

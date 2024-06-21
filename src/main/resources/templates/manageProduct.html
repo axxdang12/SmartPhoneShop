@@ -73,8 +73,12 @@
                         <a href="#" class="edit" data-toggle="modal" data-target="#editEmployeeModal" th:data-id="${phone.phoneId}" >
                             <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                         </a>
-             <a href="#" class="delete" data-toggle="modal" data-target="#deleteEmployeeModal" th:data-id="${phone.phoneId}">
-                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        <a th:if="${phone.status}" href="#" class="delete" style="color: green;" data-toggle="modal" data-target="#deleteEmployeeModal" th:data-id="${phone.phoneId}">
+                        <i class="material-icons" data-toggle="tooltip" title="Active">check_circle</i>
+                        </a>
+                        <a th:if="!${phone.status}" href="#" class="delete" style="color: gray;"  data-toggle="modal" data-target="#deleteEmployeeModal" th:data-id="${phone.phoneId}">
+                        <i class="material-icons" data-toggle="tooltip" title="Inactive">remove_circle</i>
+                    </a>
                 </td>
             </tr>
 
@@ -294,59 +298,6 @@
 </body>
 <script>
 
-<!--    $('#addEmployeeModal').on('submit', function() {-->
-
-
-<!--    // Thu thập dữ liệu từ các trường input-->
-<!--    var productData = {-->
-<!--       productName: $('#name').val(),-->
-<!--       price: $('#price').val(),-->
-<!--       cpu: $('#cpu').val(),-->
-<!--       origin: $('#origin').val(),-->
-<!--       sim: $('#sim').val(),-->
-<!--       releaseDate: $('#date').val(),-->
-<!--       camera: $('#camera').val(),-->
-<!--       dis: $('#dis').val(),-->
-<!--       ram: $('#ram').val(),-->
-<!--       memory: $('#memory').val(),-->
-<!--       brandId: $('#brand').val()-->
-<!--    };-->
-<!--    var picture = {-->
-<!--      pm: $('#pm').val(),-->
-<!--       pf: $('#pf').val(),-->
-<!--       pb: $('#pb').val(),-->
-<!--       ps: $('#ps').val()-->
-<!--    };-->
-
-<!--    var requestData = {-->
-<!--        productData: productData,-->
-<!--        picture: picture-->
-<!--    };-->
-
-<!--    // Gửi yêu cầu Ajax tới server để cập nhật sản phẩm-->
-<!--    $.ajax({-->
-<!--       url: '/api/add-product', // URL endpoint để them sản phẩm-->
-<!--       type: 'POST',-->
-<!--       contentType: 'application/json',-->
-<!--       data: JSON.stringify(requestData), // Thay đổi tại đây-->
-<!--       success: function(response) {-->
-<!--           // Xử lý khi cập nhật thành công-->
-<!--           console.log("Product added successfully:", response);-->
-
-<!--           // Ẩn modal sau khi cập nhật thành công-->
-<!--           $('#addEmployeeModal').modal('hide');-->
-<!--           window.alert("Product added successfully!");-->
-
-<!--           // Cập nhật danh sách sản phẩm (có thể tải lại trang hoặc cập nhật DOM)-->
-<!--           // Ví dụ: location.reload(); // Hoặc cập nhật DOM tùy thuộc vào yêu cầu cụ thể-->
-<!--       },-->
-<!--       error: function(error) {-->
-<!--           console.log("Error adding product: ", error);-->
-<!--       }-->
-<!--    });-->
-<!--});-->
-
-
 
     // Activate tooltip
     $('[data-toggle="tooltip"]').tooltip();
@@ -442,9 +393,7 @@ $.ajax({
 });
 });
 
- $(document).ready(function() {
-
-<!--  loadProducts();-->
+    $(document).ready(function() {
 
     function loadProducts() {
         $.ajax({
@@ -452,8 +401,8 @@ $.ajax({
             type: 'GET',
             success: function(response) {
                 // Xóa sạch nội dung cũ trong bảng
-<!--                $('#productTableBody').empty();-->
-                    console.log(response);
+                $('#productTableBody').empty();
+                console.log(response);
                 // Thêm từng sản phẩm vào bảng
                 response.forEach(function(phone) {
                     $('#productTableBody').append(`
@@ -483,35 +432,38 @@ $.ajax({
 
     var phoneId; // Biến để lưu trữ ID của sản phẩm cần xóa
 
-    // Khi nút xóa được nhấn
-    $('.delete').on('click', function() {
+    // Sử dụng delegation event để đăng ký sự kiện click
+    $(document).on('click', '.delete', function() {
         phoneId = $(this).data('id'); // Lấy ID của sản phẩm từ thuộc tính data-id
-
     });
 
     // Khi form trong modal được submit
-        $('#deleteEmployeeModal').on('submit', function(event) {
-            event.preventDefault();
-            // Gửi yêu cầu Ajax tới server để xóa sản phẩm
-            $.ajax({
-                url: '/api/delete-product',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({ id: phoneId }),
-                success: function(response) {
-                    // Hiển thị thông báo xóa thành công
+    $('#deleteForm').on('submit', function(event) {
+        event.preventDefault();
+        // Gửi yêu cầu Ajax tới server để xóa sản phẩm
+        $.ajax({
+            url: '/api/delete-product',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ id: phoneId }),
+            success: function(response) {
+                // Hiển thị thông báo xóa thành công
 
+                // Ẩn modal sau khi xóa thành công
+                $('#deleteEmployeeModal').modal('hide');
 
-                    // Ẩn modal sau khi xóa thành công
-                    $('#deleteEmployeeModal').modal('hide');
-                    $('tr[data-id="' + phoneId + '"]').remove();
-
-                },
-                error: function(error) {
-                    console.log("Error deleting product: ", error);
-                }
-            });
+            },
+            error: function(error) {
+                console.log("Error deleting product: ", error);
+            }
         });
     });
+
+    // Tải sản phẩm khi trang được load
+    loadProducts();
+});
+
+
+
 </script>
 </html>
