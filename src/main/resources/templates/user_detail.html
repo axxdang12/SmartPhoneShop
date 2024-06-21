@@ -64,12 +64,12 @@
 							</thead>
 							<tbody>
 								<tr class="table-body-row">
-									<td class="product-id">1</td>
-									<td class="product-name">User A</td>
-									<td class="product-email">userA@example.com</td>
-									<td class="product-address">123 Main St, Cityville</td>
-									<td class="product-gender">Male</td>
-									<td class="product-phone">123-456-7890</td>
+									<td class="product-id" th:text="${userdtl.userDetailId}">1</td>
+									<td class="product-name" th:text="${userdtl.firstName +' '+ userdtl.lastName}">User A</td>
+									<td class="product-email" th:text="${user.email}">userA@example.com</td>
+									<td class="product-address" th:text="${userdtl.address}">123 Main St, Cityville</td>
+									<td class="product-gender" th:text="${userdtl.gender}">Male</td>
+									<td class="product-phone" th:text="${userdtl.phoneNumber}">123-456-7890</td>
 								</tr>
 								</tr>
 							</tbody>

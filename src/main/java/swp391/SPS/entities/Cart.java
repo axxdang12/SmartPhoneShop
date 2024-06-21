@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @Builder
 @EqualsAndHashCode
 @Data
+@ToString
 public class Cart {
   @Id
   @Column(name = "cart_id")
