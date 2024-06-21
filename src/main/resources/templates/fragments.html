@@ -100,11 +100,7 @@
                             <li class="current-list-item"><a th:href="@{/}">Home</a>
                             </li>
                             <li><a th:href="@{/about}">About</a></li>
-                            <li><a th:href="@{/shop}">Shop</a>
-                                <ul class="sub-menu">
-                                    <li><a th:href="@{/cart}">Cart</a></li>
-                                </ul>
-                            </li>
+                            <li><a th:href="@{/shop}">Shop</a></li>
                             <li><a th:if="${isLogin == false}" th:href="@{/page/login}">Login</a>
                             </li>
                             <li><a th:if="${isLogin == false}" th:href="@{/register}">Signup</a>

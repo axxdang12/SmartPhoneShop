@@ -53,7 +53,7 @@ public class OrderController {
         model.addAttribute("username", authentication.getName());
             orderService.placeOrder(authentication.getName());
             model.addAttribute("orderListByUid",orderService.ListOrderByUserId(userService.getUserId(authentication.getName())));
-            return "userorder";
+        return "redirect:/userorder";
     }
 
     @GetMapping("/cancel-order/{id}")

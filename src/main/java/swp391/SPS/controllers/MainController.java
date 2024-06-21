@@ -21,7 +21,8 @@ import swp391.SPS.services.UserService;
 public class MainController {
     @Autowired private UserService userService;
 
-    @Autowired private RoleService roleService;
+    @Autowired
+    private RoleService roleService;
 
     @GetMapping("/page/login")
     @CrossOrigin

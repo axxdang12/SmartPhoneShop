@@ -24,17 +24,6 @@
             }
         });
 
-            // Xử lý sự kiện khi nhấp vào nút hủy đơn hàng
-            $('.cancel-order').click(function() {
-                var orderId = $(this).data('order-id');
-                // Ở đây bạn có thể thêm logic để xác nhận hủy đơn hàng
-                // Ví dụ: Hiển thị hộp thoại xác nhận hoặc gửi yêu cầu hủy đơn hàng đến máy chủ
-                // Sau khi xác nhận, bạn có thể thay đổi trạng thái của đơn hàng và cập nhật giao diện người dùng tương ứng
-                alert('Order ' + orderId + ' has been cancelled.');
-            });
-        
-
-
         // homepage slider
         $(".homepage-slider").owlCarousel({
             items: 1,
