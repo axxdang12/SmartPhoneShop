@@ -57,51 +57,24 @@
                             <th>User Name</th>
                             <th>User Role</th>
                             <th>View detail</th>
-                            <th>Delete</th>
+<!--                            <th>Delete</th>-->
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>User A</td>
-                            <td><select class="role-select">
-                                <option value="Admin" selected>Admin</option>
-                                <option value="Manager">Manager</option>
-                                <option value="User">User</option>
+                        <tbody id="table">
+                        <tr th:each="item: ${listFirstLoad}">
+                            <td th:text="${item.userId}"></td>
+                            <td th:text="${item.username}"></td>
+                            <td th:field="${item.userId}"><select class="role-select">
+                                <option th:each="role: ${listRole}" th:value="${role.roleName}" th:selected="${role.roleName == item.roles[0].roleName}" th:text="${role.roleName}"></option>
                             </select></td>
-                            <td><a class="btn btn-info" th:href="@{/user_detail}">Details</a></td>
-                            <td>
-                                <button class="btn btn-danger cancel-order" data-order-id="1">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>User B</td>
-                            <td><select class="role-select">
-                                <option value="Admin">Admin</option>
-                                <option value="Manager" selected>Manager</option>
-                                <option value="User">User</option>
-                            </select></td>
-                            <td><a class="btn btn-info" th:href="@{/user_detail}">Details</a></td>
-                            <td>
-                                <button class="btn btn-danger cancel-order" data-order-id="2">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>User C</td>
-                            <td><select class="role-select">
-                                <option value="Admin">Admin</option>
-                                <option value="Manager">Manager</option>
-                                <option value="User" selected>User</option>
-                            </select></td>
-                            <td><a class="btn btn-info" th:href="@{/user_detail}">Details</a></td>
-                            <td>
-                                <button class="btn btn-danger cancel-order disabled" data-order-id="3" disabled>Delete</button>
-                            </td>
+                            <td><a class="btn btn-info" th:href="@{/user_detail/{id}(id=${item.userId})}">Details</a></td>
+<!--                            <td>-->
+<!--                                <button class="btn btn-danger cancel-order" data-order-id="1">Active</button>-->
+<!--                            </td>-->
                         </tr>
                         </tbody>
                     </table>
+                    <a th:href="@{/admin-dashboard/1/2}">2</a>
                     <button class="btn btn-primary update-users" style="float: right; margin-top: 20px; margin-right: 11.5%;">Update</button>
 
                 </div>
@@ -122,7 +95,7 @@
 
 <!-- jquery -->
 <div th:replace="~{fragments::script}"></div>
-
+<!--<script th:src="@{/js/admin.js}"></script>-->
 
 </body>
 </html>
