@@ -75,17 +75,4 @@ public class MainController {
         return "user_detail";
     }
 
-    @GetMapping("/detail")
-    public String detail(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            model.addAttribute("isLogin", false);
-            return "detail";
-        }
-        model.addAttribute("isLogin", true);
-        model.addAttribute("username", authentication.getName());
-        return "detail";
-    }
-
-
 }

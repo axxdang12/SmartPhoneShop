@@ -9,12 +9,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 //import swp391.SPS.services.AccessService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import swp391.SPS.entities.Cart;
+import swp391.SPS.services.CartItemService;
+import swp391.SPS.services.CartService;
 import swp391.SPS.services.PhoneService;
+import swp391.SPS.services.UserService;
 
 @Controller
 public class SingleProductController {
     @Autowired
     PhoneService phoneService;
+    @Autowired
+    CartItemService cartItemService;
+    @Autowired
+    CartService cartService;
+    @Autowired
+    UserService userService;
 
     @GetMapping("/single-product/{id}")
     public String SingleProduct(@PathVariable("id") int id, Model model){
@@ -28,13 +40,20 @@ public class SingleProductController {
         model.addAttribute("username", authentication.getName());
         return "single-product";
     }
-//    @Autowired
-//    AccessService accessService;
-//
-//    @GetMapping("/single-access/{id}")
-//    public String accessory(@PathVariable("id") int id, Model model){
-//        model.addAttribute("product",accessService.getAccessByID(id));
-//        return "single-access";
-//    }
 
+    @PostMapping("/cart-single/phone/{id}")
+    public String addPhoneQuantityToCart(@PathVariable("id") int id, Model model, @RequestParam("quantity") int quantity){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("isLogin", false);
+            return "cart";
+        }
+        model.addAttribute("isLogin", true);
+        model.addAttribute("username", authentication.getName());
+        cartItemService.addPhoneSingleToCart(authentication.getName(),id, quantity);
+        Cart cart= cartService.getCart(userService.getUserId(authentication.getName()));
+        model.addAttribute("listPByC", cart.getItems());
+        model.addAttribute("cartTotal", cart.getTotal());
+        return "redirect:/shop";
+    }
 }

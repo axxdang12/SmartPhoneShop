@@ -65,13 +65,13 @@
 						    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
 						      <div class="card-body">
 						        <div class="billing-address-form">
-						        	<form action="index.html">
-						        		<p><input type="text"  th:value="${user.userDetail.firstName}" disabled></p>
-						        		<p><input type="text"  th:value="${user.userDetail.lastName}" disabled></p>
-						        		<p><input type="email"  th:value="${user.email}" disabled></p>
-						        		<p><input type="text"  th:value="${user.userDetail.address}" disabled></p>
-						        		<p><input type="tel" th:value="${user.userDetail.phoneNumber}" disabled></p>
-						        	</form>
+						        	<form th:action="@{/checkout/update}" th:object="${profileDto}" method="POST">
+						        		<p><input type="text"  th:value="${user.userDetail.firstName}" placeholder="FirstName" name="firstName"></p>
+						        		<p><input type="text"  th:value="${user.userDetail.lastName}" placeholder="LastName" name="lastName"></p>
+						        		<p><input type="text"  th:value="${user.userDetail.address}" name="address" placeholder="Address"></p>
+						        		<p><input type="tel" th:value="${user.userDetail.phoneNumber}" name="phoneNumber" placeholder="Phone Number"></p>
+										<button type="submit" class="btn btn-primary">Save changes</button>&nbsp;
+									</form>
 						        </div>
 						      </div>
 						    </div>
