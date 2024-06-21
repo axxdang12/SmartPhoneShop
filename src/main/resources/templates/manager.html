@@ -184,9 +184,8 @@
                             <th>Order ID</th>
                             <th>Order Date</th>
                             <th>Total Price</th>
-                            <th>Status</th>
                             <th>View detail</th>
-                            <th>Action</th>
+                            <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -195,18 +194,16 @@
                             <td th:text="${order.orderId}"></td>
                             <td th:text="${order.orderDate}"></td>
                             <td th:text="${order.totalPrice}+'$'"></td>
+
+                            <td><a class="btn btn-info" th:href="@{order-detail/{id}(id=${order.orderId})}">Details</a></td>
                             <td>
-                                <div class="tm-status-circle moving"></div>
-                                Moving
-                            </td>
-                            <td><a class="btn btn-info" th:href="@{#}">Details</a></td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="btn btn-approve " onclick="handleAction('Approve', this)">Approve
-                                    </button>
-                                    <button class="btn btn-reject " onclick="handleAction('Reject', this)">Reject
-                                    </button>
-                                </div>
+                                <div class="tm-status-circle"></div>
+                                <select>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Moving">Moving</option>
+                                    <option value="Cancel">Cancel</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
                             </td>
                         </tr>
 

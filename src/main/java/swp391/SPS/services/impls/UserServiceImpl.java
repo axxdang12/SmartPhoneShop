@@ -69,6 +69,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserByOrderId(int orderId) {
+        return userRepository.getUserByOrderId(orderId);
+    }
+
+    @Override
     public ResponseEntity getListUser(int page, int size) throws NoDataInListException {
         Pageable pageable = PageRequest.of(page, size);
         Page<User> userRequest = userRepository.findAllUser(pageable);

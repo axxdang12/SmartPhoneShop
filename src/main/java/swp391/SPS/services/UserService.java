@@ -29,6 +29,8 @@ public interface UserService {
 
     User findByEmail(String email);
 
+    User findUserByOrderId(int orderId);
+
     ResponseEntity getListUser(int page, int size) throws NoDataInListException;
 
     PageDto getListUserFirstLoad(int page, int size) throws NoDataInListException, OutOfPageException;
