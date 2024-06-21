@@ -6,9 +6,10 @@ import swp391.SPS.entities.Phone;
 
 import java.util.List;
 
-public interface    OrderService {
+public interface OrderService {
     List<Order> getAllOrder();
     List<Order> ListOrderByUserId(int id);
-    List<Phone> getProductByOrderId(int id);
-//    List<Accessory> getAccessoryByOrderId(int id);
+    Order getOrder(int oId);
+    void placeOrder(String userName);
+    void cancelOrder(int orderId);
 }

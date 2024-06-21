@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -55,10 +56,6 @@ public class Phone {
   @Column(name = "release_date")
   private LocalDate releaseDate;
 
-//  @ManyToOne(fetch = FetchType.EAGER)
-//  @JoinColumn(name = "category_id", referencedColumnName = "category_id")
-//  private Category category;
-
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "brand_id", referencedColumnName = "brand_id")
   private Brand brand;
@@ -68,14 +65,11 @@ public class Phone {
   @Nullable
   private Picture picture;
 
-  @ManyToMany(mappedBy = "phones")
-  @Nullable
-  private List<Cart> carts;
+  @OneToMany(mappedBy = "phone", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+  private List<CartItem> items;
 
-  @ManyToMany(mappedBy = "phones")
-  @Nullable
-  private List<Order> orders;
-
+  @OneToMany(mappedBy = "phone", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+  private List<OrderItem> orderItems;
 
 
   public Phone createPhone(String productName, double price, String cpu, int ram, double memory, double display, double camera, String origin, String sim, LocalDate releaseDate, Brand brand, Picture picture) {
@@ -94,9 +88,5 @@ public class Phone {
             .picture(picture)
             .build();
   }
-
-
-
-
 
 }

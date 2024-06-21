@@ -60,21 +60,6 @@ public class ShopController {
         return "shop";
     }
 
-//    @GetMapping("/shop/category/{idCategory}")
-//    public String ProductByCategory(@PathVariable("idCategory") int id, Model model){
-//        model.addAttribute("listCategory", categoryService.findAllCategory());
-//        model.addAttribute("listPhone", phoneService.getPhoneByCategory(id));
-//        model.addAttribute("listA", accessService.getAccessByCategory(id));
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-//            model.addAttribute("isLogin", false);
-//            return "shop";
-//        }
-//        model.addAttribute("isLogin", true);
-//        model.addAttribute("username", authentication.getName());
-//        model.addAttribute("listBrand", brandService.findAllBrand());
-//        model.addAttribute("listCategory", categoryService.findAllCategory());
-//        return "shop";
 //    }
     @PostMapping("/search")
     public String search(@RequestParam("name") String name, Model model){

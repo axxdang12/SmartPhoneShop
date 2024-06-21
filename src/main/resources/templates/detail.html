@@ -58,22 +58,18 @@
 									<th class="product-image">Product Image</th>
 									<th class="product-remove">Product Name</th>
 									<th class="product-price">Price</th>
-									<th class="product-total">Quantity</th>
+									<th class="product-quantity">Quantity</th>
+									<th class="product-total">Total</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="table-body-row" th:each="orderP: ${listPByO}">
-									<td class="product-image"><img th:src="@{${orderP.picture.main}}" alt=""></td>
-									<td class="product-name" th:text="${orderP.productName}"></td>
-									<td class="product-price" th:text ="${orderP.price} + '$'"></td>
-									<td class="product-total">100$</td>
+								<tr class="table-body-row" th:each="items: ${listItemByO}">
+									<td class="product-image"><img th:src="@{${items.phone.picture.main}}" alt=""></td>
+									<td class="product-name" th:text="${items.phone.productName}"></td>
+									<td class="product-price" th:text ="${items.phone.price} + '$'"></td>
+									<td class="product-quantity" th:text ="${items.quantity}"></td>
+									<td class="product-total" th:text="${items.total} + '$'"></td>
 								</tr>
-<!--								<tr class="table-body-row">-->
-<!--									<td class="product-image"><img src="assets/img/products/samsung-galaxy-s23-ultra-green-thumbnew.jpg" alt=""></td>-->
-<!--									<td class="product-name">Samsung Galaxy S23 Ultra 5G</td>-->
-<!--									<td class="product-price">21.990.000₫</td>-->
-<!--									<td class="product-total">1</td>-->
-<!--								</tr>-->
 							</tbody>
 						</table>
 					</div>
@@ -91,7 +87,7 @@
 							<tbody>
 								<tr class="total-data">
 									<td><strong>Total: </strong></td>
-									<td>56.620.000₫</td>
+									<td th:text="${orderByOrderId.totalPrice}+'$'"></td>
 								</tr>
 							</tbody>
 						</table>
