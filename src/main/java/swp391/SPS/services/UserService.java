@@ -22,4 +22,6 @@ public interface UserService {
     public void updatePassword(User user, String newPassword);
 
     User findByEmail(String email);
+
+    User findUserByOrderId(int orderId);
 }

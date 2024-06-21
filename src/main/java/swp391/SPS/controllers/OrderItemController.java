@@ -23,18 +23,19 @@ public class OrderItemController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/detail/{id}")
+    @GetMapping("/order-detail/{id}")
     public String detailOrder(@PathVariable("id") int id, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
-            return "detail";
+            return "order-detail";
         }
 //        Order order=orderService.
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
         model.addAttribute("listItemByO", orderItemService.listOrderItemByOrderId(id));
         model.addAttribute("orderByOrderId",orderService.getOrder(id));
-        return "detail";
+        model.addAttribute("userByOrderId", userService.findUserByOrderId(id));
+        return "order-detail";
     }
 }

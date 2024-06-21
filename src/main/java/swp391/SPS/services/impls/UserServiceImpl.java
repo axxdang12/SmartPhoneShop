@@ -61,6 +61,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserByOrderId(int orderId) {
+        return userRepository.getUserByOrderId(orderId);
+    }
+
+    @Override
     public User save(UserDto userDto) {
         User user = new User();
         user.setEmail(userDto.getEmail());
