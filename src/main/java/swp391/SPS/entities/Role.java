@@ -13,6 +13,7 @@ import java.util.List;
 @Builder
 @EqualsAndHashCode
 @Data
+@ToString
 public class Role {
   @Id
   @Column(name = "role_id")

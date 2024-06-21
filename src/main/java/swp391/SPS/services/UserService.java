@@ -1,10 +1,16 @@
 package swp391.SPS.services;
 
+import org.springframework.http.ResponseEntity;
+import swp391.SPS.dtos.PageDto;
 import swp391.SPS.dtos.ProfileDto;
 import swp391.SPS.dtos.UserDto;
 import swp391.SPS.entities.Phone;
 import swp391.SPS.entities.User;
+import swp391.SPS.exceptions.NoDataInListException;
+import swp391.SPS.exceptions.OutOfPageException;
 import swp391.SPS.exceptions.UserNotFoundException;
+
+import java.util.List;
 
 public interface UserService {
     User save(UserDto userDto);
@@ -22,4 +28,10 @@ public interface UserService {
     public void updatePassword(User user, String newPassword);
 
     User findByEmail(String email);
+
+    ResponseEntity getListUser(int page, int size) throws NoDataInListException;
+
+    PageDto getListUserFirstLoad(int page, int size) throws NoDataInListException, OutOfPageException;
+
+    void saveUserRole(int userId, String roleName);
 }
