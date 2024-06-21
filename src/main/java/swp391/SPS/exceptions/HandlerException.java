@@ -20,4 +20,20 @@ public class HandlerException {
                 exception.getMessage());
         return "forgot-password-form";
     }
+
+    @ExceptionHandler(NoDataInListException.class)
+    public String handlerNoDataInListException(
+            NoDataInListException exception, Model model) {
+        model.addAttribute("message",
+                exception.getMessage());
+        return "admin-dashboard";
+    }
+
+    @ExceptionHandler(OutOfPageException.class)
+    public String handlerOutOfPageException(
+            OutOfPageException exception, Model model) {
+        model.addAttribute("message",
+                exception.getMessage());
+        return "admin-dashboard";
+    }
 }

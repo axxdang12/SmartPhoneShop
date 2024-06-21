@@ -45,4 +45,18 @@ public class UserController {
         userService.saveProfile(profileDto,authentication.getName());
         return "profile";
     }
+
+    @PostMapping("/checkout/update")
+    public String updateProfileCheckout(Model model, @ModelAttribute("profileDto")ProfileDto profileDto) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user", userService.findByUsername(authentication.getName()));
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("isLogin", false);
+            return "redirect:/checkout";
+        }
+        model.addAttribute("isLogin", true);
+        model.addAttribute("username", authentication.getName());
+        userService.saveProfile(profileDto,authentication.getName());
+        return "redirect:/checkout";
+    }
 }

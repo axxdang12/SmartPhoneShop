@@ -79,7 +79,7 @@
 								<td class="product-price" th:text="${items.phone.price}"></td>
 								<td class="product-quantity">
 									<form th:action="@{/cart/update-quantity/{id}(id=${items.phone.phoneId})}" method="post">
-										<input type="number" name="quantity" placeholder="0" th:value="${items.quantity}" min="1" onchange="this.form.submit()">
+										<input type="number" name="quantity" placeholder="0" th:value="${items.quantity}" min="1" onchange="validateQuantity(this)">
 									</form>
 								</td>
 								<td class="product-total" th:text="${items.total} + '$'"></td>
@@ -106,7 +106,7 @@
 						</tbody>
 					</table>
 					<div class="cart-buttons">
-						<a th:href="@{/checkout}" class="boxed-btn black">Check Out</a>
+						<a th:href="@{/checkout}" th:classappend="${#lists.isEmpty(listPByC)} ? 'disabled' : ''" th:onclick="${#lists.isEmpty(listPByC)} ? 'showEmptyCartMessage(); return false;' : ''" class="boxed-btn black">Check Out</a>
 					</div>
 				</div>
 			</div>
@@ -152,11 +152,22 @@
 <!-- end copyright -->
 
 <div th:replace="~{fragments::script}"></div>
+<!-- Flash Message -->
 
 <script>
+	function validateQuantity(input) {
+    if (input.value < 1) {
+        alert('Invalid quantity. The quantity must be greater than or equal to 1.');
+        input.value = 1;
+    }
+    input.form.submit();
+}
 	function confirmDeleteP() {
             return confirm("Are you sure you want to delete this product?");
         }
+	function showEmptyCartMessage() {
+        alert('Please add at least 1 product to the cart to checkout.');
+    }
 </script>
 </body>
 </html>

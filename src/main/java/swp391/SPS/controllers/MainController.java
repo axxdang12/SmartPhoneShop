@@ -1,19 +1,29 @@
 package swp391.SPS.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import swp391.SPS.dtos.PageDto;
 import swp391.SPS.entities.Phone;
+import swp391.SPS.exceptions.NoDataInListException;
+import swp391.SPS.exceptions.OutOfPageException;
+import swp391.SPS.services.RoleService;
+import swp391.SPS.services.UserDetailService;
+import swp391.SPS.services.UserService;
 
 @Controller
 @CrossOrigin
 public class MainController {
+    @Autowired private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
+
     @GetMapping("/page/login")
     @CrossOrigin
     public String login() {
@@ -33,17 +43,7 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping(value = "/admin-dashboard", method = RequestMethod.GET)
-    public String adminDashBoard(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            model.addAttribute("isLogin", false);
-            return "redirect:/login";
-        }
-        model.addAttribute("isLogin", true);
-        model.addAttribute("username", authentication.getName());
-        return "admin-dashboard";
-    }
+
 
     @RequestMapping(value = "/manager-dashboard", method = RequestMethod.GET)
     public String managerDashBoard() {
@@ -63,17 +63,7 @@ public class MainController {
         return "about";
     }
 
-    @GetMapping("/user_detail")
-    public String user_detail(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            model.addAttribute("isLogin", false);
-            return "user_detail";
-        }
-        model.addAttribute("isLogin", true);
-        model.addAttribute("username", authentication.getName());
-        return "user_detail";
-    }
+
 
     @GetMapping("/detail")
     public String detail(Model model) {
@@ -87,5 +77,18 @@ public class MainController {
         return "detail";
     }
 
-
+    @GetMapping(value = "/admin-dashboard", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String adminDashBoard(Model model) throws NoDataInListException, OutOfPageException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("isLogin", false);
+            return "redirect:/login";
+        }
+        PageDto pageDto = userService.getListUserFirstLoad(0,5);
+        model.addAttribute("isLogin", true);
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("listFirstLoad", pageDto.getResultList());
+        model.addAttribute("listRole", roleService.findAll());
+        return "admin-dashboard";
+    }
 }

@@ -108,4 +108,47 @@ public class CartItemServiceImpl implements CartItemService {
             cartRepository.save(cart);
         }
     }
+
+    @Override
+    public void addPhoneSingleToCart(String userName, int phoneId, int quantity) {
+            Phone phone = phoneRepository.findById(phoneId).orElse(null);
+            if (phone == null) {
+                return; // Handle case where phone is not found
+            }
+
+            User user = userRepository.findByUsername(userName);
+            Cart cart = user.getCart();
+            List<CartItem> cartItems = cart.getItems();
+
+            // Check if the phone already exists in the cart
+            boolean phoneExistsInCart = false;
+            for (CartItem item : cartItems) {
+                if (item.getPhone().getPhoneId() == phone.getPhoneId()) {
+                    item.setQuantity(item.getQuantity() + quantity);
+                    cartItemRepository.save(item); // Update existing cart item
+                    phoneExistsInCart = true;
+                    break;
+                }
+            }
+
+            // If the phone is not already in the cart, add it as a new cart item
+            if (!phoneExistsInCart) {
+                CartItem newItem = CartItem.builder()
+                        .phone(phone)
+                        .cart(cart)
+                        .quantity(quantity)
+                        .total(quantity*phone.getPrice())
+                        .build();
+                cartItems.add(newItem);
+                cartItemRepository.save(newItem);
+            }
+
+            // Update total quantity and total price in the cart
+            int totalQuantity = cartItems.stream().mapToInt(CartItem::getQuantity).sum();
+            double totalPrice = cartItems.stream().mapToDouble(item -> item.getQuantity() * item.getPhone().getPrice()).sum();
+
+            cart.setQuantity(totalQuantity);
+            cart.setTotal(totalPrice);
+            cartRepository.save(cart); // Save updated cart
+        }
 }
