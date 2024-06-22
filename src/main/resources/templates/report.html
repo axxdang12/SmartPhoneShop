@@ -14,22 +14,7 @@
 <!-- end header -->
 
 <!-- search area -->
-<div class="search-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <span class="close-btn"><i class="fas fa-window-close"></i></span>
-                <div class="search-bar">
-                    <div class="search-bar-tablecell">
-                        <h3>Search For:</h3>
-                        <input type="text" placeholder="Keywords">
-                        <button type="submit">Search <i class="fas fa-search"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div th:replace="~{fragments::search}"></div>
 <!-- end search area -->
 
 <!-- breadcrumb-section -->
@@ -58,14 +43,12 @@
                 <div class="feedback-form">
                     <form th:action="@{/submit-report}" method="post">
                         <div class="row">
-<!--                            <div class="col-md-12">-->
-<!--                                <p><input type="text" name="orderId" placeholder="Order ID" required></p>-->
-<!--                            </div>-->
                             <div class="col-md-12">
-                                <p><textarea name="issue" id="issue" cols="30" rows="10" placeholder="Describe the issue" required></textarea></p>
+                                <input type="hidden" name="orderId" th:value="${order}" />
+                                <p><textarea name="description" id="description" cols="30" rows="10" placeholder="Describe the issue" th:attr="disabled=${reportNormal}" th:text="${existingReport?.description}" required></textarea></p>
                             </div>
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary">Submit Report</button>
+                                <button type="submit" class="btn btn-primary" id="bt" th:attr="hidden=${reportNormal}">Submit Report</button>
                             </div>
                         </div>
                     </form>

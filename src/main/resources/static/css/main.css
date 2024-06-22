@@ -31,8 +31,7 @@ html {
       margin: 10px 2px;
       cursor: pointer;
       transition-duration: 0.4s;
-      /* padding-left: 28px; */
-      margin-left: 7%;}
+      }
 
   .feedback-section {
             padding: 60px 0;
@@ -922,6 +921,7 @@ a.mobile-show {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 7px;
+  margin-top: 25%;
 }
 
 /* -----------------------------------------------------------------------------
