@@ -146,13 +146,13 @@ public class ManagerProduct {
     }
 
 
-    @GetMapping("/deletephone/{id}")
-    public String deletephone(@PathVariable("id") int id, RedirectAttributes redirectAttributes){
-        Phone phone = phoneService.getPhoneByID(id);
-        phoneService.deletephone(phone);
-        pictureService.deletePicture(phone.getPicture());
-        redirectAttributes.addFlashAttribute("deleteSuccess", true);
-        return "redirect:/products";
-    }
+//    @GetMapping("/deletephone/{id}")
+//    public String deletephone(@PathVariable("id") int id, RedirectAttributes redirectAttributes){
+//        Phone phone = phoneService.getPhoneByID(id);
+//        phoneService.changeStatus(phone);
+//        pictureService.deletePicture(phone.getPicture());
+//        redirectAttributes.addFlashAttribute("deleteSuccess", true);
+//        return "redirect:/products";
+//    }
 
 }

@@ -11,6 +11,6 @@ public interface PhoneService {
     List<Phone> getPhoneByBrand(int id);
 //    List<Phone> getPhoneByCategory(int id);
     void editPhone(Phone p);
-    void deletephone(Phone p);
+    void changeStatus(Phone p);
     List<Phone> searchPhone(String name);
 }

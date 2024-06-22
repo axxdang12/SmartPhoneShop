@@ -87,8 +87,9 @@ public class PhoneServiceImpl implements PhoneService {
         }
     }
     @Override
-    public void deletephone(Phone p) {
-        phoneRepository.delete(getPhoneByID(p.getPhoneId()));
+    public void changeStatus(Phone p) {
+        p.setStatus(!p.getStatus());
+        phoneRepository.save(p);
     }
 
     @Override
