@@ -45,7 +45,7 @@ public class UserController {
         model.addAttribute("user", userService.findByUsername(authentication.getName()));
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
-            return "profile";
+            return "redirect:/profile";
         }
         if (bindingResult.hasErrors()) {
             model.addAttribute("isLogin", true);
@@ -56,7 +56,7 @@ public class UserController {
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
         userService.saveProfile(profileDto, authentication.getName());
-        return "profile";
+        return "redirect:/profile";
     }
 
     @PostMapping("/checkout/update")
