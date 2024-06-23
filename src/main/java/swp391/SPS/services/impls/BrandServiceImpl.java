@@ -23,4 +23,16 @@ public class BrandServiceImpl implements BrandService {
         return brandRepository.findAll();
     }
 
+    @Override
+    public void addBrand(Brand b) {
+        brandRepository.save(b);
+    }
+
+    @Override
+    public void editBrand(Brand b) {
+      Brand existingBrand = brandRepository.getReferenceById(b.getBrandId());
+      existingBrand.setBrandName(b.getBrandName());
+      brandRepository.save(existingBrand);
+    }
+
 }

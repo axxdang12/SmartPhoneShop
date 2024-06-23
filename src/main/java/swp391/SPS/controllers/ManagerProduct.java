@@ -80,24 +80,52 @@ public class ManagerProduct {
         Phone phone = new Phone();
         phone = Phone.builder().productName(productName).status(status).phoneId(pid).cpu(cpu).ram(ram).sim(sim).price(price).camera(camera).memory(memory).origin(origin).brand(b).picture(picture).releaseDate(date.toLocalDate()).display(dis).build();
         phoneService.editPhone(phone);
-       redirectAttributes.addFlashAttribute("message", "Chỉnh sửa sản phẩm thành công.");
+       redirectAttributes.addFlashAttribute("message", "Chỉnh sửa sản phẩm thành công!");
        return "redirect:/manageProduct";
     }
 
-
     @GetMapping("/add-brand")
-    public String addBrand(){
+    public String viewAddBrand(){
+        return "add-brand";
+    }
 
+    @PostMapping("/edit-brand")
+    public String editBrand(@RequestParam("id") int id,Model model){
+        model.addAttribute("brand",brandService.getBrand(id));
+        return "edit-brand";
+    }
+
+    @PostMapping("/editbrand")
+    public String editBrand(@RequestParam("id") int id,
+                               @RequestParam("name") String name,Model model,RedirectAttributes redirectAttributes){
+        Brand brand = Brand.builder().brandId(id).brandName(name).build();
+        brandService.editBrand(brand);
+        redirectAttributes.addFlashAttribute("message", "Chỉnh sửa brand thành công!");
+        return "redirect:/manageProduct";
+    }
+
+
+
+    @PostMapping("/addBrand")
+    public String addBrand(@RequestParam("name") String name, Model model){
+        Brand brand = new Brand();
+        brand = Brand.builder().brandName(name).build();
+        brandService.addBrand(brand);
+        List<Brand> lb = brandService.findAllBrand();
+        for(Brand b : lb){
+            if(b.equals(brand)){
+                model.addAttribute("listBrand", brandService.findAllBrand());
+                model.addAttribute("mess", "Thêm brand thành công!");
+                return"add-brand";
+            }
+        }
+        model.addAttribute("mess", "Thêm sản phẩm không thành công!");
         return "add-brand";
     }
 
 
 
 
-    @GetMapping("/edit-brand")
-    public String editBrand(){
-        return "edit-brand";
-    }
     @PostMapping("/addProduct")
     public String addProduct(
                              @RequestParam("name") String productName,

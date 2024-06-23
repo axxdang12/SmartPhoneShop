@@ -153,13 +153,13 @@
                         <tr th:each = "brand: ${listBrand}" >
                             <td class="tm-product-name" th:text="${brand.brandName}"></td>
                             <td class="text-center">
-                                <a th:href="@{/edit-brand}" class="tm-product-delete-link" style="color: white;" >
-                                    Edit
-                                </a>
-                            <td class="text-center">
-                                <a  class="tm-product-delete-link">
-                                    <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                                </a>
+                                <form th:action="@{/edit-brand}" method="post">
+                                    <input type="hidden" name="id" th:value="${brand.brandId}">
+                                    <button type="submit" class="btn btn-link" style="color: white;">
+                                        Edit
+                                    </button>
+                                </form>
+
                             </td>
                         </tr>
                         </tbody>
