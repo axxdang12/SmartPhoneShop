@@ -21,6 +21,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet"  th:href="@{/css/styleee.css}">
+    <link rel="stylesheet"  th:href="@{/css/sidebar.css}">
     <style>
         .material-icons {
             cursor: pointer; /* Đặt con trỏ thành dạng bút chì khi chỉ vào biểu tượng */
@@ -73,14 +74,14 @@
                 <td th:text ="${phone.Brand.brandName}"></td>
                 <td th:text ="${phone.origin}"></td>
                 <td th:text ="${phone.price} + '$'"></td>
-                <td style="text-align: center;">
+                <td  class="action-links" >
 
-                        <a href="#" class="edit" data-toggle="modal" data-target="#editEmployeeModal" th:data-id="${phone.phoneId}" >
+                        <a href="#" class="edit" data-toggle="modal" data-target="#editEmployeeModal" th:data-id="${phone.phoneId}">
                             <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                         </a>
 
                 </td>
-                <td style="text-align: center;">
+                <td style="">
                     <a th:if="${phone.status}" onclick="changeStatus(this)" class="delete" style="color: green;" data-toggle="modal"  th:data-id="${phone.phoneId}" >
                         <i class="material-icons" data-toggle="tooltip" title="Active">check_circle</i>
                     </a>
@@ -303,7 +304,11 @@
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
+
+
 </body>
 <script th:src="@{/js/CRUD.js}"></script>
+<script>
 
+</script>
 </html>

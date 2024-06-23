@@ -118,8 +118,7 @@ $.ajax({
 //      });
 //  });
 function changeStatus(btn) {
-   var isActive = btn.classList.contains('active'); // Kiểm tra xem nút có class 'active' hay không
-
+    var isActive = btn.classList.contains('active'); // Kiểm tra xem nút có class 'active' hay không
     var phoneId = btn.getAttribute('data-id'); // Lấy ID của sản phẩm từ thuộc tính data-id của thẻ <a>
 
     $.ajax({
@@ -129,20 +128,22 @@ function changeStatus(btn) {
         data: JSON.stringify({ id: phoneId }), // Đóng gói ID thành đối tượng JSON
         success: function(response) {
             // Hiển thị thông báo chỉnh sửa trạng thái sản phẩm thành công (nếu cần)
-            alert('Chỉnh sửa trạng thái sản phẩm thành công!');
+
             if (isActive) {
-                            btn.classList.remove('active');
-                            btn.style.color = 'gray';
-                            btn.querySelector('i').setAttribute('title', 'Inactive');
-                            btn.querySelector('i').textContent = 'remove_circle';
-                        } else {
-                            btn.classList.add('active');
-                            btn.style.color = 'green';
-                            btn.querySelector('i').setAttribute('title', 'Active');
-                            btn.querySelector('i').textContent = 'check_circle';
-                        }
+                btn.classList.remove('active');
+                btn.style.color = 'red';
+                btn.querySelector('i').setAttribute('title', 'Out of Stock');
+                btn.querySelector('i').classList.remove('fa-check-circle');
+                btn.querySelector('i').classList.add('fa-times-circle');
+            } else {
+                btn.classList.add('active');
+                btn.style.color = 'green';
+                btn.querySelector('i').setAttribute('title', 'In Stock');
+                btn.querySelector('i').classList.remove('fa-times-circle');
+                btn.querySelector('i').classList.add('fa-check-circle');
+            }
 
-
+            alert('Chỉnh sửa trạng thái sản phẩm thành công!');
         },
         error: function(error) {
             console.log("Lỗi khi chỉnh sửa trạng thái sản phẩm: ", error);
@@ -150,6 +151,7 @@ function changeStatus(btn) {
         }
     });
 }
+
 
 
 
