@@ -142,7 +142,7 @@
                 <div class="containerrr">
                     <ul class="pagination" id="page">
                         <li>
-                            <a th:if="${currentPage>1}" th:href="@{'?pageNumber='+${currentPage-1}}" id="page-link-prev" data-page="prev">Prev</a>
+                            <a th:if="${currentPage>1}" th:href="@{ ${keyword != null && keyword!='' ? '?keyword=' + keyword + '&' : '?' } + 'pageNumber='+${currentPage-1}}" id="page-link-prev" data-page="prev">Prev</a>
                         </li>
                         <li th:each="pageNumber : ${#numbers.sequence(1, totalPage)}">
                             <a th:href="@{${keyword != null && keyword!='' ? '?keyword=' + keyword + '&' : '?' } +    'pageNumber='+${pageNumber}}"
@@ -152,7 +152,7 @@
                         </li>
 
                         <li>
-                            <a th:if="${currentPage < totalPage}" th:href="@{'?pageNumber='+${currentPage+1}}" id="page-link-next" data-page="next">Next</a>
+                            <a th:if="${currentPage < totalPage}" th:href="@{ ${keyword != null && keyword!='' ? '?keyword=' + keyword + '&' : '?' } + 'pageNumber='+${currentPage+1}}" id="page-link-next" data-page="next">Next</a>
                         </li>
                     </ul>
                 </div>
