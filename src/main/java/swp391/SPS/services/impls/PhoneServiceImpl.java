@@ -1,6 +1,7 @@
 package swp391.SPS.services.impls;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -83,7 +84,7 @@ public class PhoneServiceImpl implements PhoneService {
             existingPhone.setOrigin(p.getOrigin());
             existingPhone.setSim(p.getSim());
             existingPhone.setReleaseDate(p.getReleaseDate());
-//            existingPhone.setCategory(p.getCategory());
+            existingPhone.setStatus(p.getStatus());
             existingPhone.setBrand(p.getBrand());
             existingPhone.setPicture(p.getPicture());
             existingPhone.getPicture().setBack(p.getPicture().getBack());
@@ -103,15 +104,27 @@ public class PhoneServiceImpl implements PhoneService {
 
     @Override
     public List<Phone> searchPhone(String name) {
+
         return phoneRepository.SearchProduct(name);
     }
 
     @Override
     public Page<Phone> findPhonePage(int pageNo) {
-        Pageable pageable = PageRequest.of(pageNo-1,5);
+        Pageable pageable = PageRequest.of(pageNo - 1,5);
         return this.phoneRepository.findAll(pageable);
 
     }
+
+    @Override
+    public Page<Phone> searchPhone(String name, int pageNo) {
+        List<Phone> list = phoneRepository.SearchProduct(name);
+        Pageable pageable = PageRequest.of(pageNo - 1, 5);
+        int start = (int) pageable.getOffset();
+        int end = pageable.getOffset() + pageable.getPageSize() > list.size() ? list.size() : (int) (pageable.getOffset() + pageable.getPageSize());
+        list = list.subList(start, end);
+        return new PageImpl<>(list, pageable, phoneRepository.SearchProduct(name).size());
+    }
+
 
 //    @Override
 //    public PageDto getListProductFirstLoad(int page, int size) throws OutOfPageException {

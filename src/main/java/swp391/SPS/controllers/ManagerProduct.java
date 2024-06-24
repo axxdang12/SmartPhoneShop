@@ -1,6 +1,8 @@
 package swp391.SPS.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -34,20 +36,38 @@ public class ManagerProduct {
 
 
     @GetMapping("/manageProduct")
-    public String viewProduct(Model model,@RequestParam( name ="pageNumber",defaultValue = "1") int page){
+    public String viewProduct(Model model, @RequestParam( name ="pageNumber",defaultValue = "1") int page){
+       Page<Phone> list = phoneService.findPhonePage(page);
         model.addAttribute("listBrand", brandService.findAllBrand());
 
-        model.addAttribute("listPhone", phoneService.findPhonePage(page));
-        model.addAttribute("totalPage",phoneService.findPhonePage(page).getTotalPages());
+        model.addAttribute("listPhone", list);
+        model.addAttribute("totalPage",list.getTotalPages());
         model.addAttribute("currentPage",page);
         return"products";
     }
+
+    @GetMapping("/manageProduct/search")
+    public String Search(Model model,@RequestParam("keyword") String name, @RequestParam( name ="pageNumber",defaultValue = "1") int page){
+        model.addAttribute("listBrand", brandService.findAllBrand());
+        Page<Phone> list = phoneService.findPhonePage(page);
+        if(name!=null){
+            list = phoneService.searchPhone(name,page);
+            model.addAttribute("keyword", name);
+
+
+        }
+        model.addAttribute("listPhone", list);
+        model.addAttribute("totalPage",list.getTotalPages());
+        model.addAttribute("currentPage",page);
+        return"products";
+    }
+
     @GetMapping("/add-product")
     public String addP(Model model){
         model.addAttribute("listBrand", brandService.findAllBrand());
         return "add-product";
     }
-    @PostMapping("/edit-product")
+    @GetMapping("/edit-product")
     public String viewEditphone(@RequestParam("id") int id, Model model){
         model.addAttribute("phone",phoneService.getPhoneByID(id));
         return "Edit-product";
@@ -91,7 +111,7 @@ public class ManagerProduct {
         return "add-brand";
     }
 
-    @PostMapping("/edit-brand")
+    @GetMapping("/edit-brand")
     public String editBrand(@RequestParam("id") int id,Model model){
         model.addAttribute("brand",brandService.getBrand(id));
         return "edit-brand";
@@ -169,12 +189,12 @@ public class ManagerProduct {
         return"add-product";
     }
 
-    @GetMapping("/Msearch")
-    public String search(@RequestParam("name") String name, Model model){
-        model.addAttribute("listPhone", phoneService.searchPhone(name));
-
-        model.addAttribute("listBrand", brandService.findAllBrand());
-
-        return"products";
-    }
+//    @GetMapping("/Msearch")
+//    public String search(@RequestParam("name") String name, Model model){
+//        model.addAttribute("listPhone", phoneService.searchPhone(name));
+//
+//        model.addAttribute("listBrand", brandService.findAllBrand());
+//
+//        return"products";
+//    }
 }

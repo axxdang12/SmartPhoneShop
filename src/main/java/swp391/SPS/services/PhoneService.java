@@ -23,4 +23,5 @@ public interface PhoneService {
 //    ResponseEntity getListProduct(int page, int size) throws NoDataInListException;
 //    Page<Phone> Pagination(Pageable pageable);
     Page<Phone> findPhonePage(int pageNo);
+    Page<Phone> searchPhone(String name, int pageNo);
 }

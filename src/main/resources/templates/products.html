@@ -63,7 +63,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/products}">
+                    <a class="nav-link active" th:href="@{/manageProduct}">
                         <i class="fas fa-shopping-cart"></i> Products
                     </a>
                 </li>
@@ -80,8 +80,8 @@
     </div>
 </nav>
 
-<form th:action="@{/Msearch}" class="search-bar" method="get">
-    <input type="search" name="name" pattern=".*\S.*" required style="background-color: #4E657A;">
+<form th:action="@{/manageProduct/search}" class="search-bar" method="get">
+    <input type="search" name="keyword" pattern=".*\S.*" style="background-color: #4E657A;" th:value="${keyword}" >
     <button class="search-btn" type="submit">
         <span>Search</span>
     </button>
@@ -93,7 +93,9 @@
 <div class="container mt-5">
     <div class="row tm-content-row">
         <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
+
             <div class="tm-bg-primary-dark tm-block tm-block-products">
+
                 <div class="tm-product-table-container">
                     <table class="table table-hover tm-table-small tm-product-table">
                         <thead>
@@ -113,12 +115,8 @@
                             <td th:text = "${phone.productName}"></td>
                             <td th:text ="${phone.price} + '$'"></td>
                             <td>
-                                <form th:action="@{/edit-product}" method="post">
-                                    <input type="hidden" name="id" th:value="${phone.phoneId}">
-                                    <button type="submit" class="btn btn-link" style="color: white;">
-                                        Edit
-                                    </button>
-                                </form>
+                                <a th:href="@{/edit-product(id=${phone.phoneId})}" class="btn btn-link" style="color: white;">Edit</a>
+
                             </td>
 
                             <td class="action-links">
@@ -136,6 +134,7 @@
             </tbody>
                     </table>
                 </div>
+
               <!-- table container -->
                 <a th:href="@{/add-product}"
                         class="btn btn-primary btn-block text-uppercase mb-3">Add new product</a>
@@ -143,15 +142,17 @@
                 <div class="containerrr">
                     <ul class="pagination" id="page">
                         <li>
-                            <a href="#" id="page-link-prev" data-page="prev">Prev</a>
+                            <a th:if="${currentPage>1}" th:href="@{'?pageNumber='+${currentPage-1}}" id="page-link-prev" data-page="prev">Prev</a>
                         </li>
                         <li th:each="pageNumber : ${#numbers.sequence(1, totalPage)}">
-                            <a th:href="@{'?pageNumber='+${pageNumber}}" th:id="'page-link-' + ${pageNumber}"
+                            <a th:href="@{${keyword != null && keyword!='' ? '?keyword=' + keyword + '&' : '?' } +    'pageNumber='+${pageNumber}}"
+                               th:id="'page-link-' + ${pageNumber}"
                                th:data-page="${pageNumber}" th:text="${pageNumber}"
-                               th:classappend="${currentPage == pageNumber ? 'active' : ''}"></a>
+                               th:class="${currentPage == pageNumber ? 'active' : ''}"></a>
                         </li>
+
                         <li>
-                            <a href="#" id="page-link-next" data-page="next">Next</a>
+                            <a th:if="${currentPage < totalPage}" th:href="@{'?pageNumber='+${currentPage+1}}" id="page-link-next" data-page="next">Next</a>
                         </li>
                     </ul>
                 </div>
@@ -161,6 +162,7 @@
 
             </div>
         </div>
+
         <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
             <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
                 <h2 class="tm-block-title">Brand</h2>
@@ -170,12 +172,8 @@
                         <tr th:each = "brand: ${listBrand}" >
                             <td class="tm-product-name" th:text="${brand.brandName}"></td>
                             <td class="text-center">
-                                <form th:action="@{/edit-brand}" method="post">
-                                    <input type="hidden" name="id" th:value="${brand.brandId}">
-                                    <button type="submit" class="btn btn-link" style="color: white;">
-                                        Edit
-                                    </button>
-                                </form>
+                                <a th:href="@{/edit-brand(id=${brand.brandId})}" class="btn btn-link" style="color: white;">Edit</a>
+
 
                             </td>
                         </tr>
@@ -193,6 +191,7 @@
         </div>
     </div>
 </div>
+
 <footer class="tm-footer row tm-mt-small">
     <div class="col-12 font-weight-light">
         <p class="text-center text-white mb-0 px-4 small">
