@@ -2,6 +2,9 @@ package swp391.SPS.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,18 +34,17 @@ public class ManagerProduct {
 
 
     @GetMapping("/manageProduct")
-    public String viewProduct(Model model){
+    public String viewProduct(Model model,@RequestParam( name ="pageNumber",defaultValue = "1") int page){
         model.addAttribute("listBrand", brandService.findAllBrand());
 
-        model.addAttribute("listPhone", phoneService.findAllPhone());
-
+        model.addAttribute("listPhone", phoneService.findPhonePage(page));
+        model.addAttribute("totalPage",phoneService.findPhonePage(page).getTotalPages());
+        model.addAttribute("currentPage",page);
         return"products";
     }
     @GetMapping("/add-product")
     public String addP(Model model){
         model.addAttribute("listBrand", brandService.findAllBrand());
-//        model.addAttribute("listCategory", categoryService.findAllCategory());
-
         return "add-product";
     }
     @PostMapping("/edit-product")
@@ -167,4 +169,12 @@ public class ManagerProduct {
         return"add-product";
     }
 
+    @GetMapping("/Msearch")
+    public String search(@RequestParam("name") String name, Model model){
+        model.addAttribute("listPhone", phoneService.searchPhone(name));
+
+        model.addAttribute("listBrand", brandService.findAllBrand());
+
+        return"products";
+    }
 }

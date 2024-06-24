@@ -1,12 +1,19 @@
 package swp391.SPS.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import swp391.SPS.dtos.RequestSaveUserRoleDto;
 import swp391.SPS.entities.Phone;
 import swp391.SPS.entities.Picture;
+import swp391.SPS.exceptions.NoDataInListException;
+import swp391.SPS.exceptions.OutOfPageException;
 import swp391.SPS.services.BrandService;
 import swp391.SPS.services.PhoneService;
 import swp391.SPS.services.PictureService;
@@ -74,6 +81,17 @@ public class CRUDproductAjax {
             }
             return ResponseEntity.ok(response);
         }
+
+//    @GetMapping("/phones")
+//    public Page<Phone> getPhones(@RequestParam(defaultValue = "0") int page) {
+//        Pageable pageable = PageRequest.of(page, 5); // 10 items per page
+//        return phoneService.Pagination(pageable);
+//    }
+//
+//    @GetMapping("/phones-page")
+//    public String getPhonesPage(Model model) {
+//        return "phones"; // Return the main page with Thymeleaf template
+//    }
 
 
 }

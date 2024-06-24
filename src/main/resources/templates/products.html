@@ -79,8 +79,9 @@
         </div>
     </div>
 </nav>
-<form action="" class="search-bar">
-    <input type="search" name="search" pattern=".*\S.*" required style="background-color: #4E657A;">
+
+<form th:action="@{/Msearch}" class="search-bar" method="get">
+    <input type="search" name="name" pattern=".*\S.*" required style="background-color: #4E657A;">
     <button class="search-btn" type="submit">
         <span>Search</span>
     </button>
@@ -105,7 +106,7 @@
                             <th scope="col">Status</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tableee">
                         <tr th:each = "phone: ${listPhone}">
 
                             <td class="tm-product-name" th:text = "${phone.phoneId}"><a></a></td>
@@ -140,30 +141,23 @@
                         class="btn btn-primary btn-block text-uppercase mb-3">Add new product</a>
 
                 <div class="containerrr">
-                    <ul class="pagination">
+                    <ul class="pagination" id="page">
                         <li>
-                            <a href="#">Prev</a>
+                            <a href="#" id="page-link-prev" data-page="prev">Prev</a>
+                        </li>
+                        <li th:each="pageNumber : ${#numbers.sequence(1, totalPage)}">
+                            <a th:href="@{'?pageNumber='+${pageNumber}}" th:id="'page-link-' + ${pageNumber}"
+                               th:data-page="${pageNumber}" th:text="${pageNumber}"
+                               th:classappend="${currentPage == pageNumber ? 'active' : ''}"></a>
                         </li>
                         <li>
-                            <a href="#">1</a>
-                        </li>
-                        <li class="active">
-                            <a href="#">2</a>
-                        </li>
-                        <li>
-                            <a href="#">3</a>
-                        </li>
-                        <li>
-                            <a href="#">4</a>
-                        </li>
-                        <li>
-                            <a href="#">5</a>
-                        </li>
-                        <li>
-                            <a href="#">Next</a>
+                            <a href="#" id="page-link-next" data-page="next">Next</a>
                         </li>
                     </ul>
                 </div>
+
+
+
 
             </div>
         </div>

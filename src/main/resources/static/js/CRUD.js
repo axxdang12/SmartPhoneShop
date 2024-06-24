@@ -153,10 +153,113 @@ function changeStatus(btn) {
 }
 
 
+//     $(document).ready(function() {
+//         // Hàm xử lý khi người dùng click vào nút phân trang
+//         $('a[id^="page-link"]').click(function(event) {
+//             event.preventDefault();
+//             var page = $(this).attr('data-page');
+//
+//             // Thực hiện AJAX để lấy dữ liệu từ server
+//             $.ajax({
+//                 type: 'GET',
+//                 url: '/phones',
+//                 data: {
+//                     page: page
+//                 },
+//                 success: function(data) {
+//                     renderPhones(data.content);
+//                     updatePagination(data);
+//                 },
+//                 error: function() {
+//                     alert('Error fetching data.');
+//                 }
+//             });
+//         });
+//
+//         // Hàm render dữ liệu vào bảng
+//         function renderPhones(phones) {
+//             var tableBody = $('#tableee');
+//             tableBody.empty();
+//             phones.forEach(function(phone) {
+//                 var statusClass = phone.status ? 'active' : 'inactive';
+//                 var statusColor = phone.status ? 'green' : 'red';
+//                 var statusTitle = phone.status ? 'In Stock' : 'Out of Stock';
+//
+//                 tableBody.append(
+//                     `<tr>
+//                         <td class="tm-product-name">${phone.phoneId}</td>
+//                         <td>${phone.productName}</td>
+//                         <td>${phone.price} $</td>
+//                         <td>
+//                             <form action="/edit-product" method="post">
+//                                 <input type="hidden" name="id" value="${phone.phoneId}">
+//                                 <button type="submit" class="btn btn-link" style="color: white;">Edit</button>
+//                             </form>
+//                         </td>
+//                         <td class="action-links">
+//                             <a onclick="changeStatus(this)" class="stock ${statusClass}" style="color: ${statusColor};" data-id="${phone.phoneId}">
+//                                 <i class="fas fa-${phone.status ? 'check' : 'times'}-circle" data-toggle="tooltip" title="${statusTitle}"></i>
+//                             </a>
+//                         </td>
+//                     </tr>`
+//                 );
+//             });
+//         }
+//
+//         // Hàm cập nhật phân trang
+//         function updatePagination(data) {
+//             var pagination = $('#page');
+//             pagination.empty();
+//
+//             // Nút Prev
+//             pagination.append(
+//                 `<li>
+//                     <a href="#" id="page-link-prev" data-page="prev">Prev</a>
+//                 </li>`
+//             );
+//
+//             // Các nút trang
+//             for (var i = 0; i < data.totalPages; i++) {
+//                 var pageNumber = i + 1;
+//                 var activeClass = data.number === i ? 'active' : '';
+//                 pagination.append(
+//                     `<li>
+//                         <a href="#" id="page-link-${pageNumber}" class="${activeClass}" data-page="${pageNumber}">${pageNumber}</a>
+//                     </li>`
+//                 );
+//             }
+//
+//             // Nút Next
+//             pagination.append(
+//                 `<li>
+//                     <a href="#" id="page-link-next" data-page="next">Next</a>
+//                 </li>`
+//             );
+//
+//             // Xử lý sự kiện click trên các nút phân trang mới
+//             $('a[id^="page-link"]').click(function(event) {
+//                 event.preventDefault();
+//                 var page = $(this).attr('data-page');
+//
+//                 // Thực hiện AJAX để lấy dữ liệu từ server
+//                 $.ajax({
+//                     type: 'GET',
+//                     url: '/phones',
+//                     data: {
+//                         page: page
+//                     },
+//                     success: function(data) {
+//                         renderPhones(data.content);
+//                         updatePagination(data);
+//                     },
+//                     error: function() {
+//                         alert('Error fetching data.');
+//                     }
+//                 });
+//             });
+//         }
+//     });
 
-
-
-        // Gửi yêu cầu Ajax tới server để xóa sản phẩm
 
 
 

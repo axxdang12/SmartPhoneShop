@@ -1,9 +1,18 @@
 package swp391.SPS.services.impls;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import swp391.SPS.dtos.PageDto;
 import swp391.SPS.entities.Brand;
 //import swp391.SPS.entities.Category;
 import swp391.SPS.entities.Phone;
+import swp391.SPS.entities.User;
+import swp391.SPS.exceptions.NoDataInListException;
+import swp391.SPS.exceptions.OutOfPageException;
 import swp391.SPS.repositories.BrandRepository;
 import swp391.SPS.repositories.PhoneRepository;
 //import swp391.SPS.repositories.CategoryRepository;
@@ -96,4 +105,50 @@ public class PhoneServiceImpl implements PhoneService {
     public List<Phone> searchPhone(String name) {
         return phoneRepository.SearchProduct(name);
     }
+
+    @Override
+    public Page<Phone> findPhonePage(int pageNo) {
+        Pageable pageable = PageRequest.of(pageNo-1,5);
+        return this.phoneRepository.findAll(pageable);
+
+    }
+
+//    @Override
+//    public PageDto getListProductFirstLoad(int page, int size) throws OutOfPageException {
+//        Pageable pageable = PageRequest.of(page, size);
+//        Page<Phone> userRequest = phoneRepository.findAllPhone(pageable);
+//        if (userRequest.getContent().isEmpty()) {
+//            try {
+//                throw new NoDataInListException("No phone");
+//            } catch (NoDataInListException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//        if (page > userRequest.getTotalPages() - 1) {
+//            throw new OutOfPageException("Out of page");
+//        }
+//        return PageDto.builder().resultList(userRequest.getContent()).currentPage(userRequest.getNumber() + 1).totalPage(userRequest.getTotalPages()).build();
+//
+//    }
+//
+//    @Override
+//    public ResponseEntity getListProduct(int page, int size) throws NoDataInListException {
+//        Pageable pageable = PageRequest.of(page, size);
+//        Page<Phone> userRequest = phoneRepository.findAllPhone(pageable);
+//        if (userRequest.getContent().isEmpty()) {
+//            throw new NoDataInListException("No phone");
+//        }
+//        if (page > userRequest.getTotalPages() - 1) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No phone");
+//        }
+//        return ResponseEntity.status(HttpStatus.OK).body(PageDto.builder().resultList(userRequest.getContent()).currentPage(userRequest.getNumber() + 1).totalPage(userRequest.getTotalPages()));
+//
+//    }
+//
+//    @Override
+//    public Page<Phone> Pagination(Pageable pageable) {
+//        return phoneRepository.findAllPhone(pageable);
+//    }
+
+
 }
