@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import swp391.SPS.dtos.ProfileDto;
 import swp391.SPS.entities.Cart;
+import swp391.SPS.entities.User;
 import swp391.SPS.services.CartService;
 import swp391.SPS.services.UserService;
 
@@ -27,12 +29,15 @@ public class CheckoutController {
                 model.addAttribute("isLogin", false);
                 return "checkout";
             }
-            model.addAttribute("isLogin", true);
-            model.addAttribute("username", authentication.getName());
-            Cart cart= cartService.getCart(userService.getUserId(authentication.getName()));
-            model.addAttribute("listPByC", cart.getItems());
-            model.addAttribute("cartTotal", cart.getTotal());
-            model.addAttribute("user", userService.findByUsername(authentication.getName()));
+        User user = userService.findByUsername(authentication.getName());
+        model.addAttribute("isLogin", true);
+        model.addAttribute("username", authentication.getName());
+        Cart cart= cartService.getCart(userService.getUserId(authentication.getName()));
+        model.addAttribute("listPByC", cart.getItems());
+        model.addAttribute("cartTotal", cart.getTotal());
+        model.addAttribute("user", user);
+        model.addAttribute("profileDto", new ProfileDto(user.getUserDetail().getFirstName(), user.getUserDetail().getLastName(),
+        user.getUserDetail().getPhoneNumber(), user.getEmail(), user.getUserDetail().getGender(), user.getUserDetail().getAddress()));
             return "checkout";
         }
 }
