@@ -35,25 +35,24 @@ public class ManagerProduct {
     PictureService pictureService;
 
 
-
     @GetMapping("/manageProduct")
-    public String viewProduct(Model model,@RequestParam(name ="keyword",required = false) String name ,@RequestParam( name ="pageNumber",defaultValue = "1") int page){
-       Page<Phone> list = phoneService.findPhonePage(page);
+    public String viewProduct(Model model, @RequestParam(name = "keyword", required = false) String name, @RequestParam(name = "pageNumber", defaultValue = "1") int page) {
+        Page<Phone> list = phoneService.findPhonePage(page);
         model.addAttribute("listBrand", brandService.findAllBrand());
-        if(name!=null){
-            list = phoneService.searchPhone(name,page);
+        if (name != null) {
+            list = phoneService.searchPhone(name, page);
             model.addAttribute("keyword", name);
         }
         model.addAttribute("listPhone", list);
-        model.addAttribute("totalPage",list.getTotalPages());
-        model.addAttribute("currentPage",page);
-        return"products";
+        model.addAttribute("totalPage", list.getTotalPages());
+        model.addAttribute("currentPage", page);
+        return "products";
     }
 
     @GetMapping("/manageProduct/json")
     @ResponseBody
     public Map<String, Object> viewProductJson(@RequestParam(name = "keyword", required = false) String name, @RequestParam(name = "pageNumber", defaultValue = "1") int page) {
-        Page<Phone> list ;
+        Page<Phone> list;
         if (name != null && !name.isEmpty()) {
             list = phoneService.searchPhone(name, page);
         } else {
@@ -89,67 +88,66 @@ public class ManagerProduct {
     }
 
 
-
-
-
     @GetMapping("/add-product")
-    public String addP(Model model){
+    public String addP(Model model) {
         model.addAttribute("listBrand", brandService.findAllBrand());
         return "add-product";
     }
+
     @GetMapping("/edit-product")
-    public String viewEditphone(@RequestParam("id") int id, Model model){
-        model.addAttribute("phone",phoneService.getPhoneByID(id));
+    public String viewEditphone(@RequestParam("id") int id, Model model) {
+        model.addAttribute("phone", phoneService.getPhoneByID(id));
         return "Edit-product";
     }
-   @PostMapping("/editProduct")
-    public String EditPhone( @RequestParam("pid") int pid,
-                             @RequestParam("picid") int picid,
-                             @RequestParam("name") String productName,
-                             @RequestParam("price") double price,
-                             @RequestParam("cpu") String cpu,
-                             @RequestParam("memory") double memory,
+
+    @PostMapping("/editProduct")
+    public String EditPhone(@RequestParam("pid") int pid,
+                            @RequestParam("picid") int picid,
+                            @RequestParam("name") String productName,
+                            @RequestParam("price") double price,
+                            @RequestParam("cpu") String cpu,
+                            @RequestParam("memory") double memory,
 //                             @RequestParam("category") int cate,
-                             @RequestParam("sim") String sim,
-                             @RequestParam("ram") int ram,
-                             @RequestParam("dis") double dis,
-                             @RequestParam("origin") String origin,
-                             @RequestParam("brand") int brand,
-                             @RequestParam("pm") String pm,
-                             @RequestParam("pf") String pf,
-                             @RequestParam("pb") String pb,
-                             @RequestParam("ps") String ps,
-                             @RequestParam("camera") double camera,
-                             @RequestParam("status") Boolean status,
-                             @RequestParam("date") Date date,Model model,RedirectAttributes redirectAttributes){
+                            @RequestParam("sim") String sim,
+                            @RequestParam("ram") int ram,
+                            @RequestParam("dis") double dis,
+                            @RequestParam("origin") String origin,
+                            @RequestParam("brand") int brand,
+                            @RequestParam("pm") String pm,
+                            @RequestParam("pf") String pf,
+                            @RequestParam("pb") String pb,
+                            @RequestParam("ps") String ps,
+                            @RequestParam("camera") double camera,
+                            @RequestParam("status") Boolean status,
+                            @RequestParam("date") Date date, Model model, RedirectAttributes redirectAttributes) {
 //        model.addAttribute("listCategory", categoryService.findAllCategory());
         model.addAttribute("listBrand", brandService.findAllBrand());
-        Picture picture = new Picture(picid,pm,pf,pb,ps);
-        pictureService.editPircure(pictureService.getPictureById(picid));
+        Picture picture = new Picture(picid, pm, pf, pb, ps);
+        pictureService.editPicture(pictureService.getPictureById(picid));
 //        Category c = categoryService.getCategory(cate);
         Brand b = brandService.getBrand(brand);
 
         Phone phone = new Phone();
         phone = Phone.builder().productName(productName).status(status).phoneId(pid).cpu(cpu).ram(ram).sim(sim).price(price).camera(camera).memory(memory).origin(origin).brand(b).picture(picture).releaseDate(date.toLocalDate()).display(dis).build();
         phoneService.editPhone(phone);
-       redirectAttributes.addFlashAttribute("message", "Chỉnh sửa sản phẩm thành công!");
-       return "redirect:/manageProduct";
+        redirectAttributes.addFlashAttribute("message", "Chỉnh sửa sản phẩm thành công!");
+        return "redirect:/manageProduct";
     }
 
     @GetMapping("/add-brand")
-    public String viewAddBrand(){
+    public String viewAddBrand() {
         return "add-brand";
     }
 
     @GetMapping("/edit-brand")
-    public String editBrand(@RequestParam("id") int id,Model model){
-        model.addAttribute("brand",brandService.getBrand(id));
+    public String editBrand(@RequestParam("id") int id, Model model) {
+        model.addAttribute("brand", brandService.getBrand(id));
         return "edit-brand";
     }
 
     @PostMapping("/editbrand")
     public String editBrand(@RequestParam("id") int id,
-                               @RequestParam("name") String name,Model model,RedirectAttributes redirectAttributes){
+                            @RequestParam("name") String name, Model model, RedirectAttributes redirectAttributes) {
         Brand brand = Brand.builder().brandId(id).brandName(name).build();
         brandService.editBrand(brand);
         redirectAttributes.addFlashAttribute("message", "Chỉnh sửa brand thành công!");
@@ -157,18 +155,17 @@ public class ManagerProduct {
     }
 
 
-
     @PostMapping("/addBrand")
-    public String addBrand(@RequestParam("name") String name, Model model){
+    public String addBrand(@RequestParam("name") String name, Model model) {
         Brand brand = new Brand();
         brand = Brand.builder().brandName(name).build();
         brandService.addBrand(brand);
         List<Brand> lb = brandService.findAllBrand();
-        for(Brand b : lb){
-            if(b.equals(brand)){
+        for (Brand b : lb) {
+            if (b.equals(brand)) {
                 model.addAttribute("listBrand", brandService.findAllBrand());
                 model.addAttribute("mess", "Thêm brand thành công!");
-                return"add-brand";
+                return "add-brand";
             }
         }
         model.addAttribute("mess", "Thêm sản phẩm không thành công!");
@@ -176,27 +173,25 @@ public class ManagerProduct {
     }
 
 
-
-
     @PostMapping("/addProduct")
     public String addProduct(
-                             @RequestParam("name") String productName,
-                             @RequestParam("price") int price,
-                             @RequestParam("cpu") String cpu,
-                             @RequestParam("memory") int memory,
-                             @RequestParam("sim") String sim,
-                             @RequestParam("ram") int ram,
-                             @RequestParam("dis") int dis,
-                             @RequestParam("origin") String origin,
-                             @RequestParam("brand") int brand,
-                             @RequestParam("pm") String pm,
-                             @RequestParam("pf") String pf,
-                             @RequestParam("pb") String pb,
-                             @RequestParam("ps") String ps,
-                             @RequestParam("camera") int camera,
-                             @RequestParam("date") Date date,
-                             @RequestParam("status") Boolean status,
-                             Model model){
+            @RequestParam("name") String productName,
+            @RequestParam("price") int price,
+            @RequestParam("cpu") String cpu,
+            @RequestParam("memory") int memory,
+            @RequestParam("sim") String sim,
+            @RequestParam("ram") int ram,
+            @RequestParam("dis") int dis,
+            @RequestParam("origin") String origin,
+            @RequestParam("brand") int brand,
+            @RequestParam("pm") String pm,
+            @RequestParam("pf") String pf,
+            @RequestParam("pb") String pb,
+            @RequestParam("ps") String ps,
+            @RequestParam("camera") int camera,
+            @RequestParam("date") Date date,
+            @RequestParam("status") Boolean status,
+            Model model) {
 
         Picture picture = new Picture();
         picture = Picture.builder().site(ps).back(pb).front(pf).main(pm).build();
@@ -207,16 +202,16 @@ public class ManagerProduct {
         phone = Phone.builder().productName(productName).status(status).cpu(cpu).ram(ram).sim(sim).price(price).camera(camera).memory(memory).origin(origin).brand(b).picture(picture).releaseDate(date.toLocalDate()).display(dis).build();
         phoneService.addPhone(phone);
         List<Phone> lphone = phoneService.findAllPhone();
-        for(Phone p : lphone){
-            if(p.equals(phone)) {
+        for (Phone p : lphone) {
+            if (p.equals(phone)) {
                 model.addAttribute("listBrand", brandService.findAllBrand());
                 model.addAttribute("mess", "Thêm sản phẩm thành công");
-                return"add-product";
+                return "add-product";
             }
         }
         model.addAttribute("listBrand", brandService.findAllBrand());
         model.addAttribute("mess", "Thêm sản phẩm không thành công");
-        return"add-product";
+        return "add-product";
     }
 
 //    @GetMapping("/Msearch")
