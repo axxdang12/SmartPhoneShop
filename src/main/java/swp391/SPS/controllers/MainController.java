@@ -76,19 +76,4 @@ public class MainController {
         model.addAttribute("username", authentication.getName());
         return "detail";
     }
-
-    @GetMapping(value = "/admin-dashboard", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String adminDashBoard(Model model) throws NoDataInListException, OutOfPageException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            model.addAttribute("isLogin", false);
-            return "redirect:/login";
-        }
-        PageDto pageDto = userService.getListUserFirstLoad(0,5);
-        model.addAttribute("isLogin", true);
-        model.addAttribute("username", authentication.getName());
-        model.addAttribute("listFirstLoad", pageDto.getResultList());
-        model.addAttribute("listRole", roleService.findAll());
-        return "admin-dashboard";
-    }
 }

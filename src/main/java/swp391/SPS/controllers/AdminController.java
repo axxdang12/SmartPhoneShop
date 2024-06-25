@@ -17,24 +17,38 @@ import swp391.SPS.repositories.RoleRepository;
 import swp391.SPS.services.RoleService;
 import swp391.SPS.services.UserService;
 
-@RestController
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+@Controller
 public class AdminController {
-    @Autowired private UserService userService;
+    @Autowired
+    private UserService userService;
 
-    @Autowired private RoleService roleService;
+    @Autowired
+    private RoleService roleService;
 
-    @GetMapping(value = "/admin-dashboard/{page}/{size}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity adminDashBoardPage(@PathVariable(name = "page") int page,
-                                             @PathVariable(name = "size") int size
-    ) throws NoDataInListException, OutOfPageException {
-        return userService.getListUser(page, size);
-    }
-
-    @PostMapping("/save-role/{page}/{size}")
-    public ResponseEntity getListAfterSaveRole(@PathVariable(name = "page") int page,@PathVariable(name = "size") int size,
-    @RequestBody RequestSaveUserRoleDto requestSaveUserRoleDto
-    ) throws NoDataInListException {
-        userService.saveUserRole(requestSaveUserRoleDto.getUserId(), requestSaveUserRoleDto.getRoleName());
-        return userService.getListUser(page,size);
+    @RequestMapping(value ={"/admin-dashboard"}, method = RequestMethod.GET)
+    public String adminDashBoard(Model model,
+                                 @RequestParam("page") Optional<Integer> page) throws NoDataInListException, OutOfPageException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("isLogin", false);
+            return "redirect:/login";
+        }
+        int currentPage = page.orElse(1);
+        PageDto pageDto = userService.getListUserFirstLoad(currentPage -1, 2);
+        List<Integer> pageNumbers = IntStream.rangeClosed(1, pageDto.getTotalPage())
+                .boxed()
+                .collect(Collectors.toList());
+        model.addAttribute("pageNumbers", pageNumbers);
+        model.addAttribute("pageDto", pageDto);
+        model.addAttribute("isLogin", true);
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("listFirstLoad", pageDto.getResultList());
+        model.addAttribute("listRole", roleService.findAll());
+        return "admin-dashboard";
     }
 }

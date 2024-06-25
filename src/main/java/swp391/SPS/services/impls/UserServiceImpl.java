@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
         if (page > userRequest.getTotalPages() - 1) {
             throw new OutOfPageException("Out of page");
         }
-        return PageDto.builder().resultList(userRequest.getContent()).currentPage(userRequest.getNumber() + 1).totalPage(userRequest.getTotalPages()).build();
+        return PageDto.builder().resultList(userRequest.getContent()).currentPage(userRequest.getNumber() + 1).totalPage(userRequest.getTotalPages()).size(2).build();
     }
 
     @Override

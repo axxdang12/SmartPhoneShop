@@ -1,10 +1,33 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments::header}"></head>
+<head th:replace="~{fragments::header}">
+</head>
 <body>
+<style>
+    .pagination {
+        display: inline-block;
+    }
 
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+    }
+
+    .pagination a.active {
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .pagination a:hover:not(.active) {
+        background-color: #ddd;
+        border-radius: 5px;
+    }
+</style>
 <!--PreLoader-->
-<div th:replace="~{fragments::loader}"></div>
+<!--<div th:replace="~{fragments::loader}"></div>-->
 <!--PreLoader Ends-->
 
 <!-- header -->
@@ -74,9 +97,19 @@
                         </tr>
                         </tbody>
                     </table>
-                    <a th:href="@{/admin-dashboard/1/2}">2</a>
+                    <div th:if="${pageDto.totalPage > 0}" class="pagination"
+                         th:each="pageNumber : ${pageNumbers}">
+                        <a th:href="@{/admin-dashboard(page=${pageNumber})}"
+                           th:text="${pageNumber}"
+                           th:class="${pageNumber==pageDto.currentPage} ? active">&laquo;</a>
+                        <a th:href="@{/admin-dashboard(page=${pageNumber})}"
+                           th:text="${pageNumber}"
+                           th:class="${pageNumber==pageDto.currentPage} ? active"></a>
+                        <a th:href="@{/admin-dashboard(page=${pageNumber})}"
+                           th:text="${pageNumber}"
+                           th:class="${pageNumber==pageDto.currentPage} ? active">&raquo;122222222222222222222222222222222222222222222222222222222222`</a>
+                    </div>
                     <button class="btn btn-primary update-users" style="float: right; margin-top: 20px; margin-right: 11.5%;">Update</button>
-
                 </div>
             </div>
         </div>
@@ -95,7 +128,7 @@
 
 <!-- jquery -->
 <div th:replace="~{fragments::script}"></div>
-<!--<script th:src="@{/js/admin.js}"></script>-->
+<script th:src="@{/js/admin.js}"></script>
 
 </body>
 </html>
