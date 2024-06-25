@@ -24,7 +24,7 @@ public class PictureServiceImpl implements PictureService {
     }
 
     @Override
-    public void editPircure(Picture p) {
+    public void editPicture(Picture p) {
 
     }
 

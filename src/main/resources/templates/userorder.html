@@ -13,22 +13,7 @@
 	<!-- end header -->
 
 	<!-- search area -->
-	<div class="search-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<span class="close-btn"><i class="fas fa-window-close"></i></span>
-					<div class="search-bar">
-						<div class="search-bar-tablecell">
-							<h3>Search For:</h3>
-							<input type="text" placeholder="Keywords">
-							<button type="submit">Search <i class="fas fa-search"></i></button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	<div th:replace="~{fragments::search}"></div>
 	<!-- end search arewa -->
 	
 	<!-- breadcrumb-section -->
@@ -68,7 +53,7 @@
 								<td th:text="${order.orderId}"></td>
 								<td th:text="${order.orderDate}"></td>
 								<td style="padding-left: 25px;" th:text="${order.totalPrice}+'$'"></td>
-								<td><a class="btn btn-info" th:href="@{detail/{id}(id=${order.orderId})}">Details</a></td>
+								<td><a class="btn btn-info" th:href="@{/order-detail/{id}(id=${order.orderId})}">Details</a></td>
 								<td th:text="${order.status}"></td>
 								<td>
 									<a th:if="${order.status == 'Pending'}"

@@ -19,4 +19,10 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
     @Query(value = "SELECT * FROM ordertb WHERE ordertb.user_id = :userId" , nativeQuery = true)
     List<Order> getOrderByUserId(@Param("userId") int userId);
 
+    @Modifying
+    @Transactional
+    @Query(value = "SELECT * FROM ordertb WHERE ordertb.user_id LIKE %:uID%" , nativeQuery = true)
+    List<Order> searchOrderByUserId(@Param("uID") int userId);
+
+
 }
