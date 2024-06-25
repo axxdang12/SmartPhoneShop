@@ -7,6 +7,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import swp391.SPS.services.OrderItemService;
 import swp391.SPS.services.OrderService;
@@ -29,6 +31,11 @@ public class ManagerController {
         return "manager";
     }
 
+    @PostMapping("/searchorder")
+    public String searchOrderById(@RequestParam("userid") int id, Model model){
+        model.addAttribute("listOrderByUser", orderService.searchOrderByUserId(id));
+        return "manager";
+    }
     @GetMapping("/order-detail-manager/{id}")
     public String detailOrder(@PathVariable("id") int id, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
