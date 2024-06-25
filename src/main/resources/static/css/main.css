@@ -1,16 +1,3 @@
-/*
-Template Name: Fruitkha - Responsive Bootstrap4 Shop Template
-Template URI: 
-Description: Bootstrap template for fruits or any other kind of shop
-Author: Imran Hossain
-Author URI: https://imransdesign.com/
-Version: 1.0
-*/
-/* -----------------------------------------------------------------------------
-
-# Base - Genral & Typography
-
------------------------------------------------------------------------------ */
 html {
   font-size: 14px;
   font-weight: 400;
@@ -31,8 +18,7 @@ html {
       margin: 10px 2px;
       cursor: pointer;
       transition-duration: 0.4s;
-      /* padding-left: 28px; */
-      margin-left: 7%;}
+      }
 
   .feedback-section {
             padding: 60px 0;
@@ -922,6 +908,7 @@ a.mobile-show {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 7px;
+  margin-top: 25%;
 }
 
 /* -----------------------------------------------------------------------------
@@ -2255,11 +2242,12 @@ a.video-play-btn {
 }
 
 .team-bg-2 {
-  background-image: url("https://phucanhcdn.com/media/product/53295_may_tinh_bang_samsung_galaxy_tab_a9_den_3.jpg");
+  background-image: url("https://cdn.viettelstore.vn/Images/Product/ProductImage/2018473440.jpeg");
 }
 
 .team-bg-3 {
-  background-image: url("https://lidoday.com/wp-content/uploads/2021/06/day-sac-iphone2_20210108144910178.jpg");
+  background-image: url("https://product.hstatic.net/1000120098/product/huawei-nova-3i-den-chipu-1-600x600_master.jpg");
+  width: 140%;
 }
 
 

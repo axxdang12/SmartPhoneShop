@@ -1,5 +1,6 @@
 package swp391.SPS.dtos;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -12,20 +13,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProfileDto {
-  @Pattern(regexp = "^[a-zA-Z]$", message = "First Name must be word!")
-  @NotEmpty(message = "First Name can not be blank")
+  @NotBlank(message = "First name is required")
   private String firstName;
 
-  @Pattern(regexp = "^[a-zA-Z]$", message = "Last Name must be word!")
-  @NotEmpty(message = "Last Name can not be blank")
+  @NotBlank(message = "Last name is required")
   private String lastName;
 
-  @Pattern(regexp = "^[0-9_-]{10}$", message = "Phone number must be 10 digits")
-  @NotEmpty(message = "Phone can not be blank")
+  @NotBlank(message = "Phone number is required")
+  @Pattern(regexp = "^0\\d{8,}$", message = "Phone number must start with 0 and have at least 9 digits")
   private String phoneNumber;
   private String email;
   private String gender;
 
-  @NotEmpty(message = "Address can not be blank")
+  @NotBlank(message = "Address is required")
   private String address;
 }
