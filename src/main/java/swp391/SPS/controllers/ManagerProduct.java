@@ -18,6 +18,7 @@ import swp391.SPS.entities.Picture;
 import swp391.SPS.services.*;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,31 +37,60 @@ public class ManagerProduct {
 
 
     @GetMapping("/manageProduct")
-    public String viewProduct(Model model, @RequestParam( name ="pageNumber",defaultValue = "1") int page){
+    public String viewProduct(Model model,@RequestParam(name ="keyword",required = false) String name ,@RequestParam( name ="pageNumber",defaultValue = "1") int page){
        Page<Phone> list = phoneService.findPhonePage(page);
         model.addAttribute("listBrand", brandService.findAllBrand());
-
-        model.addAttribute("listPhone", list);
-        model.addAttribute("totalPage",list.getTotalPages());
-        model.addAttribute("currentPage",page);
-        return"products";
-    }
-
-    @GetMapping("/manageProduct/search")
-    public String Search(Model model,@RequestParam("keyword") String name, @RequestParam( name ="pageNumber",defaultValue = "1") int page){
-        model.addAttribute("listBrand", brandService.findAllBrand());
-        Page<Phone> list = phoneService.findPhonePage(page);
         if(name!=null){
             list = phoneService.searchPhone(name,page);
             model.addAttribute("keyword", name);
-
-
         }
         model.addAttribute("listPhone", list);
         model.addAttribute("totalPage",list.getTotalPages());
         model.addAttribute("currentPage",page);
         return"products";
     }
+
+    @GetMapping("/manageProduct/json")
+    @ResponseBody
+    public Map<String, Object> viewProductJson(@RequestParam(name = "keyword", required = false) String name, @RequestParam(name = "pageNumber", defaultValue = "1") int page) {
+        Page<Phone> list ;
+        if (name != null && !name.isEmpty()) {
+            list = phoneService.searchPhone(name, page);
+        } else {
+            list = phoneService.findPhonePage(page);
+        }
+        Map<String, Object> response = new HashMap<>();
+        response.put("htmlContent", generateHtmlContent(list.getContent()));
+        response.put("totalPages", list.getTotalPages());
+        response.put("currentPage", page);
+        return response;
+    }
+
+    private String generateHtmlContent(List<Phone> phones) {
+        StringBuilder htmlContent = new StringBuilder();
+        for (Phone phone : phones) {
+            htmlContent.append("<tr>");
+            htmlContent.append("<td class=\"tm-product-name\">").append(phone.getPhoneId()).append("</td>");
+            htmlContent.append("<td>").append(phone.getProductName()).append("</td>");
+            htmlContent.append("<td>").append(phone.getPrice()).append(" $</td>");
+            htmlContent.append("<td><a href=\"/edit-product?id=").append(phone.getPhoneId()).append("\" class=\"btn btn-link\" style=\"color: white;\">Edit</a></td>");
+            htmlContent.append("<td class=\"action-links\">");
+            if (phone.getStatus()) {
+                htmlContent.append("<a onclick=\"changeStatus(this)\" class=\"stock active\" style=\"color: green;\" data-id=\"").append(phone.getPhoneId()).append("\">");
+                htmlContent.append("<i class=\"fas fa-check-circle\" data-toggle=\"tooltip\" title=\"In Stock\"></i></a>");
+            } else {
+                htmlContent.append("<a onclick=\"changeStatus(this)\" class=\"stock inactive\" style=\"color: red;\" data-id=\"").append(phone.getPhoneId()).append("\">");
+                htmlContent.append("<i class=\"fas fa-times-circle\" data-toggle=\"tooltip\" title=\"Out of Stock\"></i></a>");
+            }
+            htmlContent.append("</td>");
+            htmlContent.append("</tr>");
+        }
+        return htmlContent.toString();
+    }
+
+
+
+
 
     @GetMapping("/add-product")
     public String addP(Model model){

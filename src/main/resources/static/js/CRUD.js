@@ -1,122 +1,7 @@
-
-
-    // Activate tooltip
-    $('[data-toggle="tooltip"]').tooltip();
-
-    // Khi nút "Edit" được nhấn
-    $('.edit').on('click', function() {
-        var phoneId = $(this).data('id');
-
-        // Gửi yêu cầu Ajax tới server để lấy dữ liệu
-        $.ajax({
-            url: '/api/edit-product',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify( phoneId ),
-            success: function(response) {
-            alert(response.listBrand[0]);
-             var phone = response.phone;
-              var listBrand = response.listBrand;
-                // Điền dữ liệu vào các trường trong popup
-                 $('#editProductId').val(phone.phoneId);
-                $('#editProductName').val(phone.productName);
-                $('#editProductPrice').val(phone.price);
-                $('#editProductCPU').val(phone.cpu);
-                $('#editProductOrigin').val(phone.origin);
-                $('#editProductSim').val(phone.sim);
-                $('#editProductDate').val(phone.releaseDate);
-                $('#editProductCamera').val(phone.camera);
-                $('#editProductDisplay').val(phone.display);
-
-                $('#editProductRam').val(phone.ram);
-                $('#editProductMemory').val(phone.memory);
-
-                    var selectbrand = $('#editProductBrand');
-
-
-                $('#editProductBrand').empty();
-
-                   // Duyệt qua danh sách listBrand và thêm các tùy chọn vào select box
-                $.each(listBrand, function(index, brand) {
-                    $('#editProductBrand').append('<option  th:value="${' + brand.brandId + '}" th:text="${' + brand.brandName + '}"></option>');
-                   });
-
-
-                // Hiển thị popup
-                $('#editEmployeeModal').modal('show');
-            },
-            error: function(error) {
-                console.log("Error fetching product data: ", error);
-            }
-        });
-    });
-
-
-// Khi form được submit
-$('#editProductForm').on('submit', function(event) {
-event.preventDefault();
-
-// Thu thập dữ liệu từ các trường input
-var productData = {
-   phoneId: $('#editProductId').val(),
-   productName: $('#editProductName').val(),
-   price: $('#editProductPrice').val(),
-   cpu: $('#editProductCPU').val(),
-   origin: $('#editProductOrigin').val(),
-   sim: $('#editProductSim').val(),
-   releaseDate: $('#editProductDate').val(),
-   camera: $('#editProductCamera').val(),
-   display: $('#editProductDisplay').val(),
-   ram: $('#editProductRam').val(),
-   memory: $('#editProductMemory').val(),
-   brandId: $('#editProductBrand').val()
-};
-
-// Gửi yêu cầu Ajax tới server để cập nhật sản phẩm
-$.ajax({
-   url: '/api/update-product', // URL endpoint để cập nhật sản phẩm
-   type: 'POST',
-   contentType: 'application/json',
-   data: JSON.stringify(productData),
-   success: function(response) {
-       // Xử lý khi cập nhật thành công
-       console.log("Product updated successfully:", response);
-
-       // Ẩn modal sau khi cập nhật thành công
-       $('#editEmployeeModal').modal('hide');
-
-       // Cập nhật danh sách sản phẩm (có thể tải lại trang hoặc cập nhật DOM)
-       // location.reload(); // Hoặc cập nhật DOM tùy thuộc vào yêu cầu cụ thể
-   },
-   error: function(error) {
-       console.log("Error updating product: ", error);
-   }
-});
-});
-
-
-
-
-//  $(document).on('click', '.delete', function() {
-//      // Lấy ID của sản phẩm từ thuộc tính data-id
-//      var phoneId = $(this).data('id');
 //
-//      $.ajax({
-//          url: '/api/delete-product',
-//          type: 'POST',
-//          contentType: 'application/json',
-//          data: JSON.stringify({ id: phoneId }), // Đóng gói ID thành đối tượng JSON
-//          success: function(response) {
-//              // Hiển thị thông báo xóa thành công (nếu cần)
-//              alert('chỉnh sửa trạng thái sản phẩm thành công!');
-//              loadPhoneData();
-//          },
-//          error: function(error) {
-//              console.log("Error deleting product: ", error);
-//              alert('Có lỗi xảy ra khi xóa sản phẩm.');
-//          }
-//      });
-//  });
+//
+//    // Activate tooltip
+// $('[data-toggle="tooltip"]').tooltip();
 function changeStatus(btn) {
     var isActive = btn.classList.contains('active'); // Kiểm tra xem nút có class 'active' hay không
     var phoneId = btn.getAttribute('data-id'); // Lấy ID của sản phẩm từ thuộc tính data-id của thẻ <a>
@@ -151,114 +36,69 @@ function changeStatus(btn) {
         }
     });
 }
+///////////////////////////////////////////////////////////////////////////////////
+  $(document).ready(function(){
+          function loadPage(page, keyword = '') {
+              $.ajax({
+                  url: '/manageProduct/json',
+                  type: 'GET',
+                  data: {
+                      pageNumber: page,
+                      keyword: keyword
+                  },
+                  success: function(response) {
+                      $('#tableee').html(response.htmlContent);
+                      updatePaginationLinks(page, response.totalPages);
+                  },
+                  error: function() {
+                      console.error("Error loading page");
+                  }
+              });
+          }
+
+          function updatePaginationLinks(currentPage, totalPages) {
+              $('#page a').removeClass('active');
+              $('#page-link-' + currentPage).addClass('active');
+
+              var currentTotalPages = parseInt($('#page li').length - 2); // Exclude "Prev" and "Next" links
+                  if (totalPages !== currentTotalPages) {
+                      $('#page li').slice(1, -1).remove(); // Remove current pagination links
+                      for (var i = 1; i <= totalPages; i++) {
+                          var activeClass = (i === currentPage) ? 'active' : '';
+                          $('#page-link-next').before('<li><a href="#" id="page-link-' + i + '" data-page="' + i + '" class="' + activeClass + '">' + i + '</a></li>');
+                      }
+                  }
+
+              if (currentPage <= 1) {
+                  $('#page-link-prev').hide();
+              } else {
+                  $('#page-link-prev').show().data('page', currentPage - 1);
+              }
+              if (currentPage >= totalPages) {
+                  $('#page-link-next').hide();
+              } else {
+                  $('#page-link-next').show().data('page', currentPage + 1);
+              }
+          }
+
+          $(document).on('click', '#page a', function(e) {
+              e.preventDefault();
+              var page = $(this).data('page');
+               var keyword = $('#search-form input[name="keyword"]').val();
+              loadPage(page, keyword);
+          });
+
+          $('#search-button').click(function(e) {
+                      e.preventDefault();
+                      var keyword = $('#search-form input[name="keyword"]').val();
+                      loadPage(1, keyword);
+                  });
 
 
-//     $(document).ready(function() {
-//         // Hàm xử lý khi người dùng click vào nút phân trang
-//         $('a[id^="page-link"]').click(function(event) {
-//             event.preventDefault();
-//             var page = $(this).attr('data-page');
-//
-//             // Thực hiện AJAX để lấy dữ liệu từ server
-//             $.ajax({
-//                 type: 'GET',
-//                 url: '/phones',
-//                 data: {
-//                     page: page
-//                 },
-//                 success: function(data) {
-//                     renderPhones(data.content);
-//                     updatePagination(data);
-//                 },
-//                 error: function() {
-//                     alert('Error fetching data.');
-//                 }
-//             });
-//         });
-//
-//         // Hàm render dữ liệu vào bảng
-//         function renderPhones(phones) {
-//             var tableBody = $('#tableee');
-//             tableBody.empty();
-//             phones.forEach(function(phone) {
-//                 var statusClass = phone.status ? 'active' : 'inactive';
-//                 var statusColor = phone.status ? 'green' : 'red';
-//                 var statusTitle = phone.status ? 'In Stock' : 'Out of Stock';
-//
-//                 tableBody.append(
-//                     `<tr>
-//                         <td class="tm-product-name">${phone.phoneId}</td>
-//                         <td>${phone.productName}</td>
-//                         <td>${phone.price} $</td>
-//                         <td>
-//                             <form action="/edit-product" method="post">
-//                                 <input type="hidden" name="id" value="${phone.phoneId}">
-//                                 <button type="submit" class="btn btn-link" style="color: white;">Edit</button>
-//                             </form>
-//                         </td>
-//                         <td class="action-links">
-//                             <a onclick="changeStatus(this)" class="stock ${statusClass}" style="color: ${statusColor};" data-id="${phone.phoneId}">
-//                                 <i class="fas fa-${phone.status ? 'check' : 'times'}-circle" data-toggle="tooltip" title="${statusTitle}"></i>
-//                             </a>
-//                         </td>
-//                     </tr>`
-//                 );
-//             });
-//         }
-//
-//         // Hàm cập nhật phân trang
-//         function updatePagination(data) {
-//             var pagination = $('#page');
-//             pagination.empty();
-//
-//             // Nút Prev
-//             pagination.append(
-//                 `<li>
-//                     <a href="#" id="page-link-prev" data-page="prev">Prev</a>
-//                 </li>`
-//             );
-//
-//             // Các nút trang
-//             for (var i = 0; i < data.totalPages; i++) {
-//                 var pageNumber = i + 1;
-//                 var activeClass = data.number === i ? 'active' : '';
-//                 pagination.append(
-//                     `<li>
-//                         <a href="#" id="page-link-${pageNumber}" class="${activeClass}" data-page="${pageNumber}">${pageNumber}</a>
-//                     </li>`
-//                 );
-//             }
-//
-//             // Nút Next
-//             pagination.append(
-//                 `<li>
-//                     <a href="#" id="page-link-next" data-page="next">Next</a>
-//                 </li>`
-//             );
-//
-//             // Xử lý sự kiện click trên các nút phân trang mới
-//             $('a[id^="page-link"]').click(function(event) {
-//                 event.preventDefault();
-//                 var page = $(this).attr('data-page');
-//
-//                 // Thực hiện AJAX để lấy dữ liệu từ server
-//                 $.ajax({
-//                     type: 'GET',
-//                     url: '/phones',
-//                     data: {
-//                         page: page
-//                     },
-//                     success: function(data) {
-//                         renderPhones(data.content);
-//                         updatePagination(data);
-//                     },
-//                     error: function() {
-//                         alert('Error fetching data.');
-//                     }
-//                 });
-//             });
-//         }
-//     });
+          var initialPage = 1;
+          loadPage(initialPage);
+      });
+
 
 
 
