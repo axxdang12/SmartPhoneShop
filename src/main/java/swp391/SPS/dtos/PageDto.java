@@ -15,5 +15,5 @@ public class PageDto {
     private List resultList;
     private int totalPage;
     private int currentPage;
-
+    private int size;
 }

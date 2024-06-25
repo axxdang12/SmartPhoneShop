@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,13 +15,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet"  th:href="@{/css/styleee.css}">
-    <link rel="stylesheet"  th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/styleee.css}">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
     <style>
         .material-icons {
             cursor: pointer; /* Đặt con trỏ thành dạng bút chì khi chỉ vào biểu tượng */
@@ -35,12 +34,13 @@
                 <div class="col-sm-6">
                     <h2>Manage <b>Proucts</b></h2>
                 </div>
-                <div class="col-sm-6" >
-                    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New PProduct</span></a>
+                <div class="col-sm-6">
+                    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i>
+                        <span>Add New PProduct</span></a>
 
 
-
-                    <form id="searchForm" action="searchEndpoint" method="POST" class="input-group" style="display: flex">
+                    <form id="searchForm" action="searchEndpoint" method="POST" class="input-group"
+                          style="display: flex">
                         <input type="text" class="form-control" name="searchQuery" placeholder="Search..." required>
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-danger" style="height: 34px;  width: 0px;">
@@ -68,24 +68,27 @@
             </tr>
             </thead>
             <tbody id="productTableBody">
-            <tr th:each = "phone: ${listPhone}">
-                <td th:text = "${phone.phoneId}"></td>
-                <td th:text = "${phone.productName}"></td>
-                <td th:text ="${phone.Brand.brandName}"></td>
-                <td th:text ="${phone.origin}"></td>
-                <td th:text ="${phone.price} + '$'"></td>
-                <td  class="action-links" >
+            <tr th:each="phone: ${listPhone}">
+                <td th:text="${phone.phoneId}"></td>
+                <td th:text="${phone.productName}"></td>
+                <td th:text="${phone.Brand.brandName}"></td>
+                <td th:text="${phone.origin}"></td>
+                <td th:text="${phone.price} + '$'"></td>
+                <td class="action-links">
 
-                        <a href="#" class="edit" data-toggle="modal" data-target="#editEmployeeModal" th:data-id="${phone.phoneId}">
-                            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                        </a>
+                    <a href="#" class="edit" data-toggle="modal" data-target="#editEmployeeModal"
+                       th:data-id="${phone.phoneId}">
+                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                    </a>
 
                 </td>
                 <td style="">
-                    <a th:if="${phone.status}" onclick="changeStatus(this)" class="delete" style="color: green;" data-toggle="modal"  th:data-id="${phone.phoneId}" >
+                    <a th:if="${phone.status}" onclick="changeStatus(this)" class="delete" style="color: green;"
+                       data-toggle="modal" th:data-id="${phone.phoneId}">
                         <i class="material-icons" data-toggle="tooltip" title="Active">check_circle</i>
                     </a>
-                    <a th:if="!${phone.status}" onclick="changeStatus(this)" class="delete" style="color: gray;"  data-toggle="modal" th:data-id="${phone.phoneId}">
+                    <a th:if="!${phone.status}" onclick="changeStatus(this)" class="delete" style="color: gray;"
+                       data-toggle="modal" th:data-id="${phone.phoneId}">
                         <i class="material-icons" data-toggle="tooltip" title="Inactive">remove_circle </i>
                     </a>
                 </td>
@@ -152,7 +155,7 @@
                         <input name="dis" id="dis" type="number" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label >Brand</label>
+                        <label>Brand</label>
                         <select name="brand" id="brand" class="form-control" required>
 
                             <option th:each="brand : ${listBrand}"
@@ -162,7 +165,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label >Ram</label>
+                        <label>Ram</label>
                         <select name="ram" id="ram" class="form-control" required>
                             <option value="8">8GB</option>
                             <option value="16">16GB</option>
