@@ -18,4 +18,9 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
     @Transactional
     @Query(value = "SELECT * FROM report WHERE order_id= :orderId", nativeQuery = true)
     Report getReportFromOrder(@Param("orderId") int cartId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM report WHERE report_id = :reportId", nativeQuery = true)
+    void deleteR(@Param("reportId") int reportId);
 }

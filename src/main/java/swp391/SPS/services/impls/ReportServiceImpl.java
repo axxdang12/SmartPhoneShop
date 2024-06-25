@@ -33,4 +33,14 @@ public class ReportServiceImpl implements ReportService {
     public Report getReportByOrderId(int orderId) {
         return reportRepository.getReportFromOrder(orderId);
     }
+
+    @Override
+    public void deleteReport(int report) {
+        reportRepository.deleteR(report);
+    }
+
+    @Override
+    public Report getReport(int reportId) {
+        return reportRepository.getReferenceById(reportId);
+    }
 }

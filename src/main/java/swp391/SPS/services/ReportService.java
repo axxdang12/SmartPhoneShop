@@ -7,4 +7,6 @@ import swp391.SPS.entities.User;
 public interface ReportService {
     Report submitR(int orderId, String description, User user);
     Report getReportByOrderId(int orderId);
+    void deleteReport(int report);
+    Report getReport(int reportId);
 }

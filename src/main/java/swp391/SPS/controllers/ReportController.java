@@ -15,6 +15,7 @@ import swp391.SPS.repositories.UserRepository;
 import swp391.SPS.services.OrderItemService;
 import swp391.SPS.services.OrderService;
 import swp391.SPS.services.ReportService;
+import swp391.SPS.services.UserService;
 
 
 @Controller
@@ -28,6 +29,8 @@ public class ReportController {
     OrderService orderService;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    UserService userService;
 
     @GetMapping("/report/{id}")
     public String showReportForm(@PathVariable("id") int orderId, Model model) {
@@ -63,6 +66,21 @@ public class ReportController {
         model.addAttribute("existingReport", existingReport);
         model.addAttribute("reportNormal", existingReport != null);
         return "redirect:/respond";
+    }
+
+    @PostMapping("/delete-report")
+    public String deleteReport(@RequestParam("reportId") int reportId, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("isLogin", false);
+            return "report";
+        }
+        model.addAttribute("isLogin", true);
+        model.addAttribute("username", authentication.getName());
+//        Report report=reportService.getReport(reportId);
+        reportService.deleteReport(reportId);
+        model.addAttribute("orderListByUid",orderService.ListOrderByUserId(userService.getUserId(authentication.getName())));
+        return "redirect:/userorder";
     }
 
     @GetMapping("/respond")

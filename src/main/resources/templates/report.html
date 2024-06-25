@@ -52,6 +52,10 @@
                             </div>
                         </div>
                     </form>
+                    <form th:action="@{/delete-report}" method="post" th:if="${existingReport}">
+                        <input type="hidden" name="reportId" th:value="${existingReport.reportId}" />
+                        <button id="bt" type="submit" class="btn btn-danger mt-2">Delete Report</button>
+                    </form>
                 </div>
             </div>
             <div class="col-lg-4">
