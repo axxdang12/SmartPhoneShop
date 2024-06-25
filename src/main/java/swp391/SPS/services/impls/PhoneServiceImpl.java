@@ -116,6 +116,11 @@ public class PhoneServiceImpl implements PhoneService {
 
     }
 
+
+
+
+
+
     @Override
     public Page<Phone> searchPhone(String name, int pageNo) {
         List<Phone> list = phoneRepository.SearchProduct(name);
@@ -134,6 +139,22 @@ public class PhoneServiceImpl implements PhoneService {
             lp.add(getPhoneByID(i));
         }
         return lp;
+    }
+
+    @Override
+    public Page<Phone> phoneforshop(int pageno) {
+        Pageable pageable = PageRequest.of(pageno - 1, 9);
+        return phoneRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Phone> searchPhoneforShop(String name, int pageNo) {
+        List<Phone> list = phoneRepository.SearchProduct(name);
+        Pageable pageable = PageRequest.of(pageNo - 1, 9);
+        int start = (int) pageable.getOffset();
+        int end = pageable.getOffset() + pageable.getPageSize() > list.size() ? list.size() : (int) (pageable.getOffset() + pageable.getPageSize());
+        list = list.subList(start, end);
+        return new PageImpl<>(list, pageable, phoneRepository.SearchProduct(name).size());
     }
 
 

@@ -214,12 +214,5 @@ public class ManagerProduct {
         return "add-product";
     }
 
-//    @GetMapping("/Msearch")
-//    public String search(@RequestParam("name") String name, Model model){
-//        model.addAttribute("listPhone", phoneService.searchPhone(name));
-//
-//        model.addAttribute("listBrand", brandService.findAllBrand());
-//
-//        return"products";
-//    }
+
 }

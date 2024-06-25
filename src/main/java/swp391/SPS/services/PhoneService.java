@@ -22,4 +22,6 @@ public interface PhoneService {
     Page<Phone> findPhonePage(int pageNo);
     Page<Phone> searchPhone(String name, int pageNo);
     List<Phone> getbestsale();
+    Page<Phone> phoneforshop(int pageno);
+    Page<Phone> searchPhoneforShop(String name,int pageNo);
 }
