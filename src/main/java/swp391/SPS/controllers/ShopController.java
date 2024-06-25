@@ -56,22 +56,21 @@ public class ShopController {
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
         model.addAttribute("listBrand", brandService.findAllBrand());
-//        model.addAttribute("listCategory", categoryService.findAllCategory());
         return "shop";
     }
 
 //    }
     @PostMapping("/search")
     public String search(@RequestParam("name") String name, Model model){
-        model.addAttribute("listPhone", phoneService.searchPhone(name));
-//        model.addAttribute("listA", accessService.searchAcc(name));
-        model.addAttribute("listBrand", brandService.findAllBrand());
-//        model.addAttribute("listCategory", categoryService.findAllCategory());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
             return "shop";
         }
+        model.addAttribute("isLogin", true);
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("listPhone", phoneService.searchPhone(name));
+        model.addAttribute("listBrand", brandService.findAllBrand());
         return"shop";
     }
 

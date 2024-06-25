@@ -37,4 +37,7 @@ public class Order {
   @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   private List<OrderItem> orderItems;
 
+  @OneToOne(mappedBy = "order")
+  private Report report;
+
 }

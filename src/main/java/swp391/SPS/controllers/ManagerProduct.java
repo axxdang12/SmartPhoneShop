@@ -86,11 +86,9 @@ public class ManagerProduct {
                              @RequestParam("ps") String ps,
                              @RequestParam("camera") double camera,
                              @RequestParam("date") Date date,Model model){
-//        model.addAttribute("listCategory", categoryService.findAllCategory());
         model.addAttribute("listBrand", brandService.findAllBrand());
         Picture picture = new Picture(picid,pm,pf,pb,ps);
-        pictureService.editPircure(pictureService.getPictureById(picid));
-//        Category c = categoryService.getCategory(cate);
+        pictureService.editPicture(pictureService.getPictureById(picid));
         Brand b = brandService.getBrand(brand);
 
         Phone phone = new Phone();

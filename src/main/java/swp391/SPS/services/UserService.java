@@ -17,6 +17,8 @@ public interface UserService {
 
     User saveProfile(ProfileDto profileDto, String userName);
 
+    User saveProfileCheckout(ProfileDto profileDto, String userName);
+
     User findByUsername(String username);
 
     int getUserId(String userName);

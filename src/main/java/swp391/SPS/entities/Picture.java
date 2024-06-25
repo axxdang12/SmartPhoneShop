@@ -35,4 +35,7 @@ public class Picture {
     @Column(name = "side")
     private String site;
 
+//    @OneToOne(mappedBy = "picture")
+//    private Phone phone;
+
 }
