@@ -19,9 +19,7 @@ public interface PhoneService {
     void editPhone(Phone p);
     void changeStatus(Phone p);
     List<Phone> searchPhone(String name);
-//    PageDto getListProductFirstLoad(int page, int size) throws OutOfPageException;
-//    ResponseEntity getListProduct(int page, int size) throws NoDataInListException;
-//    Page<Phone> Pagination(Pageable pageable);
     Page<Phone> findPhonePage(int pageNo);
     Page<Phone> searchPhone(String name, int pageNo);
+    List<Phone> getbestsale();
 }

@@ -1,4 +1,5 @@
 package swp391.SPS.services.impls;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -123,6 +124,16 @@ public class PhoneServiceImpl implements PhoneService {
         int end = pageable.getOffset() + pageable.getPageSize() > list.size() ? list.size() : (int) (pageable.getOffset() + pageable.getPageSize());
         list = list.subList(start, end);
         return new PageImpl<>(list, pageable, phoneRepository.SearchProduct(name).size());
+    }
+
+    @Override
+    public List<Phone> getbestsale() {
+        List<Integer> li = phoneRepository.getBestSale();
+        List<Phone> lp = new ArrayList<>();
+        for(Integer i : li){
+            lp.add(getPhoneByID(i));
+        }
+        return lp;
     }
 
 

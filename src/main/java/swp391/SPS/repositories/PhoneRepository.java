@@ -22,4 +22,14 @@ public interface PhoneRepository extends JpaRepository<Phone, Integer> {
     @Query("SELECT p FROM Phone p")
     Page<Phone> findAllPhone(Pageable pageable);
 
+    @Modifying
+    @Transactional
+    @Query(value = "SELECT phone.phone_id\n" +
+            "FROM phone join order_item on phone.phone_id = order_item.phone_id\n" +
+            "join ordertb on order_item.order_id = ordertb.order_id\n" +
+            "where ordertb.status = 'Completed' \n" +
+            "group by phone.phone_id \n" +
+            "order by sum(order_item.quantity) desc LIMIT 3;\n", nativeQuery = true)
+    List<Integer> getBestSale();
+
 }
