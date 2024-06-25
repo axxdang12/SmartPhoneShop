@@ -80,4 +80,11 @@ public class OrderServiceImpl implements OrderService {
         }
         orderRepository.delete(order);
     }
+
+    @Override
+    public List<Order> searchOrderByUserId(int id) {
+        return orderRepository.searchOrderByUserId(id);
+    }
+
+
 }
