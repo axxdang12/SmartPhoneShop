@@ -16,6 +16,8 @@ import swp391.SPS.services.BrandService;
 //import swp391.SPS.services.CategoryService;
 import swp391.SPS.services.PhoneService;
 
+import java.util.List;
+
 @Controller
 public class ShopController {
 
@@ -62,10 +64,12 @@ public class ShopController {
 //    }
 
     @GetMapping("/shop/brand/{idBrand}")
-    public String ProductByBrand(@PathVariable("idBrand") int id, Model model){
+    public String ProductByBrand(@PathVariable("idBrand") int id, Model model,@RequestParam(name = "pageNo", defaultValue = "1") int page){
         model.addAttribute("listBrand", brandService.findAllBrand());
-        model.addAttribute("listPhone", phoneService.getPhoneByBrand(id));
-//        model.addAttribute("listA", accessService.getAccessByBrand(id));
+        Page<Phone> list = phoneService.getPhoneBrandByPahination(id,page);
+        model.addAttribute("listPhone", list);
+        model.addAttribute("totalPage", list.getTotalPages());
+        model.addAttribute("currentPage", page);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
@@ -73,7 +77,6 @@ public class ShopController {
         }
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
-        model.addAttribute("listBrand", brandService.findAllBrand());
         return "shop";
     }
 

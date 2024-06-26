@@ -158,6 +158,17 @@ public class PhoneServiceImpl implements PhoneService {
     }
 
 
+    @Override
+    public Page<Phone> getPhoneBrandByPahination(int id, int pageNo) {
+        List<Phone> list = getPhoneByBrand(id);
+        Pageable pageable = PageRequest.of(pageNo-1,6);
+        int start = (int) pageable.getOffset();
+        int end = pageable.getOffset() + pageable.getPageSize() > list.size() ? list.size() : (int) (pageable.getOffset() + pageable.getPageSize());
+        list = list.subList(start, end);
+        return new PageImpl<>(list,pageable,getPhoneByBrand(id).size());
+    }
+
+
 //    @Override
 //    public PageDto getListProductFirstLoad(int page, int size) throws OutOfPageException {
 //        Pageable pageable = PageRequest.of(page, size);

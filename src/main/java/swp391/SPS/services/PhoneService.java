@@ -24,4 +24,5 @@ public interface PhoneService {
     List<Phone> getbestsale();
     Page<Phone> phoneforshop(int pageno);
     Page<Phone> searchPhoneforShop(String name,int pageNo);
+    Page<Phone> getPhoneBrandByPahination(int id,int pageNo);
 }
