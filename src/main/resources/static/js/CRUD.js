@@ -2,6 +2,7 @@
 //
 //    // Activate tooltip
 // $('[data-toggle="tooltip"]').tooltip();
+
 function changeStatus(btn) {
     var isActive = btn.classList.contains('active'); // Kiểm tra xem nút có class 'active' hay không
     var phoneId = btn.getAttribute('data-id'); // Lấy ID của sản phẩm từ thuộc tính data-id của thẻ <a>
@@ -16,7 +17,7 @@ function changeStatus(btn) {
 
             if (isActive) {
                 btn.classList.remove('active');
-                btn.style.color = 'red';
+                btn.style.color = 'gray';
                 btn.querySelector('i').setAttribute('title', 'Out of Stock');
                 btn.querySelector('i').classList.remove('fa-check-circle');
                 btn.querySelector('i').classList.add('fa-times-circle');

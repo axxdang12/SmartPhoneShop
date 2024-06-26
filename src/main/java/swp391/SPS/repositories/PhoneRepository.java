@@ -32,4 +32,7 @@ public interface PhoneRepository extends JpaRepository<Phone, Integer> {
             "order by sum(order_item.quantity) desc LIMIT 3;\n", nativeQuery = true)
     List<Integer> getBestSale();
 
+
+
+
 }

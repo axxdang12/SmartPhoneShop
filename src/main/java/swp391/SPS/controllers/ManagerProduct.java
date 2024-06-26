@@ -78,7 +78,7 @@ public class ManagerProduct {
                 htmlContent.append("<a onclick=\"changeStatus(this)\" class=\"stock active\" style=\"color: green;\" data-id=\"").append(phone.getPhoneId()).append("\">");
                 htmlContent.append("<i class=\"fas fa-check-circle\" data-toggle=\"tooltip\" title=\"In Stock\"></i></a>");
             } else {
-                htmlContent.append("<a onclick=\"changeStatus(this)\" class=\"stock inactive\" style=\"color: red;\" data-id=\"").append(phone.getPhoneId()).append("\">");
+                htmlContent.append("<a onclick=\"changeStatus(this)\" class=\"stock inactive\" style=\"color: gray;\" data-id=\"").append(phone.getPhoneId()).append("\">");
                 htmlContent.append("<i class=\"fas fa-times-circle\" data-toggle=\"tooltip\" title=\"Out of Stock\"></i></a>");
             }
             htmlContent.append("</td>");

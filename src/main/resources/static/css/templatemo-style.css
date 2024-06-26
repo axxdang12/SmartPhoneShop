@@ -155,7 +155,7 @@ button:focus {
 
 .navbar-nav .active > .nav-link,
 .navbar-nav .nav-link.active {
-    background-color: red;
+    background-color: rgba(255, 255, 255, 0.2);
     color: #fff;
 }
 
@@ -412,17 +412,17 @@ thead {
 
 .btn-primary {
     color: #fff;
-    background-color: red;
-    border: 2px solid red;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     font-size: 90%;
     font-weight: 600;
 }
 
 .btn-primary:active,
 .btn-primary:hover {
-    color: red;
+    color: rgb(5,25,34);
     background-color: transparent;
-    border: 2px solid red;
+    border: 2px solid rgb(5,25,34);
 }
 
 .custom-file-input {
@@ -886,7 +886,7 @@ input[type="checkbox"]:focus {
 
 .containerrr .pagination li a {
     position: relative;
-    padding: 20px 25px;
+    padding: 12px 23px;
     text-decoration: none;
     color: #fff;
     font-weight: 500;
