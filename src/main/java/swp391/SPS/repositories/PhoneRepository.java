@@ -20,8 +20,16 @@ public interface PhoneRepository extends JpaRepository<Phone, Integer> {
     @Query(value = "SELECT * FROM phone WHERE product_name LIKE %:name%", nativeQuery = true)
     List<Phone> SearchProduct(@Param("name") String name);
 
-    @Query("SELECT p FROM Phone p")
-    Page<Phone> findAllPhone(Pageable pageable);
+    @Modifying
+    @Transactional
+    @Query(value = "SELECT * FROM phone WHERE product_name LIKE %:name% AND phone.status = true", nativeQuery = true)
+    List<Phone> SearchProductforShop(@Param("name") String name);
+
+
+
+    @Query(value = "select * from phone where phone.status = true", nativeQuery = true)
+    Page<Phone> ViewProductforShop(Pageable pageable);
+
 
     @Modifying
     @Transactional

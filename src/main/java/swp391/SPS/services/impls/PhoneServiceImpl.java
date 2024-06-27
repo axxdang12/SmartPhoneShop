@@ -54,9 +54,9 @@ public class PhoneServiceImpl implements PhoneService {
     @Override
     public List<Phone> getPhoneByBrand(int id) {
         Brand brand = brandRepository.getReferenceById(id);
-        List<Phone> l = new ArrayList<Phone>();
+        List<Phone> l = new ArrayList<>();
         for (int i = 0; i < findAllPhone().size(); i++) {
-            if(findAllPhone().get(i).getBrand().equals(brand)) l.add(findAllPhone().get(i));
+            if(findAllPhone().get(i).getBrand().equals(brand) && findAllPhone().get(i).getStatus() == true) l.add(findAllPhone().get(i));
         }
         return l;
     }
@@ -142,19 +142,19 @@ public class PhoneServiceImpl implements PhoneService {
     }
 
     @Override
-    public Page<Phone> phoneforshop(int pageno) {
+    public Page<Phone> viewphoneforshop(int pageno) {
         Pageable pageable = PageRequest.of(pageno - 1, 9);
-        return phoneRepository.findAll(pageable);
+        return phoneRepository.ViewProductforShop(pageable);
     }
 
     @Override
     public Page<Phone> searchPhoneforShop(String name, int pageNo) {
-        List<Phone> list = phoneRepository.SearchProduct(name);
+        List<Phone> list = phoneRepository.SearchProductforShop(name);
         Pageable pageable = PageRequest.of(pageNo - 1, 9);
         int start = (int) pageable.getOffset();
         int end = pageable.getOffset() + pageable.getPageSize() > list.size() ? list.size() : (int) (pageable.getOffset() + pageable.getPageSize());
         list = list.subList(start, end);
-        return new PageImpl<>(list, pageable, phoneRepository.SearchProduct(name).size());
+        return new PageImpl<>(list, pageable, phoneRepository.SearchProductforShop(name).size());
     }
 
 

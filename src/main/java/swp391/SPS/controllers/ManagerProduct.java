@@ -40,6 +40,7 @@ public class ManagerProduct {
         Page<Phone> list = phoneService.findPhonePage(page);
         model.addAttribute("listBrand", brandService.findAllBrand());
         if (name != null) {
+
             list = phoneService.searchPhone(name, page);
             model.addAttribute("keyword", name);
         }
@@ -53,7 +54,7 @@ public class ManagerProduct {
     @ResponseBody
     public Map<String, Object> viewProductJson(@RequestParam(name = "keyword", required = false) String name, @RequestParam(name = "pageNumber", defaultValue = "1") int page) {
         Page<Phone> list;
-        if (name != null && !name.isEmpty()) {
+        if (name != null && !name.isEmpty() ) {
             list = phoneService.searchPhone(name, page);
         } else {
             list = phoneService.findPhonePage(page);

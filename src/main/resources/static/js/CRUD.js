@@ -39,19 +39,7 @@ function changeStatus(btn) {
 }
 ///////////////////////////////////////////////////////////////////////////////////
 
-  function handleRadioClick(event) {
-                          const selectedValue = event.target.value;
-                          console.log('Selected value:', selectedValue); // In ra giá trị đã chọn để kiểm tra
 
-                          var radios = document.getElementsByName('radio');
-                          for (var i = 0; i < radios.length; i++) {
-                              if (radios[i].value !== selectedValue) {
-                                  radios[i].checked = false;
-                              }
-                          }
-
-                          loadPageStatus(1, selectedValue); // Gọi hàm loadPageStatus với trang đầu tiên và giá trị đã chọn
-                      }
 
      function loadPageStatus(page, selectedValue) {
                             $.ajax({
@@ -98,49 +86,39 @@ function changeStatus(btn) {
 
               }
 
-  $(document).ready(function(){
-          function loadPage(page, keyword = '') {
-              $.ajax({
-                  url: '/manageProduct/json',
-                  type: 'GET',
-                  data: {
-                      pageNumber: page,
-                      keyword: keyword
-                  },
-                  success: function(response) {
-                      $('#tableee').html(response.htmlContent);
-                      updatePaginationLinks(page, response.totalPages);
-                  },
-                  error: function() {
-                      console.error("Error loading page");
-                  }
-              });
-          }
+               function loadPage(page, keyword = '') {
+                            $.ajax({
+                                url: '/manageProduct/json',
+                                type: 'GET',
+                                data: {
+                                    pageNumber: page,
+                                    keyword: keyword
+                                },
+                                success: function(response) {
+                                    $('#tableee').html(response.htmlContent);
+                                    updatePaginationLinks(page, response.totalPages);
+                                },
+                                error: function() {
+                                    console.error("Error loading page");
+                                }
+                            });
+                        }
 
-//          function updatePaginationLinks(currentPage, totalPages) {
-//              $('#page a').removeClass('active');
-//              $('#page-link-' + currentPage).addClass('active');
-//
-//              var currentTotalPages = parseInt($('#page li').length - 2); // Exclude "Prev" and "Next" links
-//                  if (totalPages !== currentTotalPages) {
-//                      $('#page li').slice(1, -1).remove(); // Remove current pagination links
-//                      for (var i = 1; i <= totalPages; i++) {
-//                          var activeClass = (i === currentPage) ? 'active' : '';
-//                          $('#page-link-next').before('<li><a href="#" id="page-link-' + i + '" data-page="' + i + '" class="' + activeClass + '">' + i + '</a></li>');
-//                      }
-//                  }
-//
-//              if (currentPage <= 1) {
-//                  $('#page-link-prev').hide();
-//              } else {
-//                  $('#page-link-prev').show().data('page', currentPage - 1);
-//              }
-//              if (currentPage >= totalPages) {
-//                  $('#page-link-next').hide();
-//              } else {
-//                  $('#page-link-next').show().data('page', currentPage + 1);
-//              }
-//          }
+/////////////////////////////////////////////
+  $(document).ready(function(){
+
+     $('input[name="radio"]').change(function() {
+             const selectedValue = $(this).val(); // Lấy giá trị của radio button đã chọn
+             console.log('Selected value:', selectedValue); // In ra giá trị đã chọn để kiểm tra
+
+             if (selectedValue == 2) {
+                 loadPage(1); // Gọi hàm loadPage với trang đầu tiên khi chọn "All"
+             } else {
+                 // Bỏ chọn tất cả các radio button khác
+                 $('input[name="radio"]').not(this).prop('checked', false);
+                 loadPageStatus(1, selectedValue); // Gọi hàm loadPageStatus với trang đầu tiên và giá trị đã chọn
+             }
+         });
 
           $(document).on('click', '#page a', function(e) {
              e.preventDefault();
@@ -165,12 +143,6 @@ function changeStatus(btn) {
 
           var initialPage = 1;
           loadPage(initialPage);
-
-
-
-
-
-
 
       });
 

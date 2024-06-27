@@ -29,7 +29,7 @@ public class ShopController {
     @GetMapping("/shop")
     public String shop(Model model,@RequestParam(name = "keyword", required = false) String name, @RequestParam(name = "pageNo", defaultValue = "1") int page) {
         model.addAttribute("listBrand", brandService.findAllBrand());
-            Page<Phone> list = phoneService.phoneforshop(page);
+            Page<Phone> list = phoneService.viewphoneforshop(page);
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
                 model.addAttribute("isLogin", false);
