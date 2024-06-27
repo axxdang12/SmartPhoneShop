@@ -49,19 +49,25 @@ public class ShopController {
 
         }
 
-//    @GetMapping("/search")
-//    public String search(@RequestParam("name") String name, Model model){
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-//            model.addAttribute("isLogin", false);
-//            return "shop";
-//        }
-//        model.addAttribute("isLogin", true);
-//        model.addAttribute("username", authentication.getName());
-//        model.addAttribute("listPhone", phoneService.searchPhone(name));
-//        model.addAttribute("listBrand", brandService.findAllBrand());
-//        return"shop";
-//    }
+@GetMapping("/shop/price")
+public String searchPrice( @RequestParam double minPrice,
+                           @RequestParam double maxPrice,
+                           @RequestParam(defaultValue = "1") int pageno,Model model){
+    model.addAttribute("listBrand", brandService.findAllBrand());
+    Page<Phone> list = phoneService.searchByPrice(minPrice,maxPrice,pageno);
+    model.addAttribute("listPhone", list);
+    model.addAttribute("totalPage", list.getTotalPages());
+    model.addAttribute("currentPage", pageno);
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+        model.addAttribute("isLogin", false);
+        return "shop";
+    }
+    model.addAttribute("isLogin", true);
+    model.addAttribute("username", authentication.getName());
+    return "shop";
+
+}
 
     @GetMapping("/shop/brand/{idBrand}")
     public String ProductByBrand(@PathVariable("idBrand") int id, Model model,@RequestParam(name = "pageNo", defaultValue = "1") int page){

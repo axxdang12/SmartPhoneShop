@@ -75,30 +75,31 @@
                             <div class="dropdown-menu p-4" aria-labelledby="dropdown04">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <a class="dropdown-item" href="#">Under 200$</a>
+                                        <a class="dropdown-item" th:href="@{/shop/price(minPrice=0, maxPrice=200)}">Under 200$</a>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <a class="dropdown-item" href="#">200$ - 500$</a>
+                                        <a class="dropdown-item" th:href="@{/shop/price(minPrice=200, maxPrice=500)}">200$ - 500$</a>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <a class="dropdown-item" href="#">500$ - 1000$</a>
+                                        <a class="dropdown-item" th:href="@{/shop/price(minPrice=500, maxPrice=1000)}">500$ - 1000$</a>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <a class="dropdown-item" href="#">1000$ - 1500$</a>
+                                        <a class="dropdown-item" th:href="@{/shop/price(minPrice=1000, maxPrice=1500)}">1000$ - 1500$</a>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <a class="dropdown-item" href="#">Over 1500$</a>
+                                        <a class="dropdown-item" th:href="@{/shop/price(minPrice=1500, maxPrice=Integer.MAX_VALUE)}">Over 1500$</a>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="dropdown-menu p-4" aria-labelledby="dropdown04">
                                 <div class="row">
                                     <div class="col-md-3">

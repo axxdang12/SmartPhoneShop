@@ -61,16 +61,6 @@ public class PhoneServiceImpl implements PhoneService {
         return l;
     }
 
-//    @Override
-//    public List<Phone> getPhoneByCategory(int id) {
-//        Category category = categoryRepository.getReferenceById(id);
-//        List<Phone> l = new ArrayList<Phone>();
-//        for (int i = 0; i < findAllPhone().size(); i++) {
-//            if(findAllPhone().get(i).getCategory().equals(category)) l.add(findAllPhone().get(i));
-//        }
-//        return l;
-//    }
-
     @Override
     public void editPhone(Phone p) {
         Phone existingPhone = phoneRepository.getReferenceById(p.getPhoneId());
@@ -115,10 +105,6 @@ public class PhoneServiceImpl implements PhoneService {
         return this.phoneRepository.findAll(pageable);
 
     }
-
-
-
-
 
 
     @Override
@@ -178,45 +164,11 @@ public class PhoneServiceImpl implements PhoneService {
         return new PageImpl<>(list,pageable, phoneRepository.searchPhoneByStatus(status).size());
     }
 
-
-
-
-//    @Override
-//    public PageDto getListProductFirstLoad(int page, int size) throws OutOfPageException {
-//        Pageable pageable = PageRequest.of(page, size);
-//        Page<Phone> userRequest = phoneRepository.findAllPhone(pageable);
-//        if (userRequest.getContent().isEmpty()) {
-//            try {
-//                throw new NoDataInListException("No phone");
-//            } catch (NoDataInListException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-//        if (page > userRequest.getTotalPages() - 1) {
-//            throw new OutOfPageException("Out of page");
-//        }
-//        return PageDto.builder().resultList(userRequest.getContent()).currentPage(userRequest.getNumber() + 1).totalPage(userRequest.getTotalPages()).build();
-//
-//    }
-//
-//    @Override
-//    public ResponseEntity getListProduct(int page, int size) throws NoDataInListException {
-//        Pageable pageable = PageRequest.of(page, size);
-//        Page<Phone> userRequest = phoneRepository.findAllPhone(pageable);
-//        if (userRequest.getContent().isEmpty()) {
-//            throw new NoDataInListException("No phone");
-//        }
-//        if (page > userRequest.getTotalPages() - 1) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No phone");
-//        }
-//        return ResponseEntity.status(HttpStatus.OK).body(PageDto.builder().resultList(userRequest.getContent()).currentPage(userRequest.getNumber() + 1).totalPage(userRequest.getTotalPages()));
-//
-//    }
-//
-//    @Override
-//    public Page<Phone> Pagination(Pageable pageable) {
-//        return phoneRepository.findAllPhone(pageable);
-//    }
+    @Override
+    public Page<Phone> searchByPrice(double min, double max, int PageNo) {
+        Pageable pageable = PageRequest.of(PageNo-1,6);
+        return phoneRepository.findByPriceRangeAndStatus(min,max,pageable);
+    }
 
 
 }

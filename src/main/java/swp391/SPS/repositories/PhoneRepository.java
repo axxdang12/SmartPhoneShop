@@ -31,6 +31,9 @@ public interface PhoneRepository extends JpaRepository<Phone, Integer> {
     Page<Phone> ViewProductforShop(Pageable pageable);
 
 
+    @Query(value = "SELECT * FROM phone WHERE price >= :minPrice AND price <= :maxPrice AND status = true", nativeQuery = true)
+    Page<Phone> findByPriceRangeAndStatus(@Param("minPrice") double minPrice, @Param("maxPrice") double maxPrice, Pageable pageable);
+
     @Modifying
     @Transactional
     @Query(value = "SELECT phone.phone_id\n" +
