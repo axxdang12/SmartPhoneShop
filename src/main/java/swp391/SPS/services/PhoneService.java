@@ -15,7 +15,6 @@ public interface PhoneService {
     void addPhone(Phone phone);
     Phone getPhoneByID(int id);
     List<Phone> getPhoneByBrand(int id);
-
     void editPhone(Phone p);
     void changeStatus(Phone p);
     List<Phone> searchPhone(String name);
@@ -25,4 +24,7 @@ public interface PhoneService {
     Page<Phone> phoneforshop(int pageno);
     Page<Phone> searchPhoneforShop(String name,int pageNo);
     Page<Phone> getPhoneBrandByPahination(int id,int pageNo);
+    Page<Phone> searchPhoneByStatus(boolean status,int pageNo);
+//    List<Phone> searchPhoneByStatus(boolean status);
+//    Page<Phone> searchPhoneByStatusPagination(int pageNo);
 }

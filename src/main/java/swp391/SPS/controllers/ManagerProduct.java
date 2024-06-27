@@ -65,6 +65,28 @@ public class ManagerProduct {
         return response;
     }
 
+    @GetMapping("/searchStatus/json")
+    @ResponseBody
+    public Map<String, Object> viewProductByStatus(@RequestParam(name = "selectedValue") int selectedValue, @RequestParam(name = "pageNumber", defaultValue = "1") int page) {
+        Page<Phone> list = phoneService.findPhonePage(page);
+        boolean status;
+        if (selectedValue == 1 ) {
+            status = true;
+            list = phoneService.searchPhoneByStatus(status,page);
+        }
+        else if(selectedValue == 0) {
+            status = false;
+            list = phoneService.searchPhoneByStatus(status,page);
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("htmlContent", generateHtmlContent(list.getContent()));
+        response.put("totalPages", list.getTotalPages());
+        response.put("currentPage", page);
+        return response;
+    }
+
+
     private String generateHtmlContent(List<Phone> phones) {
         StringBuilder htmlContent = new StringBuilder();
         for (Phone phone : phones) {

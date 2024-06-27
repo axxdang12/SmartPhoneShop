@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import swp391.SPS.entities.Order;
 import swp391.SPS.entities.Phone;
 
 
@@ -32,6 +33,10 @@ public interface PhoneRepository extends JpaRepository<Phone, Integer> {
             "order by sum(order_item.quantity) desc LIMIT 3;\n", nativeQuery = true)
     List<Integer> getBestSale();
 
+    @Modifying
+    @Transactional
+    @Query(value = "select * from phone where phone.status = :status" , nativeQuery = true)
+    List<Phone> searchPhoneByStatus(@Param("status") boolean status);
 
 
 

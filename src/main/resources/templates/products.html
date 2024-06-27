@@ -83,29 +83,29 @@
 </nav>
 <div style="display: flex; margin: 10px 0px -25px 0px;">
     <form id="search-form" class="search-bar" method="get">
-        <input type="search" name="keyword" pattern=".*\S.*" style="background-color: #4E657A;color: white;" th:value="${keyword}" >
+        <input type="search" name="keyword" required pattern=".*\S.*" style="background-color: #4E657A;color: white;" th:value="${keyword}" >
         <button class="search-btn" id="search-button" type="submit">
             <span>Search</span>
         </button>
     </form>
-    <div class="mydict" style="
-    margin-top: 7px;
-    margin-left: 76px;">
-        <div>
-            <label>
-                <input type="radio" name="radio" value="in-stock" onchange="sendRadioValue()">
-                <span>In stock</span>
-            </label>
-            <label>
-                <input type="radio" name="radio" value="all" checked onchange="sendRadioValue()">
-                <span>All</span>
-            </label>
-            <label>
-                <input type="radio" name="radio" value="out-stock" onchange="sendRadioValue()">
-                <span>Out Stock</span>
-            </label>
+        <div class="mydict" style="
+        margin-top: 7px;
+        margin-left: 76px;">
+            <div>
+                <label>
+                    <input type="radio" name="radio" id="radioInStock" value="1"  onclick="handleRadioClick(event)">
+                    <span>In stock</span>
+                </label>
+                <label>
+                    <input type="radio" name="radio" value="2" id="radioAll" checked onclick="handleRadioClick(event)">
+                    <span>All</span>
+                </label>
+                <label>
+                    <input type="radio" name="radio" value="0" id="radioOutStock"  onclick="handleRadioClick(event)">
+                    <span>Out Stock</span>
+                </label>
+            </div>
         </div>
-    </div>
 
 
 </div>

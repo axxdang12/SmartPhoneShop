@@ -38,6 +38,66 @@ function changeStatus(btn) {
     });
 }
 ///////////////////////////////////////////////////////////////////////////////////
+
+  function handleRadioClick(event) {
+                          const selectedValue = event.target.value;
+                          console.log('Selected value:', selectedValue); // In ra giá trị đã chọn để kiểm tra
+
+                          var radios = document.getElementsByName('radio');
+                          for (var i = 0; i < radios.length; i++) {
+                              if (radios[i].value !== selectedValue) {
+                                  radios[i].checked = false;
+                              }
+                          }
+
+                          loadPageStatus(1, selectedValue); // Gọi hàm loadPageStatus với trang đầu tiên và giá trị đã chọn
+                      }
+
+     function loadPageStatus(page, selectedValue) {
+                            $.ajax({
+                                url: '/searchStatus/json',
+                                type: 'GET',
+                                data: {
+                                    pageNumber: page,
+                                    selectedValue: selectedValue
+                                },
+                                success: function(response) {
+                                    $('#tableee').html(response.htmlContent);
+                                    updatePaginationLinks(page, response.totalPages);
+                                     console.log(' page:', page, 'total pages:',  response.totalPages);
+                                },
+                                error: function() {
+                                    console.error("Error loading page status");
+                                }
+                            });
+                        }
+                  function updatePaginationLinks(currentPage, totalPages) {
+                  $('#page a').removeClass('active');
+                  $('#page-link-' + currentPage).addClass('active');
+                     console.log(' page:', currentPage, 'total pages:',  totalPages);
+                  var currentTotalPages = parseInt($('#page li').length - 2); // Exclude "Prev" and "Next" links
+                      if (totalPages !== currentTotalPages) {
+                          $('#page li').slice(1, -1).remove(); // Remove current pagination links
+                          for (var i = 1; i <= totalPages; i++) {
+                              var activeClass = (i === currentPage) ? 'active' : '';
+                              $('#page-link-next').before('<li><a href="#" id="page-link-' + i + '" data-page="' + i + '" class="' + activeClass + '">' + i + '</a></li>');
+                            console.log(' page:', currentPage, 'total pages:',  totalPages);
+                          }
+                      }
+
+                  if (currentPage <= 1) {
+                      $('#page-link-prev').hide();
+                  } else {
+                      $('#page-link-prev').show().data('page', currentPage - 1);
+                  }
+                  if (currentPage >= totalPages) {
+                      $('#page-link-next').hide();
+                  } else {
+                      $('#page-link-next').show().data('page', currentPage + 1);
+                  }
+
+              }
+
   $(document).ready(function(){
           function loadPage(page, keyword = '') {
               $.ajax({
@@ -57,36 +117,43 @@ function changeStatus(btn) {
               });
           }
 
-          function updatePaginationLinks(currentPage, totalPages) {
-              $('#page a').removeClass('active');
-              $('#page-link-' + currentPage).addClass('active');
-
-              var currentTotalPages = parseInt($('#page li').length - 2); // Exclude "Prev" and "Next" links
-                  if (totalPages !== currentTotalPages) {
-                      $('#page li').slice(1, -1).remove(); // Remove current pagination links
-                      for (var i = 1; i <= totalPages; i++) {
-                          var activeClass = (i === currentPage) ? 'active' : '';
-                          $('#page-link-next').before('<li><a href="#" id="page-link-' + i + '" data-page="' + i + '" class="' + activeClass + '">' + i + '</a></li>');
-                      }
-                  }
-
-              if (currentPage <= 1) {
-                  $('#page-link-prev').hide();
-              } else {
-                  $('#page-link-prev').show().data('page', currentPage - 1);
-              }
-              if (currentPage >= totalPages) {
-                  $('#page-link-next').hide();
-              } else {
-                  $('#page-link-next').show().data('page', currentPage + 1);
-              }
-          }
+//          function updatePaginationLinks(currentPage, totalPages) {
+//              $('#page a').removeClass('active');
+//              $('#page-link-' + currentPage).addClass('active');
+//
+//              var currentTotalPages = parseInt($('#page li').length - 2); // Exclude "Prev" and "Next" links
+//                  if (totalPages !== currentTotalPages) {
+//                      $('#page li').slice(1, -1).remove(); // Remove current pagination links
+//                      for (var i = 1; i <= totalPages; i++) {
+//                          var activeClass = (i === currentPage) ? 'active' : '';
+//                          $('#page-link-next').before('<li><a href="#" id="page-link-' + i + '" data-page="' + i + '" class="' + activeClass + '">' + i + '</a></li>');
+//                      }
+//                  }
+//
+//              if (currentPage <= 1) {
+//                  $('#page-link-prev').hide();
+//              } else {
+//                  $('#page-link-prev').show().data('page', currentPage - 1);
+//              }
+//              if (currentPage >= totalPages) {
+//                  $('#page-link-next').hide();
+//              } else {
+//                  $('#page-link-next').show().data('page', currentPage + 1);
+//              }
+//          }
 
           $(document).on('click', '#page a', function(e) {
-              e.preventDefault();
-              var page = $(this).data('page');
-               var keyword = $('#search-form input[name="keyword"]').val();
-              loadPage(page, keyword);
+             e.preventDefault();
+                 var page = $(this).data('page');
+                 var selectedValue = $('input[name="radio"]:checked').val(); // Lấy giá trị radio hiện tại
+
+                 var keyword = $('#search-form input[name="keyword"]').val();
+
+                 if (!keyword) { // Kiểm tra nếu keyword là null, undefined hoặc trống
+                     loadPageStatus(page, selectedValue);
+                 } else {
+                     loadPage(page, keyword);
+                 }
           });
 
           $('#search-button').click(function(e) {
@@ -98,8 +165,55 @@ function changeStatus(btn) {
 
           var initialPage = 1;
           loadPage(initialPage);
+
+
+
+
+
+
+
       });
 
+//////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+//        function updatePaginationLinksStatus(currentPage, totalPages) {
+//            $('#page a').removeClass('active');
+//            $('#page-link-' + currentPage).addClass('active');
+//
+//            var currentTotalPages = $('#page li').length - 2; // Exclude "Prev" and "Next" links
+//            if (totalPages !== currentTotalPages) {
+//                $('#page li').slice(1, -1).remove(); // Remove current pagination links
+//                for (var i = 1; i <= totalPages; i++) {
+//                    var activeClass = (i === currentPage) ? 'active' : '';
+//                    $('#page-link-next').before('<li><a href="#" id="page-link-' + i + '" data-page="' + i + '" class="' + activeClass + '">' + i + '</a></li>');
+//
+//                }
+//            }
+//
+//            if (currentPage <= 1) {
+//                $('#page-link-prev').hide();
+//            } else {
+//                $('#page-link-prev').show().data('page', currentPage - 1);
+//            }
+//            if (currentPage >= totalPages) {
+//                $('#page-link-next').hide();
+//            } else {
+//                $('#page-link-next').show().data('page', currentPage + 1);
+//            }
+//        }
+//
+//        $(document).on('click', '#page a', function(e) {
+//            e.preventDefault();
+//            var page = $(this).data('page');
+//            var selectedValue = $('input[name="radio"]:checked').val(); // Get the currently selected radio value
+//            loadPageStatus(page, selectedValue);
+//        });
 
 
 
