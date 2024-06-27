@@ -151,4 +151,10 @@ public class CartItemServiceImpl implements CartItemService {
             cart.setTotal(totalPrice);
             cartRepository.save(cart); // Save updated cart
         }
+
+    @Override
+    public void addCartItem(Cart cart, CartItem cartItem) {
+        cart.getItems().add(cartItem);
+        cartItemRepository.save(cartItem);
+    }
 }
