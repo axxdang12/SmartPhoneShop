@@ -82,16 +82,7 @@ public class CRUDproductAjax {
             return ResponseEntity.ok(response);
         }
 
-//    @GetMapping("/phones")
-//    public Page<Phone> getPhones(@RequestParam(defaultValue = "0") int page) {
-//        Pageable pageable = PageRequest.of(page, 5); // 10 items per page
-//        return phoneService.Pagination(pageable);
-//    }
-//
-//    @GetMapping("/phones-page")
-//    public String getPhonesPage(Model model) {
-//        return "phones"; // Return the main page with Thymeleaf template
-//    }
+
 
 
 }
