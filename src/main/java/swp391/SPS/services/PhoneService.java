@@ -25,5 +25,5 @@ public interface PhoneService {
     Page<Phone> searchPhoneforShop(String name,int pageNo);
     Page<Phone> getPhoneBrandByPahination(int id,int pageNo);
     Page<Phone> searchPhoneByStatus(boolean status,int pageNo);
-    Page<Phone> searchByPrice(double max, double min,int PageNo);
+    Page<Phone> searchByPrice(double min, double max,int PageNo);
 }

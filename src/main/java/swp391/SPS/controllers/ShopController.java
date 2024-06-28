@@ -27,7 +27,10 @@ public class ShopController {
     PhoneService phoneService;
 
     @GetMapping("/shop")
-    public String shop(Model model,@RequestParam(name = "keyword", required = false) String name, @RequestParam(name = "pageNo", defaultValue = "1") int page) {
+    public String shop(Model model,@RequestParam(name = "keyword", required = false) String name,
+                                    @RequestParam(name = "pageNo", defaultValue = "1") int page,
+                                    @RequestParam (name = "minPrice", required = false) String minPrice,
+                                    @RequestParam (name="maxPrice", required = false) String maxPrice) {
         model.addAttribute("listBrand", brandService.findAllBrand());
             Page<Phone> list = phoneService.viewphoneforshop(page);
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -39,6 +42,19 @@ public class ShopController {
                 list = phoneService.searchPhoneforShop(name,page);
                 model.addAttribute("keyword", name);
             }
+            else if (minPrice != null && maxPrice != null ) {
+                Double max = Double.parseDouble(maxPrice);
+                Double min = Double.parseDouble(minPrice);
+                list = phoneService.searchByPrice(min,max,page);
+                model.addAttribute("listPhone", list);
+                model.addAttribute("totalPage", list.getTotalPages());
+                model.addAttribute("currentPage", page);
+                model.addAttribute("isLogin", true);
+                model.addAttribute("username", authentication.getName());
+                model.addAttribute("minPrice", min);
+                model.addAttribute("maxPrice", max);
+                return "shop";
+            }
             model.addAttribute("listPhone", list);
             model.addAttribute("totalPage", list.getTotalPages());
             model.addAttribute("currentPage", page);
@@ -49,25 +65,29 @@ public class ShopController {
 
         }
 
-@GetMapping("/shop/price")
-public String searchPrice( @RequestParam double minPrice,
-                           @RequestParam double maxPrice,
-                           @RequestParam(defaultValue = "1") int pageno,Model model){
-    model.addAttribute("listBrand", brandService.findAllBrand());
-    Page<Phone> list = phoneService.searchByPrice(minPrice,maxPrice,pageno);
-    model.addAttribute("listPhone", list);
-    model.addAttribute("totalPage", list.getTotalPages());
-    model.addAttribute("currentPage", pageno);
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-        model.addAttribute("isLogin", false);
-        return "shop";
-    }
-    model.addAttribute("isLogin", true);
-    model.addAttribute("username", authentication.getName());
-    return "shop";
-
-}
+//@GetMapping("/shop/price")
+//public String searchPrice( @RequestParam (name = "minPrice") double minPrice,
+//                           @RequestParam (name="maxPrice") double maxPrice,
+//                           @RequestParam(name = "pageNo",defaultValue = "1") int pageno,
+//                           Model model){
+//    model.addAttribute("listBrand", brandService.findAllBrand());
+//    Page<Phone> list = phoneService.searchByPrice(minPrice,maxPrice,pageno);
+//    model.addAttribute("listPhone", list);
+//    model.addAttribute("totalPage", list.getTotalPages());
+//    model.addAttribute("currentPage", pageno);
+//    model.addAttribute("minPrice",minPrice);
+//    model.addAttribute("maxPrice",maxPrice);
+//
+//    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//    if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+//        model.addAttribute("isLogin", false);
+//        return "shop";
+//    }
+//    model.addAttribute("isLogin", true);
+//    model.addAttribute("username", authentication.getName());
+//    return "shop";
+//
+//}
 
     @GetMapping("/shop/brand/{idBrand}")
     public String ProductByBrand(@PathVariable("idBrand") int id, Model model,@RequestParam(name = "pageNo", defaultValue = "1") int page){

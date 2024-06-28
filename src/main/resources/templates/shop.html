@@ -75,30 +75,31 @@
                             <div class="dropdown-menu p-4" aria-labelledby="dropdown04">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <a class="dropdown-item" th:href="@{/shop/price(minPrice=0, maxPrice=200)}">Under 200$</a>
+                                        <a class="dropdown-item price-link" href="/shop/price?minPrice=0&maxPrice=200">Under 200$</a>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <a class="dropdown-item" th:href="@{/shop/price(minPrice=200, maxPrice=500)}">200$ - 500$</a>
+                                        <a class="dropdown-item price-link" th:href="@{/shop?minPrice=200&maxPrice=500}">200$ - 500$</a>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <a class="dropdown-item" th:href="@{/shop/price(minPrice=500, maxPrice=1000)}">500$ - 1000$</a>
+                                        <a class="dropdown-item price-link" th:href="@{/shop?minPrice=500&maxPrice=1000}">500$ - 1000$</a>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <a class="dropdown-item" th:href="@{/shop/price(minPrice=1000, maxPrice=1500)}">1000$ - 1500$</a>
+                                        <a class="dropdown-item price-link" th:href="@{/shop?minPrice=1000&maxPrice=1500}">1000$ - 1500$</a>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <a class="dropdown-item" th:href="@{/shop/price(minPrice=1500, maxPrice=Integer.MAX_VALUE)}">Over 1500$</a>
+                                        <a class="dropdown-item price-link" href="/shop?minPrice=1500&maxPrice=10000">Over 1500$</a>
                                     </div>
                                 </div>
                             </div>
+
 
                             <div class="dropdown-menu p-4" aria-labelledby="dropdown04">
                                 <div class="row">
@@ -170,16 +171,27 @@
                 <div class="pagination-wrap">
                     <ul>
                         <li th:if="${currentPage > 1}">
-                            <a th:href="@{${keyword != null && keyword != '' ? '?keyword' + keyword + '&' : '?' } + 'pageNo=' + ${currentPage-1}}">Prev</a></li>
-                        <li th:each="pageNo : ${#numbers.sequence(1, totalPage)}" >
-                            <a th:href="@{${keyword != null && keyword != '' ? '?keyword' + keyword + '&' : '?' } + 'pageNo=' + ${pageNo}}"
-                               th:class="${currentPage == pageNo ? 'active' : ''} "
-                               th:text="${pageNo}"
-                            ></a></li>
-
+                            <a th:href="@{'/shop?'
+                      +(${keyword != null && keyword != ''} ? 'keyword=' + ${keyword} + '&' : '')
+                      + (${minPrice != null && maxPrice != null} ? 'minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&' : '')
+                      + 'pageNo=' + ${currentPage - 1}}">Prev</a>
+                        </li>
+                        <li th:each="pageNo : ${#numbers.sequence(1, totalPage)}">
+                            <a th:href="@{'/shop?'
+                      +(${keyword != null && keyword != ''} ? 'keyword=' + ${keyword} + '&' : '')
+                      + (${minPrice != null && maxPrice != null} ? 'minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&' : '')
+                      + 'pageNo=' + ${pageNo}}"
+                               th:classappend="${currentPage == pageNo} ? 'active' : ''"
+                               th:text="${pageNo}">Page</a>
+                        </li>
                         <li th:if="${currentPage < totalPage}">
-                            <a th:href="@{${keyword != null && keyword != '' ? '?keyword' + keyword + '&' : '?' } + 'pageNo=' + ${currentPage+1}}">Next</a></li>
+                            <a th:href="@{'/shop?'
+                      +(${keyword != null && keyword != ''} ? 'keyword=' + ${keyword} + '&' : '')
+                      + (${minPrice != null && maxPrice != null} ? 'minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&' : '')
+                      + 'pageNo=' + ${currentPage + 1}}">Next</a>
+                        </li>
                     </ul>
+
                 </div>
             </div>
         </div>
