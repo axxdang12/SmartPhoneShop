@@ -49,7 +49,7 @@ function changeStatus(btn) {
      $('#statusSelect').change(function() {
          const selectedValue = $(this).val(); // Lấy giá trị của select option đã chọn
          console.log('Selected value:', selectedValue); // In ra giá trị đã chọn để kiểm tra
-
+        $('#search-form input[name="keyword"]').val('');
          if (selectedValue == -1) {
              loadPage(1); // Gọi hàm loadPage với trang đầu tiên khi chọn "All"
          } else {
@@ -60,21 +60,22 @@ function changeStatus(btn) {
           $(document).on('click', '#page a', function(e) {
              e.preventDefault();
                  var page = $(this).data('page');
-                 var selectedValue = $('input[name="radio"]:checked').val(); // Lấy giá trị radio hiện tại
-
+                 var selectedValue = $('#statusSelect').val();
+                console.log("selectedValue: "+selectedValue );
                  var keyword = $('#search-form input[name="keyword"]').val();
 
-                 if (!keyword) { // Kiểm tra nếu keyword là null, undefined hoặc trống
-                     loadPageStatus(page, selectedValue);
-                 } else {
-                     loadPage(page, keyword);
-                 }
+                 if (keyword != ''&& keyword != null ) { // Kiểm tra nếu keyword không trống và selectedValue là "All"
+                             loadPage(page, keyword);
+                         } else {
+                             loadPageStatus(page, selectedValue);
+                         }
           });
 
           $('#search-button').click(function(e) {
                       e.preventDefault();
                       var keyword = $('#search-form input[name="keyword"]').val();
                       loadPage(1, keyword);
+                        $('#statusSelect').val('');
                   });
 
            function loadPageStatus(page, selectedValue) {
@@ -88,7 +89,7 @@ function changeStatus(btn) {
                                           success: function(response) {
                                               $('#tableee').html(response.htmlContent);
                                               updatePaginationLinks(page, response.totalPages);
-                                               console.log(' page:', page, 'total pages:',  response.totalPages);
+
                                           },
                                           error: function() {
                                               console.error("Error loading page status");
@@ -96,30 +97,26 @@ function changeStatus(btn) {
                                       });
                                   }
                             function updatePaginationLinks(currentPage, totalPages) {
-                            $('#page a').removeClass('active');
-                            $('#page-link-' + currentPage).addClass('active');
-                               console.log(' page:', currentPage, 'total pages:',  totalPages);
-                            var currentTotalPages = parseInt($('#page li').length - 2); // Exclude "Prev" and "Next" links
-                                if (totalPages !== currentTotalPages) {
-                                    $('#page li').slice(1, -1).remove(); // Remove current pagination links
-                                    for (var i = 1; i <= totalPages; i++) {
-                                        var activeClass = (i === currentPage) ? 'active' : '';
-                                        $('#page-link-next').before('<li><a href="#" id="page-link-' + i + '" data-page="' + i + '" class="' + activeClass + '">' + i + '</a></li>');
-                                      console.log(' page:', currentPage, 'total pages:',  totalPages);
-                                    }
+
+                                $('#page li').remove();
+
+                                if (currentPage > 1) {
+                                    $('#page').append('<li><a href="#" id="page-link-prev" data-page="' + (currentPage - 1) + '">Prev</a></li>');
+
+                                }
+                                for (var i = 1; i <= totalPages; i++) {
+                                    var activeClass = (i === currentPage) ? 'active' : '';
+                                    $('#page').append('<li><a href="#" id="page-link-'
+                                     + i + '" data-page="' + i + '" class="' + activeClass + '">'
+                                      + i + '</a></li>');
                                 }
 
-                            if (currentPage <= 1) {
-                                $('#page-link-prev').hide();
-                            } else {
-                                $('#page-link-prev').show().data('page', currentPage - 1);
-                            }
-                            if (currentPage >= totalPages) {
-                                $('#page-link-next').hide();
-                            } else {
-                                $('#page-link-next').show().data('page', currentPage + 1);
-                            }
 
+                                if (currentPage < totalPages) {
+                                    $('#page').append('<li><a href="#" id="page-link-next" data-page="'
+                                     + (currentPage + 1) +
+                                     '">Next</a></li>');
+                                }
                         }
 
                          function loadPage(page, keyword = '') {

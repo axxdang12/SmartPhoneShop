@@ -84,7 +84,7 @@
 </nav>
 <div style="display: flex; margin: 18px 0px -46px 0px;">
     <form id="search-form" class="search-bar" method="get">
-        <input type="search" name="keyword" required pattern=".*\S.*" style="background-color: #4E657A;color: white;" th:value="${keyword}" >
+        <input type="search" name="keyword" required pattern=".*\S.*" style="background-color: #4E657A;color: white;"  >
         <button class="search-btn" id="search-button" type="submit">
             <span>Search</span>
         </button>
@@ -92,7 +92,7 @@
     <div class="selectdiv">
         <label>
             <select id="statusSelect">
-                <option value="-1" selected> All </option>
+                <option value="-1"> All </option>
                 <option value="1">In stock</option>
                 <option value="0">Out stock</option>
             </select>
