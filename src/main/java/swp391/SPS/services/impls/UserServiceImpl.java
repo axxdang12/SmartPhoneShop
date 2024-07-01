@@ -151,6 +151,16 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    @Override
+    public User saveProfileCheckout(ProfileDto profileDto, String userName) {
+        User user = userRepository.findByUsername(userName);
+        user.getUserDetail().setFirstName(profileDto.getFirstName());
+        user.getUserDetail().setLastName(profileDto.getLastName());
+        user.getUserDetail().setPhoneNumber(profileDto.getPhoneNumber());
+        user.getUserDetail().setAddress(profileDto.getAddress());
+        return userRepository.save(user);
+    }
+
 
     @Override
     public User findByUsername(String username) {

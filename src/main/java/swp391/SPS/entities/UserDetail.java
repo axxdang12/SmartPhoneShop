@@ -31,4 +31,5 @@ public class UserDetail {
 
     @Column(name = "address")
     private String address;
+
 }

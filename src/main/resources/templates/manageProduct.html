@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,13 +15,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet"  th:href="@{/css/styleee.css}">
-
+    <link rel="stylesheet" th:href="@{/css/styleee.css}">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+    <style>
+        .material-icons {
+            cursor: pointer; /* Đặt con trỏ thành dạng bút chì khi chỉ vào biểu tượng */
+        }
+    </style>
 <body>
 <div class="container">
     <div class="table-wrapper">
@@ -30,12 +34,13 @@
                 <div class="col-sm-6">
                     <h2>Manage <b>Proucts</b></h2>
                 </div>
-                <div class="col-sm-6" >
-                    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New PProduct</span></a>
+                <div class="col-sm-6">
+                    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i>
+                        <span>Add New PProduct</span></a>
 
 
-
-                    <form id="searchForm" action="searchEndpoint" method="POST" class="input-group" style="display: flex">
+                    <form id="searchForm" action="searchEndpoint" method="POST" class="input-group"
+                          style="display: flex">
                         <input type="text" class="form-control" name="searchQuery" placeholder="Search..." required>
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-danger" style="height: 34px;  width: 0px;">
@@ -59,25 +64,32 @@
                 <th>Origin</th>
                 <th>Price</th>
                 <th>Actions</th>
+                <th>Status</th>
             </tr>
             </thead>
             <tbody id="productTableBody">
-            <tr th:each = "phone: ${listPhone}">
-                <td th:text = "${phone.phoneId}"></td>
-                <td th:text = "${phone.productName}"></td>
-                <td th:text ="${phone.Brand.brandName}"></td>
-                <td th:text ="${phone.origin}"></td>
-                <td th:text ="${phone.price} + '$'"></td>
-                <td>
+            <tr th:each="phone: ${listPhone}">
+                <td th:text="${phone.phoneId}"></td>
+                <td th:text="${phone.productName}"></td>
+                <td th:text="${phone.Brand.brandName}"></td>
+                <td th:text="${phone.origin}"></td>
+                <td th:text="${phone.price} + '$'"></td>
+                <td class="action-links">
 
-                        <a href="#" class="edit" data-toggle="modal" data-target="#editEmployeeModal" th:data-id="${phone.phoneId}" >
-                            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                        </a>
-                        <a th:if="${phone.status}" href="#" class="delete" style="color: green;" data-toggle="modal" data-target="#deleteEmployeeModal" th:data-id="${phone.phoneId}">
+                    <a href="#" class="edit" data-toggle="modal" data-target="#editEmployeeModal"
+                       th:data-id="${phone.phoneId}">
+                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                    </a>
+
+                </td>
+                <td style="">
+                    <a th:if="${phone.status}" onclick="changeStatus(this)" class="delete" style="color: green;"
+                       data-toggle="modal" th:data-id="${phone.phoneId}">
                         <i class="material-icons" data-toggle="tooltip" title="Active">check_circle</i>
-                        </a>
-                        <a th:if="!${phone.status}" href="#" class="delete" style="color: gray;"  data-toggle="modal" data-target="#deleteEmployeeModal" th:data-id="${phone.phoneId}">
-                        <i class="material-icons" data-toggle="tooltip" title="Inactive">remove_circle</i>
+                    </a>
+                    <a th:if="!${phone.status}" onclick="changeStatus(this)" class="delete" style="color: gray;"
+                       data-toggle="modal" th:data-id="${phone.phoneId}">
+                        <i class="material-icons" data-toggle="tooltip" title="Inactive">remove_circle </i>
                     </a>
                 </td>
             </tr>
@@ -143,7 +155,7 @@
                         <input name="dis" id="dis" type="number" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label >Brand</label>
+                        <label>Brand</label>
                         <select name="brand" id="brand" class="form-control" required>
 
                             <option th:each="brand : ${listBrand}"
@@ -153,7 +165,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label >Ram</label>
+                        <label>Ram</label>
                         <select name="ram" id="ram" class="form-control" required>
                             <option value="8">8GB</option>
                             <option value="16">16GB</option>
@@ -275,195 +287,31 @@
     </div>
 </div>
 <!-- Delete Modal HTML -->
-<div id="deleteEmployeeModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form>
-                <div class="modal-header">
-                    <h4 class="modal-title">Delete Product</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to delete these Records?</p>
-                    <p class="text-warning"><small>This action cannot be undone.</small></p>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-danger" value="Delete">
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<!--<div id="deleteEmployeeModal" class="modal fade">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <form>-->
+<!--                <div class="modal-header">-->
+<!--                    <h4 class="modal-title">Change Status</h4>-->
+<!--                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <p>Are you sure you want to change status thís phone?</p>-->
+<!--                    <p class="text-warning"><small>This action cannot be undone.</small></p>-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">-->
+<!--                    <input type="submit" class="btn btn-danger" value="Delete">-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
 </body>
+<script th:src="@{/js/CRUD.js}"></script>
 <script>
-
-
-    // Activate tooltip
-    $('[data-toggle="tooltip"]').tooltip();
-
-    // Khi nút "Edit" được nhấn
-    $('.edit').on('click', function() {
-        var phoneId = $(this).data('id');
-
-        // Gửi yêu cầu Ajax tới server để lấy dữ liệu
-        $.ajax({
-            url: '/api/edit-product',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify( phoneId ),
-            success: function(response) {
-            alert(response.listBrand[0]);
-             var phone = response.phone;
-              var listBrand = response.listBrand;
-                // Điền dữ liệu vào các trường trong popup
-                 $('#editProductId').val(phone.phoneId);
-                $('#editProductName').val(phone.productName);
-                $('#editProductPrice').val(phone.price);
-                $('#editProductCPU').val(phone.cpu);
-                $('#editProductOrigin').val(phone.origin);
-                $('#editProductSim').val(phone.sim);
-                $('#editProductDate').val(phone.releaseDate);
-                $('#editProductCamera').val(phone.camera);
-                $('#editProductDisplay').val(phone.display);
-
-                $('#editProductRam').val(phone.ram);
-                $('#editProductMemory').val(phone.memory);
-
-                    var selectbrand = $('#editProductBrand');
-
-
-                $('#editProductBrand').empty();
-
-                   // Duyệt qua danh sách listBrand và thêm các tùy chọn vào select box
-                $.each(listBrand, function(index, brand) {
-                    $('#editProductBrand').append('<option  th:value="${' + brand.brandId + '}" th:text="${' + brand.brandName + '}"></option>');
-                   });
-
-
-                // Hiển thị popup
-                $('#editEmployeeModal').modal('show');
-            },
-            error: function(error) {
-                console.log("Error fetching product data: ", error);
-            }
-        });
-    });
-
-
-// Khi form được submit
-$('#editProductForm').on('submit', function(event) {
-event.preventDefault();
-
-// Thu thập dữ liệu từ các trường input
-var productData = {
-   phoneId: $('#editProductId').val(),
-   productName: $('#editProductName').val(),
-   price: $('#editProductPrice').val(),
-   cpu: $('#editProductCPU').val(),
-   origin: $('#editProductOrigin').val(),
-   sim: $('#editProductSim').val(),
-   releaseDate: $('#editProductDate').val(),
-   camera: $('#editProductCamera').val(),
-   display: $('#editProductDisplay').val(),
-   ram: $('#editProductRam').val(),
-   memory: $('#editProductMemory').val(),
-   brandId: $('#editProductBrand').val()
-};
-
-// Gửi yêu cầu Ajax tới server để cập nhật sản phẩm
-$.ajax({
-   url: '/api/update-product', // URL endpoint để cập nhật sản phẩm
-   type: 'POST',
-   contentType: 'application/json',
-   data: JSON.stringify(productData),
-   success: function(response) {
-       // Xử lý khi cập nhật thành công
-       console.log("Product updated successfully:", response);
-
-       // Ẩn modal sau khi cập nhật thành công
-       $('#editEmployeeModal').modal('hide');
-
-       // Cập nhật danh sách sản phẩm (có thể tải lại trang hoặc cập nhật DOM)
-       // location.reload(); // Hoặc cập nhật DOM tùy thuộc vào yêu cầu cụ thể
-   },
-   error: function(error) {
-       console.log("Error updating product: ", error);
-   }
-});
-});
-
-    $(document).ready(function() {
-
-    function loadProducts() {
-        $.ajax({
-            url: '/api/products',
-            type: 'GET',
-            success: function(response) {
-                // Xóa sạch nội dung cũ trong bảng
-                $('#productTableBody').empty();
-                console.log(response);
-                // Thêm từng sản phẩm vào bảng
-                response.forEach(function(phone) {
-                    $('#productTableBody').append(`
-                        <tr data-id="${phone.phoneId}">
-                            <td>${phone.phoneId}</td>
-                            <td>${phone.productName}</td>
-                            <td>${phone.brand.brandName}</td>
-                            <td>${phone.origin}</td>
-                            <td>${phone.price} $</td>
-                            <td>
-                                <a href="#" class="edit" data-toggle="modal" data-target="#editEmployeeModal" th:data-id="${phone.phoneId}">
-                                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                                </a>
-                                <a href="#" class="delete" data-toggle="modal" data-target="#deleteEmployeeModal" th:data-id="${phone.phoneId}">
-                                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                                </a>
-                            </td>
-                        </tr>
-                    `);
-                });
-            },
-            error: function(error) {
-                console.log("Error loading products: ", error);
-            }
-        });
-    }
-
-    var phoneId; // Biến để lưu trữ ID của sản phẩm cần xóa
-
-    // Sử dụng delegation event để đăng ký sự kiện click
-    $(document).on('click', '.delete', function() {
-        phoneId = $(this).data('id'); // Lấy ID của sản phẩm từ thuộc tính data-id
-    });
-
-    // Khi form trong modal được submit
-    $('#deleteForm').on('submit', function(event) {
-        event.preventDefault();
-        // Gửi yêu cầu Ajax tới server để xóa sản phẩm
-        $.ajax({
-            url: '/api/delete-product',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ id: phoneId }),
-            success: function(response) {
-                // Hiển thị thông báo xóa thành công
-
-                // Ẩn modal sau khi xóa thành công
-                $('#deleteEmployeeModal').modal('hide');
-
-            },
-            error: function(error) {
-                console.log("Error deleting product: ", error);
-            }
-        });
-    });
-
-    // Tải sản phẩm khi trang được load
-    loadProducts();
-});
-
-
 
 </script>
 </html>

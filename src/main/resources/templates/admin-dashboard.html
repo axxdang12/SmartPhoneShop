@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments::header}">
-</head>
+<head th:replace="~{fragments::header}"></head>
 <body>
 <style>
     .pagination {
@@ -46,31 +45,31 @@
 
 </style>
 <!--PreLoader-->
-<!--<div th:replace="~{fragments::loader}"></div>-->
+<div th:replace="~{fragments::loader}"></div>
 <!--PreLoader Ends-->
 
 <!-- header -->
 <div th:replace="~{fragments::headerNav}"></div>
 <!-- end header -->
 
-<!-- search area -->
-<div class="search-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <span class="close-btn"><i class="fas fa-window-close"></i></span>
-                <div class="search-bar">
-                    <div class="search-bar-tablecell">
-                        <h3>Search For:</h3>
-                        <input type="text" placeholder="Keywords">
-                        <button type="submit">Search <i class="fas fa-search"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end search arewa -->
+<!--&lt;!&ndash; search area &ndash;&gt;-->
+<!--<div class="search-area">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-lg-12">-->
+<!--                <span class="close-btn"><i class="fas fa-window-close"></i></span>-->
+<!--                <div class="search-bar">-->
+<!--                    <div class="search-bar-tablecell">-->
+<!--                        <h3>Search For:</h3>-->
+<!--                        <input type="text" placeholder="Keywords">-->
+<!--                        <button type="submit">Search <i class="fas fa-search"></i></button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!-- end search area -->
 
 <!-- breadcrumb-section -->
 <div class="breadcrumb-section breadcrumb-bg">
@@ -183,7 +182,7 @@
 
 <!-- jquery -->
 <div th:replace="~{fragments::script}"></div>
-<script th:src="@{/js/admin.js}"></script>
+<!--<script th:src="@{/js/admin.js}"></script>-->
 
 </body>
 </html>

@@ -1,6 +1,7 @@
 package swp391.SPS.services;
 
 //import swp391.SPS.entities.Accessory;
+import org.aspectj.weaver.ast.Or;
 import swp391.SPS.entities.Order;
 import swp391.SPS.entities.Phone;
 
@@ -12,4 +13,5 @@ public interface OrderService {
     Order getOrder(int oId);
     void placeOrder(String userName);
     void cancelOrder(int orderId);
+    List<Order> searchOrderByUserId(int id);
 }

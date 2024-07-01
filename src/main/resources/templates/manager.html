@@ -57,6 +57,14 @@
                     </li>
 
                 </ul>
+                <form th:action="@{/searchorder}" method="POST">
+                    <div class="input-group">
+                        <input class="form-control" type="search" name="userid" placeholder="Search by User ID" aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link d-block" href="@{#}">
@@ -76,105 +84,6 @@
         </div>
         <!-- row -->
         <div class="row tm-content-row">
-            <!--                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">-->
-            <!--                    <div class="tm-bg-primary-dark tm-block">-->
-            <!--                        <h2 class="tm-block-title">Latest Hits</h2>-->
-            <!--                        <canvas id="lineChart"></canvas>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">-->
-            <!--                    <div class="tm-bg-primary-dark tm-block">-->
-            <!--                        <h2 class="tm-block-title">Performance</h2>-->
-            <!--                        <canvas id="barChart"></canvas>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">-->
-            <!--                    <div class="tm-bg-primary-dark tm-block tm-block-taller">-->
-            <!--                        <h2 class="tm-block-title">Storage Information</h2>-->
-            <!--                        <div id="pieChartContainer">-->
-            <!--                            <canvas id="pieChart" class="chartjs-render-monitor" width="200" height="200"></canvas>-->
-            <!--                        </div>                        -->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">-->
-            <!--                    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-overflow">-->
-            <!--                        <h2 class="tm-block-title">Notification List</h2>-->
-            <!--                        <div class="tm-notification-items">-->
-            <!--                            <div class="media tm-notification-item">-->
-            <!--                                <div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>-->
-            <!--                                <div class="media-body">-->
-            <!--                                    <p class="mb-2"><b>Jessica</b> and <b>6 others</b> sent you new <a href="#"-->
-            <!--                                            class="tm-notification-link">product updates</a>. Check new orders.</p>-->
-            <!--                                    <span class="tm-small tm-text-color-secondary">6h ago.</span>-->
-            <!--                                </div>-->
-            <!--                            </div>-->
-            <!--                            <div class="media tm-notification-item">-->
-            <!--                                <div class="tm-gray-circle"><img src="img/notification-02.jpg" alt="Avatar Image" class="rounded-circle"></div>-->
-            <!--                                <div class="media-body">-->
-            <!--                                    <p class="mb-2"><b>Oliver Too</b> and <b>6 others</b> sent you existing <a href="#"-->
-            <!--                                            class="tm-notification-link">product updates</a>. Read more reports.</p>-->
-            <!--                                    <span class="tm-small tm-text-color-secondary">6h ago.</span>-->
-            <!--                                </div>-->
-            <!--                            </div>-->
-            <!--                            <div class="media tm-notification-item">-->
-            <!--                                <div class="tm-gray-circle"><img src="img/notification-03.jpg" alt="Avatar Image" class="rounded-circle"></div>-->
-            <!--                                <div class="media-body">-->
-            <!--                                    <p class="mb-2"><b>Victoria</b> and <b>6 others</b> sent you <a href="#"-->
-            <!--                                            class="tm-notification-link">order updates</a>. Read order information.</p>-->
-            <!--                                    <span class="tm-small tm-text-color-secondary">6h ago.</span>-->
-            <!--                                </div>-->
-            <!--                            </div>-->
-            <!--                            <div class="media tm-notification-item">-->
-            <!--                                <div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>-->
-            <!--                                <div class="media-body">-->
-            <!--                                    <p class="mb-2"><b>Laura Cute</b> and <b>6 others</b> sent you <a href="#"-->
-            <!--                                            class="tm-notification-link">product records</a>.</p>-->
-            <!--                                    <span class="tm-small tm-text-color-secondary">6h ago.</span>-->
-            <!--                                </div>-->
-            <!--                            </div>-->
-            <!--                            <div class="media tm-notification-item">-->
-            <!--                                <div class="tm-gray-circle"><img src="img/notification-02.jpg" alt="Avatar Image" class="rounded-circle"></div>-->
-            <!--                                <div class="media-body">-->
-            <!--                                    <p class="mb-2"><b>Samantha</b> and <b>6 others</b> sent you <a href="#"-->
-            <!--                                            class="tm-notification-link">order stuffs</a>.</p>-->
-            <!--                                    <span class="tm-small tm-text-color-secondary">6h ago.</span>-->
-            <!--                                </div>-->
-            <!--                            </div>-->
-            <!--                            <div class="media tm-notification-item">-->
-            <!--                                <div class="tm-gray-circle"><img src="img/notification-03.jpg" alt="Avatar Image" class="rounded-circle"></div>-->
-            <!--                                <div class="media-body">-->
-            <!--                                    <p class="mb-2"><b>Sophie</b> and <b>6 others</b> sent you <a href="#"-->
-            <!--                                            class="tm-notification-link">product updates</a>.</p>-->
-            <!--                                    <span class="tm-small tm-text-color-secondary">6h ago.</span>-->
-            <!--                                </div>-->
-            <!--                            </div>-->
-            <!--                            <div class="media tm-notification-item">-->
-            <!--                                <div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>-->
-            <!--                                <div class="media-body">-->
-            <!--                                    <p class="mb-2"><b>Lily A</b> and <b>6 others</b> sent you <a href="#"-->
-            <!--                                            class="tm-notification-link">product updates</a>.</p>-->
-            <!--                                    <span class="tm-small tm-text-color-secondary">6h ago.</span>-->
-            <!--                                </div>-->
-            <!--                            </div>-->
-            <!--                            <div class="media tm-notification-item">-->
-            <!--                                <div class="tm-gray-circle"><img src="img/notification-02.jpg" alt="Avatar Image" class="rounded-circle"></div>-->
-            <!--                                <div class="media-body">-->
-            <!--                                    <p class="mb-2"><b>Amara</b> and <b>6 others</b> sent you <a href="#"-->
-            <!--                                            class="tm-notification-link">product updates</a>.</p>-->
-            <!--                                    <span class="tm-small tm-text-color-secondary">6h ago.</span>-->
-            <!--                                </div>-->
-            <!--                            </div>-->
-            <!--                            <div class="media tm-notification-item">-->
-            <!--                                <div class="tm-gray-circle"><img src="img/notification-03.jpg" alt="Avatar Image" class="rounded-circle"></div>-->
-            <!--                                <div class="media-body">-->
-            <!--                                    <p class="mb-2"><b>Cinthela</b> and <b>6 others</b> sent you <a href="#"-->
-            <!--                                            class="tm-notification-link">product updates</a>.</p>-->
-            <!--                                    <span class="tm-small tm-text-color-secondary">6h ago.</span>-->
-            <!--                                </div>-->
-            <!--                            </div>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </div>-->
             <div class="col-12 tm-block-col">
                 <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
                     <h2 class="tm-block-title">Orders List</h2>
@@ -190,11 +99,28 @@
                         </thead>
                         <tbody>
 
-                        <tr th:each="order: ${orderList}">
+                        <!-- Default order list -->
+                        <tr th:if="${orderList != null}" th:each="order: ${orderList}">
                             <td th:text="${order.orderId}"></td>
                             <td th:text="${order.orderDate}"></td>
                             <td th:text="${order.totalPrice}+'$'"></td>
+                            <td><a class="btn btn-info" th:href="@{order-detail/{id}(id=${order.orderId})}">Details</a></td>
+                            <td>
+                                <div class="tm-status-circle"></div>
+                                <select>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Moving">Moving</option>
+                                    <option value="Cancel">Cancel</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </td>
+                        </tr>
 
+                        <!-- Search results by user ID -->
+                        <tr th:if="${listOrderByUser != null}" th:each="order: ${listOrderByUser}">
+                            <td th:text="${order.orderId}"></td>
+                            <td th:text="${order.orderDate}"></td>
+                            <td th:text="${order.totalPrice}+'$'"></td>
                             <td><a class="btn btn-info" th:href="@{order-detail/{id}(id=${order.orderId})}">Details</a></td>
                             <td>
                                 <div class="tm-status-circle"></div>
