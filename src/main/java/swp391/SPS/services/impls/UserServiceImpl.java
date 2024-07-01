@@ -21,6 +21,7 @@ import swp391.SPS.repositories.RoleRepository;
 import swp391.SPS.repositories.UserRepository;
 import swp391.SPS.services.UserService;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -100,14 +101,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUserRole(int userId, String roleName) {
+    public User saveUserRole(int userId, String roleName) throws UserNotFoundException {
         Role role = roleRepository.findByRoleName(roleName);
         User user = new User();
-        if (userRepository.findById(userId).isPresent()){
-            user = userRepository.findById(userId).get();
-        }
-        user.setRoles(Collections.singletonList(role));
-        userRepository.save(user);
+        userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("Not found user"));
+        user = userRepository.findById(userId).get();
+        List<Role> roles = new ArrayList<>();
+        roles.add(role);
+        user.setRoles(roles);
+        return userRepository.save(user);
     }
 
     @Override
@@ -117,8 +119,8 @@ public class UserServiceImpl implements UserService {
         user.setUsername(userDto.getUsername());
         user.setPassword(userDto.getPassword());
         Role role = roleRepository.findByRoleName("USER");
-        role.setUsers(Collections.singletonList(user));
-        user.setRoles(Collections.singletonList(role));
+        role.setUsers(List.of(user));
+        user.setRoles(List.of(role));
         Cart cart = new Cart();
         user.setCart(cart);
         return userRepository.save(user);

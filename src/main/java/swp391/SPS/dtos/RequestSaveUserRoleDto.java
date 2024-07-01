@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class RequestSaveUserRoleDto {
     private int userId;
     private String roleName;
+    int page;
 }
