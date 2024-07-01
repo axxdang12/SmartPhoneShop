@@ -113,6 +113,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void saveUserActive(int userId, String status) throws UserNotFoundException {
+        User user = new User();
+        userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("Not found user"));
+        user = userRepository.findById(userId).get();
+        if (status.equalsIgnoreCase("ACTIVE")) {
+            user.setStatus("INACTIVE");
+        } else {
+            user.setStatus("ACTIVE");
+        }
+        userRepository.save(user);
+    }
+
+    @Override
     public User save(UserDto userDto) {
         User user = new User();
         user.setEmail(userDto.getEmail());
@@ -123,6 +136,7 @@ public class UserServiceImpl implements UserService {
         user.setRoles(List.of(role));
         Cart cart = new Cart();
         user.setCart(cart);
+        user.setStatus("ACTIVE");
         return userRepository.save(user);
     }
 
